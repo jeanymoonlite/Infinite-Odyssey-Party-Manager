@@ -11,13 +11,13 @@ import org.junit.Test;
 
 public class IOCharacterTest {
 
-  private Character luna;
-  private Character rose;
-  private Character bryan;
-  private Character jake;
-  private Character sarah;
-  private Character dre;
-  private Character steven;
+  protected Character luna;
+  protected Character rose;
+  protected Character bryan;
+  protected Character jake;
+  protected Character sarah;
+  protected Character dre;
+  protected Character steven;
 
   @Before
   public void init() {
