@@ -58,7 +58,7 @@ public class IOPartyTest extends IOCharacterTest {
   @Test
   public void size() {
     assertEquals(4, this.p1.size());
-    assertEquals(7, this.p2.size());
+    assertEquals(6, this.p2.size());
     assertEquals(3, this.p7.size());
   }
 

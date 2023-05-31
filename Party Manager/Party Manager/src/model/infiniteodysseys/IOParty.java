@@ -16,6 +16,10 @@ public final class IOParty implements Party {
   public IOParty(Character... characters)
       throws IllegalArgumentException {
 
+    if (characters == null) {
+      throw new IllegalArgumentException("A Party cannot contain any null Characters.");
+    }
+
     if (Arrays.stream(characters).anyMatch(Objects::isNull)) {
       throw new IllegalArgumentException("A Party cannot contain any null Characters.");
     }
