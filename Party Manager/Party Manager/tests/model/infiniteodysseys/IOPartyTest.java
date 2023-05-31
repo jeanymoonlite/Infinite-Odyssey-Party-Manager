@@ -2,23 +2,22 @@ package model.infiniteodysseys;
 
 import static org.junit.Assert.*;
 
-import model.IOCharacterTest;
 import model.Party;
 import org.junit.Before;
 import org.junit.Test;
 
 public class IOPartyTest extends IOCharacterTest {
 
-  private Party p1;
-  private Party p2;
-  private Party p7;
+  protected Party p1;
+  protected Party p2;
+  protected Party p7;
 
   @Before
   public void initParty() {
     this.init();
-    this.p1 = new IOParty(this.luna, this.bryan, this.jake, this.steven);
-    this.p2 = new IOParty(this.luna, this.bryan, this.jake, this.steven, this.rose, this.sarah);
-    this.p7 = new IOParty(this.luna, this.jake, this.bryan);
+    this.p1 = new IOParty("p1", this.luna, this.bryan, this.jake, this.steven);
+    this.p2 = new IOParty("p2", this.luna, this.bryan, this.jake, this.steven, this.rose, this.sarah);
+    this.p7 = new IOParty("p7", this.luna, this.jake, this.bryan);
   }
 
   @Test
@@ -32,7 +31,15 @@ public class IOPartyTest extends IOCharacterTest {
     }
 
     try {
-      new IOParty(this.jake, this.bryan, this.luna, this.steven, null);
+      new IOParty("p0");
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("A Party needs at least 1 Character.", e.getMessage());
+    }
+
+    try {
+      new IOParty("temp", this.jake, this.bryan, this.luna, this.steven, null);
       fail();
     }
     catch (IllegalArgumentException e) {
@@ -40,7 +47,7 @@ public class IOPartyTest extends IOCharacterTest {
     }
 
     try {
-      new IOParty(this.jake, null, this.luna, this.steven, null);
+      new IOParty("temp", this.jake, null, this.luna, this.steven, null);
       fail();
     }
     catch (IllegalArgumentException e) {
@@ -53,6 +60,13 @@ public class IOPartyTest extends IOCharacterTest {
     assertEquals(this.luna, this.p1.getParty()[0]);
     assertEquals(this.bryan, this.p2.getParty()[1]);
     assertEquals(this.jake, this.p7.getParty()[1]);
+  }
+
+  @Test
+  public void getName() {
+    assertEquals("p1", this.p1.getName());
+    assertEquals("p2", this.p2.getName());
+    assertEquals("p7", this.p7.getName());
   }
 
   @Test

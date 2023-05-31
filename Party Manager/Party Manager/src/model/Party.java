@@ -13,6 +13,12 @@ public interface Party {
   Character[] getParty();
 
   /**
+   * Returns the name of this {@code Party}.
+   * @return the name of this {@code Party}
+   */
+  String getName();
+
+  /**
    * Returns the number of {@code Character}s in this {@code Party}.
    * @return the number of {@code Character}s in this {@code Party}
    */

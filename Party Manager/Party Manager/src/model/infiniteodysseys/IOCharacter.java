@@ -14,10 +14,10 @@ public final class IOCharacter implements Character {
 
   private final HashMap<String, Integer> stats;
   private int hp;
-  private IORoles role;
-  private String roleSpecification;
-  private String name;
-  private String playerName;
+  private final IORoles role;
+  private final String roleSpecification;
+  private final String name;
+  private final String playerName;
 
   /**
    * Constructs a new {@code IOCharacter} with the given integers.
@@ -34,6 +34,7 @@ public final class IOCharacter implements Character {
    * @throws IllegalArgumentException if any of the given integers are negative
    *                                  OR if they add up to a value greater than 30
    *                                  OR if any of the given Strings are null
+   *                                  OR if the name or playerName is whitespace
    *                                  OR if the IORoles is null
    */
   public IOCharacter(String name, String playerName, IORoles role, String roleSpecification,
@@ -79,27 +80,8 @@ public final class IOCharacter implements Character {
   public IOCharacter(int str, int intel, int cre, int cha, int ste, int intim)
       throws IllegalArgumentException {
 
-    this.stats = new HashMap<String, Integer>();
-    this.stats.put("Max HP", 100);
-    this.hp = this.stats.get("Max HP");
-
-    if ((str < -1) || (intel < -1) || (cre < -1)
-        || (cha < -1) || (ste < -1) || (intim < -1)) {
-      throw new IllegalArgumentException("Stat value cannot be less than 0.");
-    }
-
-    if (str + intel + cre + cha + ste + intim > 30) {
-      throw new IllegalArgumentException("Overall stats must add up to or less than 30.");
-    }
-
-    this.stats.put("Strength", str);
-    this.stats.put("Intelligence", intel);
-    this.stats.put("Creativity", cre);
-    this.stats.put("Charisma", cha);
-    this.stats.put("Stealth", ste);
-    this.stats.put("Intimidation", intim);
-    this.stats.put("Defense", 0);
-
+    this("Test", "Tester", IORoles.HUMAN, "Programmer",
+        str, intel, cre, cha, ste, intim);
   }
 
   @Override

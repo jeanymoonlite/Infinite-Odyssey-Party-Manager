@@ -1,9 +1,10 @@
-package model;
+package model.infiniteodysseys;
 
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import model.Character;
 import model.infiniteodysseys.IOCharacter;
 import model.infiniteodysseys.IORoles;
 import org.junit.Before;
