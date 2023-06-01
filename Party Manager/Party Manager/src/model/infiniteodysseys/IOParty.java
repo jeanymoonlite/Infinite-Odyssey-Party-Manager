@@ -32,11 +32,7 @@ public final class IOParty implements Party {
       throw new IllegalArgumentException("Party name cannot be whitespace.");
     }
 
-    if (characters == null) {
-      throw new IllegalArgumentException("A Party cannot contain any null Characters.");
-    }
-
-    if (characters.length == 0) {
+    if (characters == null || characters.length == 0) {
       throw new IllegalArgumentException("A Party needs at least 1 Character.");
     }
 

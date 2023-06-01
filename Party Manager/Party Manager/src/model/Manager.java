@@ -80,6 +80,11 @@ public interface Manager {
    * and another Party, p2, contains c2, c3, c4, c5, c6;
    * and lastly p3, contains just c2. If c2 is removed, p1 becomes c1, c3; p2 becomes c3, c4, c5, c6,
    * and p3 is removed since a {@code Party} cannot contain 0 {@code Character}s.
+   * <p>
+   * In the case that a party is removed via this method, and said party was the active party,
+   * this method should set the active party to the first party this {@code Manager} has.
+   * If there are no parties after this method removes a party, the active party should be
+   * set to null.
    * @param name the name of the character to remove
    * @throws IllegalArgumentException if the given String is null
    * @throws IllegalStateException if the manager has no characters
@@ -89,6 +94,10 @@ public interface Manager {
   /**
    * Removes the {@code Party} from this {@code Manager} whose name matches the given String.
    * This method should NOT remove the {@code Character}s from the manager.
+   * <p>
+   * If the party that was removed was the active party, this method should set the
+   * active party to the first party this {@code Manager} has. If there are no parties after this method removes a party, the active party should be
+   * set to null.
    * @param name the name of the party to remove
    * @throws IllegalArgumentException if the given String is null
    * @throws IllegalStateException if the manager has no parties

@@ -1,6 +1,7 @@
 package model.infiniteodysseys;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import model.Party;
 import org.junit.Before;
@@ -27,7 +28,31 @@ public class IOPartyTest extends IOCharacterTest {
       fail();
     }
     catch (IllegalArgumentException e) {
-      assertEquals("A Party cannot contain any null Characters.", e.getMessage());
+      assertEquals("Party name cannot be null.", e.getMessage());
+    }
+
+    try {
+      new IOParty("");
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("Party name cannot be whitespace.", e.getMessage());
+    }
+
+    try {
+      new IOParty(" ");
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("Party name cannot be whitespace.", e.getMessage());
+    }
+
+    try {
+      new IOParty("\n");
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("Party name cannot be whitespace.", e.getMessage());
     }
 
     try {

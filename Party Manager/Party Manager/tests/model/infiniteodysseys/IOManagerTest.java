@@ -1,6 +1,9 @@
 package model.infiniteodysseys;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import model.Manager;
 import org.junit.Before;
@@ -27,6 +30,24 @@ public class IOManagerTest extends IOPartyTest {
     }
 
     try {
+      this.m.getActiveParty();
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("This Manager doesn't have any Parties!", e.getMessage());
+    }
+
+    this.addCharsAndParties();
+
+    try {
+      this.m.setActiveParty(null);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("The given String cannot be null.", e.getMessage());
+    }
+
+    try {
       this.m.setActiveParty("");
       fail();
     }
@@ -43,14 +64,12 @@ public class IOManagerTest extends IOPartyTest {
     }
 
     try {
-      this.m.setActiveParty("The Boys");
+      this.m.setActiveParty("Le Boys");
       fail();
     }
     catch (IllegalArgumentException e) {
-      assertEquals("The party The Boys does not exist.", e.getMessage());
+      assertEquals("The party Le Boys does not exist.", e.getMessage());
     }
-
-    this.addCharsAndParties();
 
     this.m.setActiveParty("The Boys");
 
@@ -103,7 +122,7 @@ public class IOManagerTest extends IOPartyTest {
     this.m.addCharacter(this.rose);
     this.m.addCharacter(this.steven);
 
-    this.m.addParty("The Boy", this.luna, this.jake, this.bryan, this.steven);
+    this.m.addParty("The Boys", this.luna, this.jake, this.bryan, this.steven);
     this.m.addParty("The Infinite Odyssey", this.luna, this.rose);
   }
 
@@ -124,7 +143,7 @@ public class IOManagerTest extends IOPartyTest {
 
   @Test
   public void doesPartyExist() {
-    assertFalse(this.m.doesPartyExist("The Boy"));
+    assertFalse(this.m.doesPartyExist("The Boys"));
     assertFalse(this.m.doesPartyExist("The Infinite Odyssey"));
 
     this.addCharsAndParties();
@@ -135,7 +154,7 @@ public class IOManagerTest extends IOPartyTest {
     assertTrue(this.m.doesCharacterExist("Rose Walker"));
     assertTrue(this.m.doesCharacterExist("Onion"));
 
-    assertTrue(this.m.doesPartyExist("The Boy"));
+    assertTrue(this.m.doesPartyExist("The Boys"));
     assertTrue(this.m.doesPartyExist("The Infinite Odyssey"));
   }
 
@@ -161,7 +180,7 @@ public class IOManagerTest extends IOPartyTest {
       fail();
     }
     catch (IllegalArgumentException e) {
-      assertEquals("Null cannot be added as a Character.", e.getMessage());
+      assertEquals("The given String cannot be null.", e.getMessage());
     }
 
     try {
@@ -201,7 +220,7 @@ public class IOManagerTest extends IOPartyTest {
       fail();
     }
     catch (IllegalArgumentException e) {
-      assertEquals("None of a Party's Characters can be null.", e.getMessage());
+      assertEquals("A Party must have at least one Character.", e.getMessage());
     }
 
     try {
@@ -220,8 +239,18 @@ public class IOManagerTest extends IOPartyTest {
       assertEquals("None of a Party's Characters can be null.", e.getMessage());
     }
 
+    assertFalse(this.m.doesCharacterExist("Lunarose"));
+    assertFalse(this.m.doesCharacterExist("Jake Walker"));
+    assertFalse(this.m.doesCharacterExist("Manuel"));
+    assertFalse(this.m.doesCharacterExist("Onion"));
+
     this.m.addParty("The Boys", this.luna, this.jake, this.bryan, this.steven);
     this.m.setActiveParty("The Boys");
+
+    assertTrue(this.m.doesCharacterExist("Lunarose"));
+    assertTrue(this.m.doesCharacterExist("Jake Walker"));
+    assertTrue(this.m.doesCharacterExist("Manuel"));
+    assertTrue(this.m.doesCharacterExist("Onion"));
 
     assertEquals(4, this.m.getActiveParty().size());
     assertEquals(this.luna, this.m.getActiveParty().getParty()[0]);
@@ -241,6 +270,12 @@ public class IOManagerTest extends IOPartyTest {
     }
 
     this.m.addCharacter(this.luna);
+    assertTrue(this.m.doesCharacterExist("Lunarose"));
+    this.m.removeCharacter("Lunarose");
+    assertFalse(this.m.doesCharacterExist("Lunarose"));
+
+    this.addCharsAndParties();
+    this.m.addParty("Future", this.luna, this.dre, this.steven);
 
     try {
       this.m.removeCharacter(null);
@@ -253,6 +288,29 @@ public class IOManagerTest extends IOPartyTest {
     assertTrue(this.m.doesCharacterExist("Lunarose"));
     this.m.removeCharacter("Lunarose");
     assertFalse(this.m.doesCharacterExist("Lunarose"));
+
+    this.m.setActiveParty("The Boys");
+    assertEquals("The Boys", this.m.getActiveParty().getName());
+    assertEquals(3, this.m.getActiveParty().size());
+    assertEquals(this.jake, this.m.getActiveParty().getParty()[0]);
+    assertEquals(this.bryan, this.m.getActiveParty().getParty()[1]);
+    assertEquals(this.steven, this.m.getActiveParty().getParty()[2]);
+
+    this.m.setActiveParty("The Infinite Odyssey");
+    assertEquals("The Infinite Odyssey", this.m.getActiveParty().getName());
+    assertEquals(1, this.m.getActiveParty().size());
+    assertEquals(this.rose, this.m.getActiveParty().getParty()[0]);
+
+    this.m.setActiveParty("Future");
+    assertEquals("Future", this.m.getActiveParty().getName());
+    assertEquals(2, this.m.getActiveParty().size());
+    assertEquals(this.dre, this.m.getActiveParty().getParty()[0]);
+    assertEquals(this.steven, this.m.getActiveParty().getParty()[1]);
+
+    this.m.setActiveParty("The Infinite Odyssey");
+    this.m.removeCharacter("Rose Walker");
+
+    assertFalse(this.m.doesPartyExist("The Infinite Odyssey"));
   }
 
   @Test
@@ -262,11 +320,11 @@ public class IOManagerTest extends IOPartyTest {
       fail();
     }
     catch (IllegalStateException e) {
-      assertEquals("This operation cannot be performed "
-          + "because this Manager doesn't have Parties.", e.getMessage());
+      assertEquals("This Manager doesn't have any Parties!", e.getMessage());
     }
 
-    this.m.addParty("The Boys", this.luna, this.steven, this.bryan, this.jake);
+    this.addCharsAndParties();
+    this.m.addParty("Future", this.luna, this.dre, this.steven);
 
     try {
       this.m.removeParty(null);
@@ -278,8 +336,24 @@ public class IOManagerTest extends IOPartyTest {
 
     assertTrue(this.m.doesCharacterExist("Lunarose"));
 
+    this.m.setActiveParty("The Boys");
     assertTrue(this.m.doesPartyExist("The Boys"));
+
     this.m.removeParty("The Boys");
     assertFalse(this.m.doesPartyExist("The Boys"));
+
+    assertEquals("The Infinite Odyssey", this.m.getActiveParty().getName());
+    this.m.removeParty("The Infinite Odyssey");
+
+    assertEquals("Future", this.m.getActiveParty().getName());
+    this.m.removeParty("Future");
+
+    try {
+      this.m.getActiveParty();
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("This Manager doesn't have any Parties!", e.getMessage());
+    }
   }
 }
