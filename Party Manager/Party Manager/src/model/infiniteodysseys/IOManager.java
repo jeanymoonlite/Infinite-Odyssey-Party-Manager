@@ -2,7 +2,6 @@ package model.infiniteodysseys;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 import model.Character;
@@ -108,22 +107,36 @@ public class IOManager implements Manager {
   }
 
   @Override
-  public void addCharacter(Character c) throws IllegalArgumentException {
+  public void addCharacter(Character c)
+      throws IllegalArgumentException, IllegalStateException {
+
     if (c == null) {
       throw new IllegalArgumentException("Null cannot be added as a Character.");
+    }
+
+    if (this.doesCharacterExist(c.getName())) {
+      throw new IllegalStateException("Unable to add "
+          + c.getName() + " since there's already a Character with that name.");
     }
 
     this.characters.add(c);
   }
 
   @Override
-  public void addParty(String name, Character... c) throws IllegalArgumentException {
+  public void addParty(String name, Character... c)
+      throws IllegalArgumentException, IllegalStateException {
+
     if (name == null) {
       throw new IllegalArgumentException("The given String cannot be null.");
     }
 
     if (name.isBlank() || name.isEmpty()) {
       throw new IllegalArgumentException("A Party's name cannot be whitespace.");
+    }
+
+    if (this.doesPartyExist(name)) {
+      throw new IllegalStateException("Unable to add "
+          + name + " since there's already a Party with that name.");
     }
 
     if (c == null || c.length == 0) {
@@ -160,35 +173,52 @@ public class IOManager implements Manager {
       return;
     }
 
-    for (int p = 0; p < this.parties.size(); p++) {
-
-      try {
-        this.parties.get(p).getPartyMember(name);
-        Party curParty = this.parties.get(p);
-
-        if ((this.curParty != null)
-            && !this.doesPartyExist(this.curParty.getName())) {
-          this.resetActiveParty();
-          break;
-        }
-
-        Character[] temp = new Character[curParty.size() - 1];
-
-        int counter = 0;
-
-        for (int c = 0; c < curParty.getParty().length; c++) {
-          if (!curParty.getParty()[c].getName().equalsIgnoreCase(name)) {
-            temp[counter] = curParty.getParty()[c];
-            counter++;
-          }
-        }
-
-      this.parties.set(p, new IOParty(curParty.getName(), temp));
-      }
-      catch (IllegalArgumentException ignored) {}
-    }
+    this.removeFromAllParties(name);
 
     this.characters.removeIf((c) -> c.getName().equalsIgnoreCase(name));
+
+  }
+
+  private void removeFromAllParties(String name) {
+    List<String> partiesToRemove = new ArrayList<String>();
+
+    for (int p = 0; p < this.parties.size(); p++) {
+
+      Party curParty = this.parties.get(p);
+
+      //ensures that the character we're looking for, exists in the current looped
+      //party. If it's not in the current looped party, that party is skipped.
+      if (!curParty.hasCharacter(name)) {
+        continue;
+      }
+
+      Character[] temp = new Character[curParty.size() - 1];
+
+      int counter = 0;
+
+      //loops through every character in the curParty.
+      for (int c = 0; c < curParty.getParty().length; c++) {
+        Character curChar = curParty.getParty()[c];
+
+        if (curChar.getName().equalsIgnoreCase(name)) {
+          if (curParty.size() == 1) {
+            partiesToRemove.add(curParty.getName());
+            break;
+          }
+        } else {
+          temp[counter] = curParty.getParty()[c];
+          counter++;
+        }
+      }
+
+      if (temp.length > 0) {
+        this.parties.set(p, new IOParty(curParty.getName(), temp));
+      }
+    }
+
+    for (String s : partiesToRemove) {
+      this.removeParty(s);
+    }
   }
 
   @Override

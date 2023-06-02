@@ -56,8 +56,9 @@ public interface Manager {
    * Adds the given {@code Character} to this {@code Manager}.
    * @param c the character to add
    * @throws IllegalArgumentException if the given character is null
+   * @throws IllegalStateException if there's a character in this manager with the given name
    */
-  void addCharacter(Character c) throws IllegalArgumentException;
+  void addCharacter(Character c) throws IllegalArgumentException, IllegalStateException;
 
   /**
    * Adds a {@code Party} to this {@code Manager} with the given name. The {@code Party} is
@@ -68,8 +69,9 @@ public interface Manager {
    * @throws IllegalArgumentException if the given String is null
    *                                  OR if the given String is whitespace
    *                                  OR if any of the characters are null.
+   * @throws IllegalStateException if there's a party in this manager with the given name
    */
-  void addParty(String name, Character... c) throws IllegalArgumentException;
+  void addParty(String name, Character... c) throws IllegalArgumentException, IllegalStateException;
 
   /**
    * Removes the {@code Character} from this {@code Manager} whose name matches the given String.

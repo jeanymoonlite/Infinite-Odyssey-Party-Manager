@@ -3,7 +3,7 @@ package model.infiniteodysseys;
 import java.util.HashMap;
 import java.util.Map.Entry;
 import model.Character;
-import model.Clamp;
+import utils.Clamp;
 
 /**
  * An implementation of the {@code Character} interface. This class represents an Infinite Odyssey's
@@ -172,14 +172,6 @@ public final class IOCharacter implements Character {
         temp.put("Stealth", 1);
         temp.put("Intimidation", 1);
         break;
-      default:
-        temp.put("Defense", 0);
-        temp.put("Strength", 0);
-        temp.put("Intelligence", 0);
-        temp.put("Creativity", 0);
-        temp.put("Charisma", 0);
-        temp.put("Stealth", 0);
-        temp.put("Intimidation", 0);
     }
     return temp;
   }

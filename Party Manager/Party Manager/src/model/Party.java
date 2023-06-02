@@ -34,6 +34,13 @@ public interface Party {
   Character getPartyMember(String name) throws IllegalArgumentException;
 
   /**
+   * Determines if there's a {@code Character} with the given name.
+   * @param name the name of the character to find
+   * @return true if there's a character in this party with the given name, otherwise false
+   */
+  boolean hasCharacter(String name) throws IllegalArgumentException;
+
+  /**
    * Reduces the hp of the {@code Character} in the party that has the given name.
    * @param name the name of the character to damage
    * @param amount the amount of hp to reduce

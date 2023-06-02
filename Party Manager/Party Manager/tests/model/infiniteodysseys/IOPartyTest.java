@@ -1,6 +1,8 @@
 package model.infiniteodysseys;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import model.Party;
@@ -142,6 +144,26 @@ public class IOPartyTest extends IOCharacterTest {
     assertEquals(this.luna, this.p1.getPartyMember("Lunarose"));
     assertEquals(this.bryan, this.p1.getPartyMember("Manuel"));
     assertEquals(this.rose, this.p2.getPartyMember("Rose Walker"));
+  }
+
+  @Test
+  public void hasCharacter() {
+    try {
+      this.p1.hasCharacter(null);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("The given name cannot be null.",
+          e.getMessage());
+    }
+
+    assertFalse(this.p1.hasCharacter("Rose Walker"));
+    assertFalse(this.p7.hasCharacter("Rose Walker"));
+    assertFalse(this.p7.hasCharacter("Onion"));
+
+    assertTrue(this.p1.hasCharacter("Manuel"));
+    assertTrue(this.p1.hasCharacter("Lunarose"));
+    assertTrue(this.p7.hasCharacter("Jake Walker"));
   }
 
   @Test

@@ -3,7 +3,7 @@ package model.infiniteodysseys;
 import java.util.Arrays;
 import java.util.Objects;
 import model.Character;
-import model.Clamp;
+import utils.Clamp;
 import model.Party;
 
 /**
@@ -68,17 +68,30 @@ public final class IOParty implements Party {
 
   @Override
   public Character getPartyMember(String name) throws IllegalArgumentException {
+    if (this.hasCharacter(name)) {
+      for (Character c : this.party) {
+        if (c.getName().equalsIgnoreCase(name)) { return c; }
+      }
+    }
+    else {
+      throw new IllegalArgumentException("There is no Character named " + name + " in this Party.");
+    }
+
+    return null;
+  }
+
+  @Override
+  public boolean hasCharacter(String name) throws IllegalArgumentException {
     if (name == null) {
       throw new IllegalArgumentException("The given name cannot be null.");
     }
 
     for (Character c : this.party) {
       if (c.getName().equalsIgnoreCase(name)) {
-        return c;
+        return true;
       }
     }
-
-    throw new IllegalArgumentException("There is no Character named " + name + " in this Party.");
+    return false;
   }
 
   @Override
