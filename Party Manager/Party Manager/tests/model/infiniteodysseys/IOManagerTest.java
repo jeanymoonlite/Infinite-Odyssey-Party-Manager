@@ -30,6 +30,19 @@ public class IOManagerTest extends IOPartyTest {
     this.m.addParty("The Boys", this.luna, this.jake, this.bryan, this.steven);
     this.m.addParty("The Infinite Odyssey", this.luna, this.rose);
   }
+
+  protected void addCharsAndParties(Manager m) {
+    m.addCharacter(this.luna);
+    m.addCharacter(this.jake);
+    m.addCharacter(this.bryan);
+    m.addCharacter(this.rose);
+    m.addCharacter(this.steven);
+
+    m.addParty("The Boys", this.luna, this.jake, this.bryan, this.steven);
+    m.addParty("The Infinite Odyssey", this.luna, this.rose);
+    m.addParty("Future", this.luna, this.dre, this.steven, this.rose);
+  }
+
   @Test
   public void getAndSetActiveParty() {
     try {
@@ -128,6 +141,14 @@ public class IOManagerTest extends IOPartyTest {
 
   @Test
   public void doesCharacterExist() {
+    try {
+      this.m.doesCharacterExist(null);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("The given String cannot be null.", e.getMessage());
+    }
+
     assertFalse(this.m.doesCharacterExist("Lunarose"));
     assertFalse(this.m.doesCharacterExist("Jake Walker"));
     assertFalse(this.m.doesCharacterExist("Manuel"));
@@ -143,6 +164,14 @@ public class IOManagerTest extends IOPartyTest {
 
   @Test
   public void doesPartyExist() {
+    try {
+      this.m.doesPartyExist(null);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("The given String cannot be null.", e.getMessage());
+    }
+
     assertFalse(this.m.doesPartyExist("The Boys"));
     assertFalse(this.m.doesPartyExist("The Infinite Odyssey"));
 

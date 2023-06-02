@@ -36,9 +36,10 @@ public interface TextView {
   /**
    * Renders the stats of a specified character found in the {@code Manager}. This method renders
    * the character's name, player name, the class (if applicable), class specification
-   * (if applicable), name of each stat, and followed by their values.
+   * (if applicable), health points, and the name of each stat and their values.
    * @throws IOException if the transmission of the message to the data output fails
    * @throws IllegalArgumentException if there's no character with the given name in the manager.
+   *                                  OR if the given String is null
    * @throws IllegalStateException if the manager has no characters
    */
   void displayCharacter(String name) throws IOException, IllegalArgumentException, IllegalStateException;
@@ -48,6 +49,7 @@ public interface TextView {
    * each character the same way that {@code displayCharacter()} does.
    * @param name the name of the {@code Party} to
    * @throws IllegalArgumentException if there's no party with the given name in the manager.
+   *                                  OR if the given String is null
    * @throws IllegalStateException if the manager has no parties
    */
   void displayParty(String name) throws IOException, IllegalArgumentException, IllegalStateException;

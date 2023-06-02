@@ -87,7 +87,11 @@ public class IOManager implements Manager {
   }
 
   @Override
-  public boolean doesCharacterExist(String name) {
+  public boolean doesCharacterExist(String name) throws IllegalArgumentException {
+    if (name == null) {
+      throw new IllegalArgumentException("The given String cannot be null.");
+    }
+
     for (Character c : this.characters) {
       if (c.getName().equalsIgnoreCase(name)) {
         return true;
@@ -97,7 +101,11 @@ public class IOManager implements Manager {
   }
 
   @Override
-  public boolean doesPartyExist(String name) {
+  public boolean doesPartyExist(String name) throws IllegalArgumentException {
+    if (name == null) {
+      throw new IllegalArgumentException("The given String cannot be null.");
+    }
+
     for (Party p : this.parties) {
       if (p.getName().equalsIgnoreCase(name)) {
         return true;

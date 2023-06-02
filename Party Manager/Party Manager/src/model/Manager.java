@@ -41,16 +41,18 @@ public interface Manager {
    * name.
    * @param name the name to look for
    * @return true if there's a character with the given name, otherwise false
+   * @throws IllegalArgumentException if the given String is null
    */
-  boolean doesCharacterExist(String name);
+  boolean doesCharacterExist(String name) throws IllegalArgumentException;
 
   /**
    * Determines whether this {@code Manager} contains a {@code Party} with the given
    * name.
    * @param name the name to look for
    * @return true if there's a party with the given name, otherwise false
+   * @throws IllegalArgumentException if the given String is null
    */
-  boolean doesPartyExist(String name);
+  boolean doesPartyExist(String name) throws IllegalArgumentException;
 
   /**
    * Adds the given {@code Character} to this {@code Manager}.
