@@ -18,6 +18,14 @@ public interface TextView {
   void display(String message) throws IOException, IllegalArgumentException;
 
   /**
+   * Renders a message listing out all the rules that this {@code TextView}'s {@code Manager}
+   * abides by. This can include listing out the stats that {@code Character}'s use, if they
+   * have roles or not, etc.
+   * @throws IOException if the transmission of the message to the data output fails
+   */
+  void displayManagerRules() throws IOException;
+
+  /**
    * Renders every {@code Character} that the {@code Manager} contains. This includes just their
    * name and the player's name.
    * @throws IOException if the transmission of the message to the data output fails
