@@ -85,3 +85,24 @@ Manager Observer
 
 [] get-party (name) : Returns the name, role, role specification, and stats of every character in the
                       specified party. If the party doesn't exist, the command will inform the user.
+
+Dice Related
+[] set-seed (seed) : Sets a seed to use for seeded-rolls.
+[] use-seed (y|n) : Enables or disables the seed for dice rolls. If a seed has NOT been set, the
+                    command will request one. The command will ONLY accept y or n; y enables the seed,
+                    n disables the seed. Seeds cannot be set for specific dice, they're either enabled
+                    for all or disabled for all.
+
+[] roll (upperBound) : Returns a random number between 1 and the given upper bound.
+                       upperBound cannot be less than 2; if it is, the user will be informed.
+                       The number generator does NOT use a seed.
+
+The following dice will utilize a seed if enabled; otherwise they will be purely random.
+[] d2 / coin-flip : Rolls a random number between 1 and 2.
+[] d4 : Rolls a random number between 1 and 4.
+[] d6 : Rolls a random number between 1 and 6.
+[] d8 : Rolls a random number between 1 and 8.
+[] d10 : Rolls a random number between 1 and 10.
+[] d12 : Rolls a random number between 1 and 12.
+[] d20 : Rolls a random number between 1 and 20.
+[] d100 : Rolls a random number between 1 and 100.
