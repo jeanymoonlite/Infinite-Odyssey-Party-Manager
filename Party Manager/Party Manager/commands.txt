@@ -1,0 +1,87 @@
+Help Related
+[] help/? : Switches the program into Help mode. A new set of commands will be available (listed below).
+  [] all : Displays all of the commands
+  [] character : Displays all the Character related commands
+  [] party : Displays all the Party related commands
+  [] manager : Displays all the Manager related commands.
+
+[] quit : Exits the entire program
+[] back : Will return the programs state back to requesting general commands.
+
+Character Related
+[] create char (name playerName role roleSpecification strength intelligence creativity charisma stealth intimidation)
+   : Creates a new character with the given information. The moment any of the given values are invalid
+   (name or playerName is whitespace, role is not one of the 7 roles, or the stats are negative or doubles),
+   the command will request THAT particular stat be reentered.
+   Note: Character with the same name, even if their player names are different, are not allowed.
+   This command should inform users when they are attempting to create a character with the same
+   name as another one.
+
+
+[] edit char (name) : Edits a character with the given name. This will put the program into
+                      editing mode. A new set of commands will be available (listed below).
+                      Note: This command rejects any characters that don't exist in the manager.
+  [] edit (attribute newValue) : Picks an attribute of the character and gives it a new value.
+                                 This command rejects any attribute that isn't one of the
+                                 character's stats, name, playerName, role, or role specification.
+                                 Note: This command should also, like create char, inform users
+                                 when they are giving a character a name that already exists.
+
+  [] save : Saves the edits made to the character (it also actually modifies the character).
+            Then it returns back to requesting general commands.
+
+[] remove char (name) : Removes a character with the given name. This command rejects any characters
+                        that don't exist in the manager. Note: If the character that was removed,
+                        was in a 1-person party, that party will be removed. The user should be informed
+                        of this.
+
+Party Related
+[] create party (name character...) : Creates a new party with the given name and characters.
+                                      The character names MUST all be in one line.
+                                      Invalid characters (as in characters that don't exist) will be
+                                      ignored and will be informed to the user that that character
+                                      didn't get added because they don't exist.
+                                      Characters that are mentioned more than once, don't get added
+                                      twice; instead the command, at the end, informs the user that
+                                      that character was mentioned twice but was NOT added twice.
+                                      Note: Parties with the same name, even if they have different
+                                      characters, are not allowed. This command should inform users
+                                      when they are attempting to create a party with the same
+                                      name as another one.
+
+[] edit party (name) : Edits the party with the given name. This will put the program into
+                       editing mode. A new set of commands will be available (listed below).
+                       Note: This command rejects any parties that don't exist in the manager.
+  [] add-char (character...) : Adds the given characters to the party. The character names MUST all be
+                               in one line. Like create party, this command will ignore invalid
+                               characters and characters that are already in the party.
+                               Note: This command should also, like create party, inform users when they
+                               are giving a party a name that already exists.
+
+  [] edit-name (newName): Changes the name of the party with the given one.
+                          Note: This command should also, like create party, inform users when they
+                          are giving a party a name that already exists.
+
+  [] save : Saves the edits made to the party (it also actually modifies the party).
+            Then it returns back to requesting general commands.
+
+[] remove party (name) : Remove the party with the given name. This command rejects any parties
+                         that don't exist in the manager. Note: If the party that was remove is the
+                         current active party, this command should inform the user what the new active
+                         party is.
+
+Manager Observer
+[] get-active-party : Returns the active party if there is one. If it is, the command will tell
+                      the user that there are no parties.
+
+[] set-active-party (name) : Sets the active party to the party with the given name.
+
+[] get-all-chars / get-all-characters : Returns a list of every character with their name and player name.
+
+[] get-all-parties : Returns a list of every party with their names, followed by the characters in them.
+
+[] get-character (name) : Returns the name, role, role specification, and stats of a specified character.
+                          If the character doesn't exist, the command will inform the user.
+
+[] get-party (name) : Returns the name, role, role specification, and stats of every character in the
+                      specified party. If the party doesn't exist, the command will inform the user.
