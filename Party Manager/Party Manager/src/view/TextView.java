@@ -2,7 +2,6 @@ package view;
 
 
 import java.io.IOException;
-import model.Character;
 
 /**
  * The interface for a client's perspective of the model of Bodega Dreams.

@@ -5,8 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import model.Manager;
 import model.Character;
+import model.Manager;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,8 +1,8 @@
 package view;
 
 import java.io.IOException;
-import model.Manager;
 import model.Character;
+import model.Manager;
 import model.Party;
 import model.infiniteodysseys.IORoles;
 
