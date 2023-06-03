@@ -4,12 +4,21 @@ Help Related
   [] character : Displays all the Character related commands
   [] party : Displays all the Party related commands
   [] manager : Displays all the Manager related commands.
+  [] dice : Displays all the Dice related commands.
 
-[] quit : Exits the entire program
+[] start (partyName) : Starts a campaign with the given party. This party will be set as the
+                       active party. If the given party doesn't exist, this command will
+                       inform the user. Additionally, if there are no parties in the Manager, the
+                       command will tell the user to make a party first.
+
+
+[] quit : Exits the entire program if a campaign hasn't started. If a campaign has started,
+          the program will exit back to the Manager, where all the commands will be available.
 [] back : Will return the programs state back to requesting general commands.
+[] clear : Will render 100 linebreaks to "clear" the screen of text.
 
 Character Related
-[] create char (name playerName role roleSpecification strength intelligence creativity charisma stealth intimidation)
+[] create-char (name playerName role roleSpecification strength intelligence creativity charisma stealth intimidation)
    : Creates a new character with the given information. The moment any of the given values are invalid
    (name or playerName is whitespace, role is not one of the 7 roles, or the stats are negative or doubles),
    the command will request THAT particular stat be reentered.
@@ -18,7 +27,7 @@ Character Related
    name as another one.
 
 
-[] edit char (name) : Edits a character with the given name. This will put the program into
+[] edit-char (name) : Edits a character with the given name. This will put the program into
                       editing mode. A new set of commands will be available (listed below).
                       Note: This command rejects any characters that don't exist in the manager.
   [] edit (attribute newValue) : Picks an attribute of the character and gives it a new value.
@@ -30,13 +39,13 @@ Character Related
   [] save : Saves the edits made to the character (it also actually modifies the character).
             Then it returns back to requesting general commands.
 
-[] remove char (name) : Removes a character with the given name. This command rejects any characters
+[] remove-char (name) : Removes a character with the given name. This command rejects any characters
                         that don't exist in the manager. Note: If the character that was removed,
                         was in a 1-person party, that party will be removed. The user should be informed
                         of this.
 
 Party Related
-[] create party (name character...) : Creates a new party with the given name and characters.
+[] create-party (name character...) : Creates a new party with the given name and characters.
                                       The character names MUST all be in one line.
                                       Invalid characters (as in characters that don't exist) will be
                                       ignored and will be informed to the user that that character
@@ -49,7 +58,7 @@ Party Related
                                       when they are attempting to create a party with the same
                                       name as another one.
 
-[] edit party (name) : Edits the party with the given name. This will put the program into
+[] edit-party (name) : Edits the party with the given name. This will put the program into
                        editing mode. A new set of commands will be available (listed below).
                        Note: This command rejects any parties that don't exist in the manager.
   [] add-char (character...) : Adds the given characters to the party. The character names MUST all be
@@ -65,25 +74,35 @@ Party Related
   [] save : Saves the edits made to the party (it also actually modifies the party).
             Then it returns back to requesting general commands.
 
-[] remove party (name) : Remove the party with the given name. This command rejects any parties
+[] remove-party (name) : Remove the party with the given name. This command rejects any parties
                          that don't exist in the manager. Note: If the party that was remove is the
                          current active party, this command should inform the user what the new active
                          party is.
 
+Stats Related
+[] heal (amount name) : Adds the amount to the character's hp with the given name.
+                        This command rejects any doubles and negative numbers.
+                        Additionally, if the character doesn't exist, the command informs the user.
+
+[] damage (amount name) : Subtracts the amount to the character's hp with the given name.
+                          This command rejects any doubles and negative numbers.
+                          Additionally, if the character doesn't exist, the command informs the user.
+
+[] heal-all (amount) : Adds the amount to every character in the active party.
+
+
 Manager Observer
-[] get-active-party : Returns the active party if there is one. If it is, the command will tell
+[] party : Returns the active party if there is one. If it is, the command will tell
                       the user that there are no parties.
 
-[] set-active-party (name) : Sets the active party to the party with the given name.
+[] show-all-chars / get-all-characters : Returns a list of every character with their name and player name.
 
-[] get-all-chars / get-all-characters : Returns a list of every character with their name and player name.
+[] show-all-parties : Returns a list of every party with their names, followed by the characters in them.
 
-[] get-all-parties : Returns a list of every party with their names, followed by the characters in them.
-
-[] get-character (name) : Returns the name, role, role specification, and stats of a specified character.
+[] show-char (name) : Returns the name, role, role specification, and stats of a specified character.
                           If the character doesn't exist, the command will inform the user.
 
-[] get-party (name) : Returns the name, role, role specification, and stats of every character in the
+[] show-party (name) : Returns the name, role, role specification, and stats of every character in the
                       specified party. If the party doesn't exist, the command will inform the user.
 
 Dice Related
@@ -92,6 +111,7 @@ Dice Related
                     command will request one. The command will ONLY accept y or n; y enables the seed,
                     n disables the seed. Seeds cannot be set for specific dice, they're either enabled
                     for all or disabled for all.
+[] get-seeded-rolls (d2|d4|d6|d8|d10|d12|d20|d100)
 
 [] roll (upperBound) : Returns a random number between 1 and the given upper bound.
                        upperBound cannot be less than 2; if it is, the user will be informed.
