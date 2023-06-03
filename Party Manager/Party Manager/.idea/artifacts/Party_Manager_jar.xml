@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Party Manager:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Party_Manager_jar</output-path>
+    <root id="archive" name="Party Manager.jar">
+      <element id="module-output" name="Party Manager" />
+    </root>
+  </artifact>
+</component>

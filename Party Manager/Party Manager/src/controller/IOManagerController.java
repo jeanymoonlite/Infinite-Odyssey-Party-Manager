@@ -8,12 +8,13 @@ import model.Manager;
 import view.TextView;
 
 /**
- * A implementation {@code Controller} for the {@code IOManager}, using the {@code IOManagerTextView}, to render
- * messages to a given {@code Appendable}
+ * An implementation {@code Controller} for the {@code IOManager}, using the {@code IOManagerTextView}, to render
+ * messages to a given {@code Appendable}.
  */
 public class IOManagerController implements Controller {
 
   private boolean running;
+  private boolean tryingToQuit;
   private final Manager model;
   private final TextView view;
   private final Scanner sc;
@@ -44,6 +45,7 @@ public class IOManagerController implements Controller {
     this.model = model;
     this.view = view;
     this.sc = new Scanner(input);
+    this.tryingToQuit = false;
     this.initCommands();
 
   }
@@ -59,19 +61,12 @@ public class IOManagerController implements Controller {
   public void start() throws IllegalStateException {
 
     this.running = true;
-    boolean tryingToQuit = false;
-
-    try {
-      this.view.display("Welcome to the Infinite Odyssey's Party Manager.\n\n");
-      this.view.displayManagerRules();
-    } catch (IOException io) {
-      //pass
-    }
+    this.startMessage();
 
     // begin command input loop
     while (this.running) {
 
-      if (!tryingToQuit) {
+      if (!this.tryingToQuit) {
         try {
           this.view.display("Awaiting command:\n");
         } catch (IOException io) {
@@ -86,17 +81,26 @@ public class IOManagerController implements Controller {
 
       String currCommand = this.sc.next();
 
-      if (tryingToQuit) {
+      if (this.tryingToQuit) {
         if (currCommand.equalsIgnoreCase("y")) {
           this.running = false;
           try {
             this.view.display("Bye Bye!");
-          } catch (IOException e) {
-            //ignore
           }
+
+          catch (IOException ignore) {}
           break;
-        } else if (currCommand.equalsIgnoreCase("n")) {
+        }
+        else if (currCommand.equalsIgnoreCase("n")) {
           tryingToQuit = false;
+          continue;
+        }
+        else {
+          try {
+            this.view.display("Invalid command\n");
+            this.quitMessage();
+          }
+          catch (IOException ignored) {}
           continue;
         }
       }
@@ -105,21 +109,16 @@ public class IOManagerController implements Controller {
       if (currCommand.equalsIgnoreCase("quit")
           || (currCommand.equalsIgnoreCase("q"))) {
 
-        try {
-          this.view.display("WARNING: Quitting will delete any unsaved progress. "
-              + "Confirm? (y/n)\n");
-        } catch (IOException e) {
-          //ignore
-        }
-        tryingToQuit = true;
+        this.quitMessage();
         continue;
       }
 
       if (this.commands.containsKey(currCommand)) {
         this.commands.get(currCommand).run();
-      } else {
+      }
+      else {
         try {
-          this.view.display("Invalid Command\n");
+          this.view.display("Invalid command\n");
         } catch (IOException io) {
           //pass
         }
@@ -127,4 +126,22 @@ public class IOManagerController implements Controller {
     }
   }
 
+  private void startMessage() {
+    try {
+      this.view.display("Welcome to the Infinite Odyssey's Party Manager.\n\n");
+      this.view.displayManagerRules();
+    } catch (IOException io) {
+      //pass
+    }
+  }
+
+  private void quitMessage() {
+    try {
+      this.view.display("WARNING: Quitting will delete any unsaved progress. "
+          + "Confirm? (y/n)\n");
+    } catch (IOException e) {
+      //ignore
+    }
+    this.tryingToQuit = true;
+  }
 }

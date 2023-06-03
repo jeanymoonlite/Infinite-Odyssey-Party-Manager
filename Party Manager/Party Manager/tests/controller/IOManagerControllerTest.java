@@ -201,10 +201,101 @@ public class IOManagerControllerTest {
             + "\tvi. Monk\n"
             + "\tvii. Human\n"
             + "Awaiting command:\n"
-            + "Invalid Command\n"
+            + "Invalid command\n"
             + "Awaiting command:\n"
-            + "Invalid Command\n"
+            + "Invalid command\n"
             + "Awaiting command:\n"
+            + "WARNING: Quitting will delete any unsaved progress. "
+            + "Confirm? (y/n)\n"
+            + "Bye Bye!",
+        output.toString());
+  }
+
+  @Test
+  public void badInputTryingToQuit() {
+    Readable input = new StringReader("quit b y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+    this.controller.start();
+
+
+    assertEquals("Welcome to the Infinite Odyssey's Party Manager.\n\n"
+            + "This Manager is made to be used for Infinite Odysseys.\n"
+            + "This means that the Manager has the following rules when it comes "
+            + "to creating characters:\n"
+            + "1. All characters have the following stats:\n"
+            + "\ti. Hp (integer between 0-100)\n"
+            + "\tii. Defense (which is dictated by Role)\n"
+            + "\tiii. Strength\n"
+            + "\tiv. Intelligence\n"
+            + "\tv. Creativity\n"
+            + "\tvi. Charisma\n"
+            + "\tvii. Stealth\n"
+            + "\tviii. Intimidation\n"
+            + "\n2. The sum of every stat's value must NOT exceed 30.\n"
+            + "\n3. No stat can have a value less than 0.\n"
+            + "\n4. All characters must have one of the roles listed below.\n"
+            + "\ti. Warrior\n"
+            + "\tii. Wizard\n"
+            + "\tiii. Bard\n"
+            + "\tiv. Engineer\n"
+            + "\tv. Rogue\n"
+            + "\tvi. Monk\n"
+            + "\tvii. Human\n"
+            + "Awaiting command:\n"
+            + "WARNING: Quitting will delete any unsaved progress. "
+            + "Confirm? (y/n)\n"
+            + "Invalid command\n"
+            + "WARNING: Quitting will delete any unsaved progress. "
+            + "Confirm? (y/n)\n"
+            + "Bye Bye!",
+        output.toString());
+  }
+
+  @Test
+  public void badInputTryingToQuit2() {
+    Readable input = new StringReader("quit b quit y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+    this.controller.start();
+
+
+    assertEquals("Welcome to the Infinite Odyssey's Party Manager.\n\n"
+            + "This Manager is made to be used for Infinite Odysseys.\n"
+            + "This means that the Manager has the following rules when it comes "
+            + "to creating characters:\n"
+            + "1. All characters have the following stats:\n"
+            + "\ti. Hp (integer between 0-100)\n"
+            + "\tii. Defense (which is dictated by Role)\n"
+            + "\tiii. Strength\n"
+            + "\tiv. Intelligence\n"
+            + "\tv. Creativity\n"
+            + "\tvi. Charisma\n"
+            + "\tvii. Stealth\n"
+            + "\tviii. Intimidation\n"
+            + "\n2. The sum of every stat's value must NOT exceed 30.\n"
+            + "\n3. No stat can have a value less than 0.\n"
+            + "\n4. All characters must have one of the roles listed below.\n"
+            + "\ti. Warrior\n"
+            + "\tii. Wizard\n"
+            + "\tiii. Bard\n"
+            + "\tiv. Engineer\n"
+            + "\tv. Rogue\n"
+            + "\tvi. Monk\n"
+            + "\tvii. Human\n"
+            + "Awaiting command:\n"
+            + "WARNING: Quitting will delete any unsaved progress. "
+            + "Confirm? (y/n)\n"
+            + "Invalid command\n"
+            + "WARNING: Quitting will delete any unsaved progress. "
+            + "Confirm? (y/n)\n"
+            + "Invalid command\n"
             + "WARNING: Quitting will delete any unsaved progress. "
             + "Confirm? (y/n)\n"
             + "Bye Bye!",
