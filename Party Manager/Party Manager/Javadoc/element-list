@@ -1,6 +1,7 @@
 unnamed package
 controller
 controller.command
+controller.command.help
 model
 model.infiniteodysseys
 utils

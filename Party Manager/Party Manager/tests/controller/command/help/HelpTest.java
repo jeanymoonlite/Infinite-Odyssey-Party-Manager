@@ -28,12 +28,13 @@ public class HelpTest extends IOManagerControllerTest {
             + "\n"
             + "edit-char (name)\n"
             + "\tEdits a character with the given name.\n"
-            + "This will put the program into character editing mode.\n"
-            + "A new set of commands will become available in editing mode.\n"
+            + "\tThis will put the program into character editing mode.\n"
+            + "\tA new set of commands will become available in editing mode.\n"
             + "\n"
             + "remove-char (name)\n"
             + "\tRemoves a character with the given name\n"
             + "\n"
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
             + "Party Related Commands:\n"
             + "create-party (name characters...)\n"
             + "\tCreates a new party with the given name and list of characters.\n"
@@ -48,6 +49,7 @@ public class HelpTest extends IOManagerControllerTest {
             + "remove-party (name)\n"
             + "\tRemoves a party with the given name.\n"
             + "\n"
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
             + "Manager Related Commands:\n"
             + "party\n"
             + "\tDisplays the active party if there is one.\n"
@@ -65,6 +67,7 @@ public class HelpTest extends IOManagerControllerTest {
             + "show-party (name)\n"
             + "\tDisplays the name, role, role specification, and stats of the every character in the specified party.\n"
             + "\n"
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
             + "Stats Related Commands:\n"
             + "heal (amount name)\n"
             + "\tAdds the amount to the character's hp with the given name.\n"
@@ -80,6 +83,7 @@ public class HelpTest extends IOManagerControllerTest {
             + "damage-all (amount)\n"
             + "\tSubtracts the amount to every character in the active party\n"
             + "\n"
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
             + "Dice Related Commands:\n"
             + "set-seed (seed)\n"
             + "\tSets a seed to use for seeded-rolls.\n"
@@ -110,7 +114,8 @@ public class HelpTest extends IOManagerControllerTest {
             + "d20 : Rolls a random number between 1 and 20.\n"
             + "\n"
             + "d100 : Rolls a random number between 1 and 100.\n"
-            + "\n",
+            + "\n"
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n",
         output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
   }
 
