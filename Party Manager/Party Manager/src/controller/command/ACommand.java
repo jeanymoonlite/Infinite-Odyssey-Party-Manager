@@ -1,7 +1,6 @@
 package controller.command;
 
 import model.Manager;
-import view.IOManagerTextView;
 import view.TextView;
 
 /**

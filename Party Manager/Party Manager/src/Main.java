@@ -1,7 +1,6 @@
 import controller.Controller;
 import controller.IOManagerController;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 import model.Manager;
 import model.infiniteodysseys.IOManager;
 import view.IOManagerTextView;
