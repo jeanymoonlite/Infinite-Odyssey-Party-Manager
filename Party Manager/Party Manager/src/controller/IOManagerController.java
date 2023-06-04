@@ -2,6 +2,7 @@ package controller;
 
 import controller.command.ACommand;
 import controller.command.help.Help;
+import controller.command.help.HelpAll;
 import controller.command.help.HelpChar;
 import controller.command.help.HelpDice;
 import controller.command.help.HelpManager;
@@ -27,7 +28,7 @@ public class IOManagerController implements Controller {
   private HashMap<String, ACommand> commands;
 
   /**
-   * Constructs a new {@code IOManager}.
+   * Constructs a new {@code IOManagerController}.
    *
    * @param model the model to control
    * @param view  the view of the model
@@ -60,6 +61,8 @@ public class IOManagerController implements Controller {
     this.commands = new HashMap<String, ACommand>();
 
     this.commands.put("help", new Help(this.model, this.view));
+    this.commands.put("help-all", new HelpAll(this.model, this.view));
+
     this.commands.put("help-char", new HelpChar(this.model, this.view));
     this.commands.put("help-party", new HelpParty(this.model, this.view));
 

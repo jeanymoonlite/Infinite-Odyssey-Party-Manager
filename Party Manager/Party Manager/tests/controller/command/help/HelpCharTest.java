@@ -23,15 +23,15 @@ public class HelpCharTest extends IOManagerControllerTest {
 
     assertEquals("create-char (name playerName role roleSpecification "
             + "strength intelligence creativity charisma stealth intimidation\n"
-            + "\tCreates a new character with the given information.\n"
+            + "\tCreates a new Character with the given information.\n"
             + "\n"
             + "edit-char (name)\n"
-            + "\tEdits a character with the given name.\n"
-            + "\tThis will put the program into character editing mode.\n"
+            + "\tEdits a Character with the given name.\n"
+            + "\tThis will put the program into Character Editing mode.\n"
             + "\tA new set of commands will become available in editing mode.\n"
             + "\n"
             + "remove-char (name)\n"
-            + "\tRemoves a character with the given name\n"
+            + "\tRemoves a Character with the given name\n"
             + "\n",
         output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
   }

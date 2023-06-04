@@ -11,7 +11,7 @@ import view.TextView;
 public final class Help extends ACommand {
 
   /**
-   * Constructs a new {@code Help}.
+   * Constructs a new {@code HelpAll}.
    *
    * @param model the model to use
    * @param view  the view to use to render messages
@@ -23,25 +23,36 @@ public final class Help extends ACommand {
   @Override
   public void run() {
     try {
-      this.view.display("Character Related Commands:\n");
-      new HelpChar(this.model, this.view).run();
-      this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+      this.view.display("All Help Commands:\n");
 
-      this.view.display("Party Related Commands:\n");
-      new HelpParty(this.model, this.view).run();
-      this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+      this.view.display("help\n");
+      this.view.display("\tWhen in Character or Party editing mode, this command displays the edit specific commands.\n");
+      this.view.display("\n");
 
-      this.view.display("Manager Related Commands:\n");
-      new HelpManager(this.model, this.view).run();
-      this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+      this.view.display("help-all\n");
+      this.view.display("\tDisplays every command in this program organized by categories.\n");
+      this.view.display("\n");
 
-      this.view.display("Stats Related Commands:\n");
-      new HelpStats(this.model, this.view).run();
-      this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+      this.view.display("help-char\n");
+      this.view.display("\tDisplays every character-related command.\n");
+      this.view.display("\n");
 
-      this.view.display("Dice Related Commands:\n");
-      new HelpDice(this.model, this.view).run();
-      this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+      this.view.display("help-party\n");
+      this.view.display("\tDisplays every party-related command.\n");
+      this.view.display("\n");
+
+      this.view.display("help-manager\n");
+      this.view.display("\tDisplays commands for viewing characters and parties.\n");
+      this.view.display("\n");
+
+      this.view.display("help-stats\n");
+      this.view.display("\tDisplays every command for healing and damaging characters.\n");
+      this.view.display("\n");
+
+      this.view.display("help-dice\n");
+      this.view.display("\tDisplays every dice-related command.\n");
+      this.view.display("\n");
+
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");

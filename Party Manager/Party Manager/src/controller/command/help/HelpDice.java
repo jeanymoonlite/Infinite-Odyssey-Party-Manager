@@ -11,7 +11,7 @@ import view.TextView;
 public final class HelpDice extends ACommand {
 
   /**
-   * Constructs a new {@code Help}.
+   * Constructs a new {@code HelpAll}.
    *
    * @param model the model to use
    * @param view  the view to use to render messages
