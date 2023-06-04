@@ -2,6 +2,7 @@ package controller.command;
 
 import model.Manager;
 import view.IOManagerTextView;
+import view.TextView;
 
 /**
  * An abstract command object that contains a {@code IOManager} and a {@code IOManagerTextView}.
@@ -9,7 +10,7 @@ import view.IOManagerTextView;
 public abstract class ACommand implements Command {
 
   protected final Manager model;
-  protected final IOManagerTextView view;
+  protected final TextView view;
 
   /**
    * Constructs a new {@code ACommand}.
@@ -17,7 +18,7 @@ public abstract class ACommand implements Command {
    * @param model the model to use
    * @param view  the view to use to render messages
    */
-  public ACommand(Manager model, IOManagerTextView view) {
+  public ACommand(Manager model, TextView view) {
     this.model = model;
     this.view = view;
   }

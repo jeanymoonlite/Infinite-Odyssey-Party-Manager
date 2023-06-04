@@ -1,6 +1,8 @@
 package controller;
 
 import controller.command.ACommand;
+import controller.command.help.Help;
+import controller.command.help.HelpChar;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -53,7 +55,8 @@ public class IOManagerController implements Controller {
   private void initCommands() {
     this.commands = new HashMap<String, ACommand>();
 
-//    this.commands.put("help", new Help(this.model, this.view));
+    this.commands.put("help", new Help(this.model, this.view));
+    this.commands.put("help-char", new HelpChar(this.model, this.view));
 
   }
 

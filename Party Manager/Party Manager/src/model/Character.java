@@ -56,6 +56,7 @@ public interface Character {
     * Sets the value of this {@code Character}'s hp to the given integer. If the integer
     * is less than 0, the hp will be set to 0. If the integer is greater than the
     * {@code Character}'s max hp.
+    * @param hp the new hp value
     */
    void setHP(int hp);
 
