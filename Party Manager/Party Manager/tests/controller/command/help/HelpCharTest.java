@@ -1,6 +1,6 @@
 package controller.command.help;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
@@ -27,8 +27,8 @@ public class HelpCharTest extends IOManagerControllerTest {
             + "\n"
             + "edit-char (name)\n"
             + "\tEdits a character with the given name.\n"
-            + "This will put the program into character editing mode.\n"
-            + "A new set of commands will become available in editing mode.\n"
+            + "\tThis will put the program into character editing mode.\n"
+            + "\tA new set of commands will become available in editing mode.\n"
             + "\n"
             + "remove-char (name)\n"
             + "\tRemoves a character with the given name\n"

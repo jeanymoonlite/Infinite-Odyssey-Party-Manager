@@ -1,12 +1,11 @@
 package controller.command.help;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
 import model.infiniteodysseys.IOManager;
-import org.junit.Before;
 import org.junit.Test;
 import view.IOManagerTextView;
 

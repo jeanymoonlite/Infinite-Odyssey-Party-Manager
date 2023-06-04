@@ -1,6 +1,6 @@
 package controller.command.help;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;

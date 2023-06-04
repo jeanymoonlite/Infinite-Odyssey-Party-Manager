@@ -3,7 +3,6 @@ package controller.command.help;
 import controller.command.ACommand;
 import java.io.IOException;
 import model.Manager;
-import view.IOManagerTextView;
 import view.TextView;
 
 /**
@@ -31,8 +30,8 @@ public final class HelpChar extends ACommand {
 
       this.view.display("edit-char (name)\n");
       this.view.display("\tEdits a character with the given name.\n"
-          + "This will put the program into character editing mode.\n"
-          + "A new set of commands will become available in editing mode.\n");
+          + "\tThis will put the program into character editing mode.\n"
+          + "\tA new set of commands will become available in editing mode.\n");
       this.view.display("\n");
 
       this.view.display("remove-char (name)\n");

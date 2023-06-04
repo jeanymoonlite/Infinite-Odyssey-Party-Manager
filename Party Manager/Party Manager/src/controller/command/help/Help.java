@@ -3,7 +3,6 @@ package controller.command.help;
 import controller.command.ACommand;
 import java.io.IOException;
 import model.Manager;
-import view.IOManagerTextView;
 import view.TextView;
 
 /**
