@@ -12,8 +12,9 @@ import view.IOManagerTextView;
 public class HelpEditCharTest extends IOManagerControllerTest {
 
   @Test
-  public void helpQuit() {
-    Readable input = new StringReader("help quit y");
+  public void editChar() {
+    fail();
+    Readable input = new StringReader("edit-char quit y");
     Appendable output = new StringBuilder();
 
     this.model = new IOManager();
@@ -21,9 +22,13 @@ public class HelpEditCharTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("\n"
-            + "",
-        output.toString().split("Awaiting command:\n")[1]);
+    assertEquals("create-char (name playerName role roleSpecification "
+            + "strength intelligence creativity charisma stealth intimidation\n"
+            + "\n"
+            + "edit-char (name)\n"
+            + "\n"
+            + "remove-char (name)\n",
+        output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
   }
 
 }

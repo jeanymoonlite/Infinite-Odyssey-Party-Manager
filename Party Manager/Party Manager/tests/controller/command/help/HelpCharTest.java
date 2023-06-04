@@ -12,7 +12,7 @@ import view.IOManagerTextView;
 public class HelpCharTest extends IOManagerControllerTest {
 
   @Test
-  public void helpQuit() {
+  public void helpChar() {
     Readable input = new StringReader("help-char quit y");
     Appendable output = new StringBuilder();
 
@@ -23,10 +23,16 @@ public class HelpCharTest extends IOManagerControllerTest {
 
     assertEquals("create-char (name playerName role roleSpecification "
             + "strength intelligence creativity charisma stealth intimidation\n"
+            + "\tCreates a new character with the given information.\n"
             + "\n"
             + "edit-char (name)\n"
+            + "\tEdits a character with the given name.\n"
+            + "This will put the program into character editing mode.\n"
+            + "A new set of commands will become available in editing mode.\n"
             + "\n"
-            + "remove-char (name)\n",
+            + "remove-char (name)\n"
+            + "\tRemoves a character with the given name\n"
+            + "\n",
         output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
   }
 

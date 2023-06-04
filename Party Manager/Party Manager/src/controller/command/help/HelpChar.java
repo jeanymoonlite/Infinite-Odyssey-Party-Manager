@@ -26,14 +26,18 @@ public final class HelpChar extends ACommand {
     try {
       this.view.display("create-char (name playerName role roleSpecification "
           + "strength intelligence creativity charisma stealth intimidation\n");
-
+      this.view.display("\tCreates a new character with the given information.\n");
       this.view.display("\n");
 
       this.view.display("edit-char (name)\n");
-
+      this.view.display("\tEdits a character with the given name.\n"
+          + "This will put the program into character editing mode.\n"
+          + "A new set of commands will become available in editing mode.\n");
       this.view.display("\n");
 
       this.view.display("remove-char (name)\n");
+      this.view.display("\tRemoves a character with the given name\n");
+      this.view.display("\n");
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");

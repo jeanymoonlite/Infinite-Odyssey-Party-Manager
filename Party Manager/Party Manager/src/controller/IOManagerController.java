@@ -3,6 +3,10 @@ package controller;
 import controller.command.ACommand;
 import controller.command.help.Help;
 import controller.command.help.HelpChar;
+import controller.command.help.HelpDice;
+import controller.command.help.HelpManager;
+import controller.command.help.HelpParty;
+import controller.command.help.HelpStats;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -57,6 +61,12 @@ public class IOManagerController implements Controller {
 
     this.commands.put("help", new Help(this.model, this.view));
     this.commands.put("help-char", new HelpChar(this.model, this.view));
+    this.commands.put("help-party", new HelpParty(this.model, this.view));
+
+    this.commands.put("help-manager", new HelpManager(this.model, this.view));
+
+    this.commands.put("help-dice", new HelpDice(this.model, this.view));
+    this.commands.put("help-stats", new HelpStats(this.model, this.view));
 
   }
 
