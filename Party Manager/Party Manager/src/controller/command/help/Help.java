@@ -6,7 +6,7 @@ import model.Manager;
 import view.TextView;
 
 /**
- * A command object that displays all possible commands for this program.
+ * A command object that displays all help commands for this program.
  */
 public final class Help extends ACommand {
 

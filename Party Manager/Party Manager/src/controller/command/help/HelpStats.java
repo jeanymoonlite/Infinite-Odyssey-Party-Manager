@@ -6,7 +6,7 @@ import model.Manager;
 import view.TextView;
 
 /**
- * A command object that displays all the commands relating to characters.
+ * A command object that displays all the commands relating to stats.
  */
 public final class HelpStats extends ACommand {
 

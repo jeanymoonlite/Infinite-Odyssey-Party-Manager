@@ -1,6 +1,7 @@
 package controller;
 
 import controller.command.ACommand;
+import controller.command.character.CreateChar;
 import controller.command.help.Help;
 import controller.command.help.HelpAll;
 import controller.command.help.HelpChar;
@@ -71,6 +72,8 @@ public class IOManagerController implements Controller {
     this.commands.put("help-dice", new HelpDice(this.model, this.view));
     this.commands.put("help-stats", new HelpStats(this.model, this.view));
 
+    this.commands.put("create-char", new CreateChar(this.model, this.view, this.sc));
+
   }
 
   @Override
@@ -136,7 +139,7 @@ public class IOManagerController implements Controller {
         try {
           this.view.display("Invalid command\n");
         } catch (IOException io) {
-          //pass
+          throw new RuntimeException("Fatal Error: IOException occurred.");
         }
       }
     }

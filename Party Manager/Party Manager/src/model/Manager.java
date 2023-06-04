@@ -35,6 +35,7 @@ public interface Manager {
    * @throws IllegalStateException if the manager has no characters
    */
   Character[] getAllCharacters() throws IllegalStateException;
+  
 
   /**
    * Determines whether this {@code Manager} contains a {@code Character} with the given
