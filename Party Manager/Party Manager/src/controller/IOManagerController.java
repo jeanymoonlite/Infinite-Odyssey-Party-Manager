@@ -88,8 +88,9 @@ public class IOManagerController implements Controller {
       if (!this.tryingToQuit) {
         try {
           this.view.display("Awaiting command:\n");
-        } catch (IOException io) {
-          //pass
+        }
+        catch (IOException io) {
+          throw new RuntimeException("Fatal Error: IOException occurred.");
         }
       }
 
@@ -107,7 +108,9 @@ public class IOManagerController implements Controller {
             this.view.display("Bye Bye!");
           }
 
-          catch (IOException ignore) {}
+          catch (IOException e) {
+            throw new RuntimeException("Fatal Error: IOException occurred.");
+          }
           break;
         }
         else if (currCommand.equalsIgnoreCase("n")) {
@@ -119,7 +122,9 @@ public class IOManagerController implements Controller {
             this.view.display("Invalid command\n");
             this.quitMessage();
           }
-          catch (IOException ignored) {}
+          catch (IOException ignored) {
+            throw new RuntimeException("Fatal Error: IOException occurred.");
+          }
           continue;
         }
       }
@@ -138,7 +143,8 @@ public class IOManagerController implements Controller {
       else {
         try {
           this.view.display("Invalid command\n");
-        } catch (IOException io) {
+        }
+        catch (IOException io) {
           throw new RuntimeException("Fatal Error: IOException occurred.");
         }
       }
@@ -149,8 +155,9 @@ public class IOManagerController implements Controller {
     try {
       this.view.display("Welcome to the Infinite Odyssey's Party Manager.\n\n");
       this.view.displayManagerRules();
-    } catch (IOException io) {
-      //pass
+    }
+    catch (IOException io) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
     }
   }
 
@@ -158,8 +165,9 @@ public class IOManagerController implements Controller {
     try {
       this.view.display("WARNING: Quitting will delete any unsaved progress. "
           + "Confirm? (y/n)\n");
-    } catch (IOException e) {
-      //ignore
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
     }
     this.tryingToQuit = true;
   }

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.StringReader;
+import java.util.NoSuchElementException;
 import model.Manager;
 import model.infiniteodysseys.IOManager;
 import org.junit.Test;
@@ -210,6 +211,23 @@ public class IOManagerControllerTest {
             + "Confirm? (y/n)\n"
             + "Bye Bye!",
         output.toString());
+  }
+
+  @Test
+  public void noInput() {
+    Readable input = new StringReader("");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+
+    try {
+      this.controller.start();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("No input detected.", e.getMessage());
+    }
   }
 
   @Test
