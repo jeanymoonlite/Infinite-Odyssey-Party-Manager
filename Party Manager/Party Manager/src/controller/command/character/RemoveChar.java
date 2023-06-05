@@ -29,5 +29,7 @@ public final class RemoveChar extends ACommand {
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
     }
+
+    this.sc.close();
   }
 }

@@ -42,8 +42,6 @@ public final class CreateChar extends ACommand {
 
       String roleSpecification = this.getRoleSpec();
 
-//      this.sc.nextLine();
-
       int[] stats = this.getStats();
 
       Character c = new IOCharacter(name, playerName, role, roleSpecification,

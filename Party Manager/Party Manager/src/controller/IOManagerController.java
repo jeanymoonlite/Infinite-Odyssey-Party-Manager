@@ -13,6 +13,8 @@ import controller.command.help.HelpStats;
 import controller.command.manager.PartyCommand;
 import controller.command.manager.ShowAllChars;
 import controller.command.manager.ShowAllParties;
+import controller.command.manager.ShowChar;
+import controller.command.party.CreateParty;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -79,10 +81,16 @@ public class IOManagerController implements Controller {
     this.commands.put("create-char", new CreateChar(this.model, this.view, this.sc));
     this.commands.put("remove-char", new RemoveChar(this.model, this.view, this.sc));
 
+    this.commands.put("create-party", new CreateParty(this.model, this.view, this.sc));
+
     this.commands.put("party", new PartyCommand(this.model, this.view, this.sc));
 
-    this.commands.put("show-all-chars", new ShowAllChars(this.model, this.view, this.sc));
-    this.commands.put("show-all-parties", new ShowAllParties(this.model, this.view, this.sc));
+    this.commands.put("show-all-chars", new ShowAllChars(this.model, this.view));
+    this.commands.put("show-all-parties", new ShowAllParties(this.model, this.view));
+
+    this.commands.put("show-char", new ShowChar(this.model, this.view, this.sc));
+
+
 
 
   }
@@ -160,6 +168,8 @@ public class IOManagerController implements Controller {
         }
       }
     }
+
+    this.sc.close();
   }
 
   private void startMessage() {

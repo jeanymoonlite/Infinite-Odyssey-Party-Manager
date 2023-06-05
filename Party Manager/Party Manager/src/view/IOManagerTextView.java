@@ -116,6 +116,7 @@ public class IOManagerTextView implements TextView {
           this.display(",");
         }
       }
+
       this.display("\n");
     }
     this.display("Total Parties: " + this.model.getAllParties().length + "\n");

@@ -11,23 +11,26 @@ import view.TextView;
  */
 public final class ShowAllParties extends ACommand {
 
-  private final Scanner sc;
-
   /**
    * Constructs a new {@code ShowAllParties}.
    *
    * @param model the model to use
    * @param view  the view to use to render messages
    */
-  public ShowAllParties(Manager model, TextView view, Scanner sc) {
+  public ShowAllParties(Manager model, TextView view) {
     super(model, view);
-    this.sc = sc;
   }
 
   @Override
   public void run() {
     try {
-      this.view.displayAllParties();
+      try {
+        this.view.displayAllParties();
+      }
+      catch (IllegalStateException e) {
+        this.view.display("The Manager doesn't have any Parties!\n");
+        this.view.display("Add Parties using the create-party command.\n");
+      }
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");

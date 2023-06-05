@@ -9,10 +9,10 @@ import model.infiniteodysseys.IOManager;
 import org.junit.Test;
 import view.IOManagerTextView;
 
-public class ShowAllCharsTest extends IOManagerControllerTest {
+public class ShowAllPartiesTest extends IOManagerControllerTest {
 
   @Test
-  public void successfulShowAllChars() {
+  public void successfulShowAllParties() {
     Readable input = new StringReader("create-char\n"
         + "Onion\n"
         + "Steven\n"
@@ -56,8 +56,8 @@ public class ShowAllCharsTest extends IOManagerControllerTest {
   }
 
   @Test
-  public void noCharsShowAllChars() {
-    Readable input = new StringReader("show-all-chars\n"
+  public void noPartyShowAllParties() {
+    Readable input = new StringReader("show-all-parties\n"
         + "quit y");
     Appendable output = new StringBuilder();
 
@@ -65,12 +65,11 @@ public class ShowAllCharsTest extends IOManagerControllerTest {
     this.view = new IOManagerTextView(this.model, output);
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
-    
-    assertEquals("The Manager doesn't have any Characters!\n"
-            + "Add Characters using the create-char command.\n",
+
+    assertEquals("The Manager doesn't have any Parties!\n"
+            + "Add Parties using the create-party command.\n",
         output.toString()
             .split("WARNING")[0]
             .split("Awaiting command:\n")[1]);
   }
-
 }
