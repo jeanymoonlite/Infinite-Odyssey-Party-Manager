@@ -140,6 +140,29 @@ public class IOManagerTest extends IOPartyTest {
   }
 
   @Test
+  public void getStats() {
+    assertEquals("Hp", this.m.getStats()[0]);
+    assertEquals("Defense", this.m.getStats()[1]);
+    assertEquals("Strength", this.m.getStats()[2]);
+    assertEquals("Intelligence", this.m.getStats()[3]);
+    assertEquals("Creativity", this.m.getStats()[4]);
+    assertEquals("Charisma", this.m.getStats()[5]);
+    assertEquals("Stealth", this.m.getStats()[6]);
+    assertEquals("Intimidation", this.m.getStats()[7]);
+  }
+
+  @Test
+  public void getRoles() {
+    assertEquals("Warrior", this.m.getRoles()[0]);
+    assertEquals("Wizard", this.m.getRoles()[1]);
+    assertEquals("Bard", this.m.getRoles()[2]);
+    assertEquals("Engineer", this.m.getRoles()[3]);
+    assertEquals("Rogue", this.m.getRoles()[4]);
+    assertEquals("Monk", this.m.getRoles()[5]);
+    assertEquals("Human", this.m.getRoles()[6]);
+  }
+
+  @Test
   public void doesCharacterExist() {
     try {
       this.m.doesCharacterExist(null);

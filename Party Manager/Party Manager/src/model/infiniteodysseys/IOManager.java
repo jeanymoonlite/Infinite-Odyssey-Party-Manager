@@ -87,6 +87,19 @@ public class IOManager implements Manager {
   }
 
   @Override
+  public String[] getStats() {
+    String[] stats = new String[] {"Hp", "Defense", "Strength", "Intelligence", "Creativity", "Charisma", "Stealth", "Intimidation"};
+    return stats;
+  }
+
+  @Override
+  public String[] getRoles() {
+    String[] roles = new String[] {"Warrior", "Wizard", "Bard",
+        "Engineer", "Rogue", "Monk", "Human"};
+    return roles;
+  }
+
+  @Override
   public boolean doesCharacterExist(String name) throws IllegalArgumentException {
     if (name == null) {
       throw new IllegalArgumentException("The given String cannot be null.");

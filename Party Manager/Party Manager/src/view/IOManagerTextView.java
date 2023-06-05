@@ -5,13 +5,12 @@ import model.Character;
 import model.Manager;
 import model.Party;
 import model.infiniteodysseys.IORoles;
+import utils.RomanNumerals;
 
 public class IOManagerTextView implements TextView {
 
   private final Manager model;
   private final Appendable output;
-  private final String[] stats = new String[] {"Strength", "Intelligence", "Creativity",
-      "Charisma", "Stealth", "Intimidation"};
 
   /**
    * Constructs a new {@code IOManagerTextView} with the given {@code Manager} and
@@ -73,14 +72,11 @@ public class IOManagerTextView implements TextView {
   private void statRule() throws IOException {
     this.display("1. All characters have the following stats:\n");
 
-    String[] numerals = new String[] {"i", "ii", "iii", "iv", "v",
-        "vi", "vii", "viii", "ix", "x"};
+    this.display("\t" + RomanNumerals.get(1) + ". Hp (integer between 0-100)\n");
+    this.display("\t" + RomanNumerals.get(2) + ". Defense (which is dictated by Role)\n");
 
-    this.display("\t" + numerals[0] + ". Hp (integer between 0-100)\n");
-    this.display("\t" + numerals[1] + ". Defense (which is dictated by Role)\n");
-
-    for (int i = 0; i < this.stats.length; i++) {
-      this.display("\t" + numerals[i + 2] + ". " + this.stats[i] + "\n");
+    for (int i = 2; i < this.model.getStats().length; i++) {
+      this.display("\t" + RomanNumerals.get(i + 1) + ". " + this.model.getStats()[i] + "\n");
     }
 
     this.display("\n2. The sum of every stat's value must NOT exceed 30.\n");
@@ -88,18 +84,14 @@ public class IOManagerTextView implements TextView {
   }
 
   private void roleRule() throws IOException {
-    String[] numerals = new String[] {"i", "ii", "iii", "iv", "v",
-        "vi", "vii", "viii", "ix", "x"};
 
     this.display("\n4. All characters must have one of the roles listed below.\n");
 
-    IORoles[] r = IORoles.values();
-    for (int i = 0; i < r.length; i++) {
+    for (int i = 0; i < this.model.getRoles().length; i++) {
       String role = "";
 
-        role = r[i].toString().charAt(0)
-            + r[i].toString().substring(1).toLowerCase();
-        this.display("\t" + numerals[i] + ". " + role + "\n");
+      role = this.model.getRoles()[i];
+      this.display("\t" + RomanNumerals.get(1 + i) + ". " + role + "\n");
     }
   }
 
@@ -155,7 +147,10 @@ public class IOManagerTextView implements TextView {
     this.display(role + roleSpecification + "\n");
     this.display(health + defense + "\n");
 
-    for (String s : this.stats) {
+    String[] stats = new String[this.model.getStats().length - 2];
+    System.arraycopy(this.model.getStats(), 2, stats, 0, stats.length);
+
+    for (String s : stats) {
       this.display(s + ": " + c.getValueOf(s));
 
       int roleValue = c.getRoleValueOf(s);

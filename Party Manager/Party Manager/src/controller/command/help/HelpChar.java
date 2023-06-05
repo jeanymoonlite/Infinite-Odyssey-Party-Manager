@@ -22,9 +22,22 @@ public final class HelpChar extends ACommand {
 
   @Override
   public void run() {
+    String[] stats = new String[this.model.getStats().length];
+
+    for (int i = 2; i < stats.length; i++) {
+      stats[i] = this.model.getStats()[i].toLowerCase();
+    }
+
     try {
-      this.view.display("create-char (name playerName role roleSpecification "
-          + "strength intelligence creativity charisma stealth intimidation\n");
+      this.view.display("create-char (name playerName role roleSpecification ");
+
+      for (int i = 2; i < stats.length; i++) {
+        this.view.display(stats[i]);
+
+        if (i != stats.length - 1) this.view.display(" ");
+      }
+
+      this.view.display("\n");
       this.view.display("\tCreates a new Character with the given information.\n");
       this.view.display("\n");
 

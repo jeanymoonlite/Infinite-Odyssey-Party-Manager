@@ -35,7 +35,20 @@ public interface Manager {
    * @throws IllegalStateException if the manager has no characters
    */
   Character[] getAllCharacters() throws IllegalStateException;
-  
+
+  /**
+   * Returns a String array featuring every stat that the {@code Characters} in this
+   * {@code Manager} has.
+   * @return a String array with the name of every stat.
+   */
+  String[] getStats();
+
+  /**
+   * Returns a String array featuring every role that the {@code Characters} in this
+   * {@code Manager} has.
+   * @return a String array with the name of every role.
+   */
+  String[] getRoles();
 
   /**
    * Determines whether this {@code Manager} contains a {@code Character} with the given
