@@ -256,7 +256,7 @@ public class IOManager implements Manager {
 
     this.parties.removeIf((p) -> p.getName().equalsIgnoreCase(name));
 
-    if (!this.doesPartyExist(this.curParty.getName())) {
+    if ((this.curParty != null) && !this.doesPartyExist(this.curParty.getName())) {
       this.resetActiveParty();
     }
   }

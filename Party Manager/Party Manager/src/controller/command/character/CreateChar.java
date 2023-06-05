@@ -51,7 +51,7 @@ public final class CreateChar extends ACommand {
       this.view.display("\n");
 
       while (true) {
-        this.view.display("Create the following Character? (Confirm y or n): y\n");
+        this.view.display("Create the following Character? (Confirm y or n): \n");
         this.view.displayCharacter(name);
 
         String answer = this.sc.next();
@@ -110,7 +110,7 @@ public final class CreateChar extends ACommand {
 
       if (name.isEmpty() || name.isBlank()) {
         this.view.display("\nInvalid input: Player name cannot be whitespace. Please try again.\n");
-        this.getPlayerName();
+        return this.getPlayerName();
       }
 
       return name;
