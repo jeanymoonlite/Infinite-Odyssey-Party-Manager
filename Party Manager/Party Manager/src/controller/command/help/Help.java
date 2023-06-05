@@ -30,7 +30,7 @@ public final class Help extends ACommand {
       this.view.display("\n");
 
       this.view.display("help-all\n");
-      this.view.display("\tDisplays every command in this program organized by categories.\n");
+      this.view.display("\tDisplays every command in the program organized by categories.\n");
       this.view.display("\n");
 
       this.view.display("help-char\n");

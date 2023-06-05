@@ -12,7 +12,7 @@ import view.IOManagerTextView;
 public class HelpTest extends IOManagerControllerTest {
 
   @Test
-  public void helpChar() {
+  public void help() {
     Readable input = new StringReader("help quit y");
     Appendable output = new StringBuilder();
 
@@ -26,7 +26,7 @@ public class HelpTest extends IOManagerControllerTest {
             + "\tWhen in Character or Party editing mode, this command displays the edit specific commands.\n"
             + "\n"
             + "help-all\n"
-            + "\tDisplays every command in this program organized by categories.\n"
+            + "\tDisplays every command in the program organized by categories.\n"
             + "\n"
             + "help-char\n"
             + "\tDisplays every character-related command.\n"

@@ -2,6 +2,7 @@ package controller;
 
 import controller.command.ACommand;
 import controller.command.character.CreateChar;
+import controller.command.character.RemoveChar;
 import controller.command.help.Help;
 import controller.command.help.HelpAll;
 import controller.command.help.HelpChar;
@@ -9,6 +10,9 @@ import controller.command.help.HelpDice;
 import controller.command.help.HelpManager;
 import controller.command.help.HelpParty;
 import controller.command.help.HelpStats;
+import controller.command.manager.PartyCommand;
+import controller.command.manager.ShowAllChars;
+import controller.command.manager.ShowAllParties;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -73,6 +77,13 @@ public class IOManagerController implements Controller {
     this.commands.put("help-stats", new HelpStats(this.model, this.view));
 
     this.commands.put("create-char", new CreateChar(this.model, this.view, this.sc));
+    this.commands.put("remove-char", new RemoveChar(this.model, this.view, this.sc));
+
+    this.commands.put("party", new PartyCommand(this.model, this.view, this.sc));
+
+    this.commands.put("show-all-chars", new ShowAllChars(this.model, this.view, this.sc));
+    this.commands.put("show-all-parties", new ShowAllParties(this.model, this.view, this.sc));
+
 
   }
 

@@ -71,9 +71,9 @@ public class IOManagerTextViewTest extends IOManagerTest {
     try {
       this.view.displayManagerRules();
       assertEquals("This Manager is made to be used for Infinite Odysseys.\n"
-              + "This means that the Manager has the following rules when it comes "
-              + "to creating characters:\n"
-              + "1. All characters have the following stats:\n"
+              + "This means that the Manager has the following rules when it\n"
+              + "comes to creating Characters:\n"
+              + "1. All Characters have the following stats:\n"
               + "\ti. Hp (integer between 0-100)\n"
               + "\tii. Defense (which is dictated by Role)\n"
               + "\tiii. Strength\n"
@@ -84,7 +84,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
               + "\tviii. Intimidation\n"
               + "\n2. The sum of every stat's value must NOT exceed 30.\n"
               + "\n3. No stat can have a value less than 0.\n"
-              + "\n4. All characters must have one of the roles listed below.\n"
+              + "\n4. All Characters must have one of the Roles listed below.\n"
               + "\ti. Warrior\n"
               + "\tii. Wizard\n"
               + "\tiii. Bard\n"
@@ -193,7 +193,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
     try {
       this.view.displayCharacter("Lunarose");
       assertEquals("Lunarose (Luna)\n"
-              + "Class: Wizard (Fire Mage)\n"
+              + "Role: Wizard (Fire Mage)\n"
               + "Hp: 100/100\n"
               + "Strength: 5\n"
               + "Intelligence: 5\n"
@@ -208,7 +208,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
 
       this.view.displayCharacter("Onion");
       assertEquals("Onion (Steven)\n"
-              + "Class: Human\n"
+              + "Role: Human\n"
               + "Hp: 100/100\n"
               + "Strength: 1 (+1)\n"
               + "Intelligence: 1 (+1)\n"
@@ -258,7 +258,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
     try {
       this.view.displayParty("The Infinite Odyssey");
       assertEquals("Lunarose (Luna)\n"
-              + "Class: Wizard (Fire Mage)\n"
+              + "Role: Wizard (Fire Mage)\n"
               + "Hp: 0/100\n"
               + "Strength: 5\n"
               + "Intelligence: 5\n"
@@ -268,7 +268,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
               + "Intimidation: 0\n"
               + "\n"
               + "Rose Walker (Day)\n"
-              + "Class: Rogue (Assassin)\n"
+              + "Role: Rogue (Assassin)\n"
               + "Hp: 98/100 (-5 Def)\n"
               + "Strength: 12 (+2)\n"
               + "Intelligence: 5\n"
@@ -300,7 +300,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
       this.view.displayActiveParty();
       assertEquals("Active Party: The Boys\n\n"
               + "Lunarose (Luna)\n"
-              + "Class: Wizard (Fire Mage)\n"
+              + "Role: Wizard (Fire Mage)\n"
               + "Hp: 100/100\n"
               + "Strength: 5\n"
               + "Intelligence: 5\n"
@@ -310,7 +310,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
               + "Intimidation: 0\n"
               + "\n"
               + "Jake Walker (Jacob)\n"
-              + "Class: Warrior (Soldier)\n"
+              + "Role: Warrior (Soldier)\n"
               + "Hp: 100/100 (+5 Def)\n"
               + "Strength: 12\n"
               + "Intelligence: 5\n"
@@ -320,7 +320,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
               + "Intimidation: 7\n"
               + "\n"
               + "Manuel (Bryan)\n"
-              + "Class: Engineer (Mechanic)\n"
+              + "Role: Engineer (Mechanic)\n"
               + "Hp: 100/100\n"
               + "Strength: 9\n"
               + "Intelligence: 6 (+3)\n"
@@ -330,7 +330,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
               + "Intimidation: 7\n"
               + "\n"
               + "Onion (Steven)\n"
-              + "Class: Human\n"
+              + "Role: Human\n"
               + "Hp: 100/100\n"
               + "Strength: 1 (+1)\n"
               + "Intelligence: 1 (+1)\n"

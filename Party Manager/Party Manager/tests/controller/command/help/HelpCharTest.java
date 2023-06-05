@@ -21,8 +21,9 @@ public class HelpCharTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("create-char (name playerName role roleSpecification "
-            + "strength intelligence creativity charisma stealth intimidation\n"
+    assertEquals("create-char (name playerName role roleSpecification\n"
+            + "             strength intelligence creativity\n"
+            + "             charisma stealth intimidation)\n"
             + "\tCreates a new Character with the given information.\n"
             + "\n"
             + "edit-char (name)\n"

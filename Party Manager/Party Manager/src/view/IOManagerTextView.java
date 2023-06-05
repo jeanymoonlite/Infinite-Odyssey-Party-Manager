@@ -63,14 +63,14 @@ public class IOManagerTextView implements TextView {
   @Override
   public void displayManagerRules() throws IOException {
     this.display("This Manager is made to be used for Infinite Odysseys.\n");
-    this.display("This means that the Manager has the following rules when it"
-        + " comes to creating characters:\n");
+    this.display("This means that the Manager has the following rules when it\n");
+    this.display("comes to creating Characters:\n");
     this.statRule();
     this.roleRule();
   }
 
   private void statRule() throws IOException {
-    this.display("1. All characters have the following stats:\n");
+    this.display("1. All Characters have the following stats:\n");
 
     this.display("\t" + RomanNumerals.get(1) + ". Hp (integer between 0-100)\n");
     this.display("\t" + RomanNumerals.get(2) + ". Defense (which is dictated by Role)\n");
@@ -85,7 +85,7 @@ public class IOManagerTextView implements TextView {
 
   private void roleRule() throws IOException {
 
-    this.display("\n4. All characters must have one of the roles listed below.\n");
+    this.display("\n4. All Characters must have one of the Roles listed below.\n");
 
     for (int i = 0; i < this.model.getRoles().length; i++) {
       String role = "";
@@ -132,7 +132,7 @@ public class IOManagerTextView implements TextView {
     assert c != null;
     String playerName = c.getName() + " (" + c.getPlayerName() + ")";
 
-    String role = "Class: " + c.getRole();
+    String role = "Role: " + c.getRole();
     String roleSpecification = (c.getSpecification().isBlank()) ?
         "" : " (" + c.getSpecification() + ")";
 

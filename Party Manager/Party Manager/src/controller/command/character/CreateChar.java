@@ -15,7 +15,7 @@ import view.TextView;
  * A command object that creates a {@code Character} and adds it to the given
  * model.
  */
-public class CreateChar extends ACommand {
+public final class CreateChar extends ACommand {
 
   private final Scanner sc;
 
@@ -42,8 +42,7 @@ public class CreateChar extends ACommand {
 
       String roleSpecification = this.getRoleSpec();
 
-      this.view.display("");
-      this.sc.nextLine();
+//      this.sc.nextLine();
 
       int[] stats = this.getStats();
 
@@ -126,7 +125,7 @@ public class CreateChar extends ACommand {
     try {
       this.view.display("Role: ");
       IORoles validRole = null;
-      String role = this.sc.next();
+      String role = this.sc.nextLine();
 
       for (IORoles r : IORoles.values()) {
         if (r.toString().equalsIgnoreCase(role)) {
@@ -138,7 +137,7 @@ public class CreateChar extends ACommand {
       if (validRole == null) {
         this.view.display("\nInvalid input: " + role + " is not a valid role."
             + " Please try again.\n");
-        this.getRole();
+        return this.getRole();
       }
 
       return validRole;
@@ -149,8 +148,14 @@ public class CreateChar extends ACommand {
 
   private String getRoleSpec() {
     try {
-      this.view.display("Role Specification (Type enter to leave blank): ");
-      return this.sc.nextLine();
+      this.view.display("Role Specification (Type n/a to leave blank): ");
+      String roleSpec = this.sc.nextLine();
+
+      if (roleSpec.equalsIgnoreCase("n/a")) {
+        return "";
+      }
+
+      return roleSpec;
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
