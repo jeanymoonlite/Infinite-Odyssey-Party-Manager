@@ -88,9 +88,9 @@ Stats Related
                           This command rejects any doubles and negative numbers.
                           Additionally, if the character doesn't exist, the command informs the user.
 
-[] heal-all (amount) : Adds the amount to every character in the active party.
+[x] heal-all (amount) : Adds the amount to every character in the active party.
 
-[] damage-all (amount) : Subtracts the amount to every character in the active party.
+[x] damage-all (amount) : Subtracts the amount to every character in the active party.
 
 
 Manager Observer

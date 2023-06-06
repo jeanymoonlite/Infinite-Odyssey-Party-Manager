@@ -48,50 +48,82 @@ public class ChangeHp extends ACommand {
         }
 
         if (this.all) {
-          try {
-            this.model.getActiveParty();
-          }
-          catch (IllegalStateException e) {
-            this.view.display("Invalid state: This command is to be used during a campaign.");
-          }
-        }
-
-        String name = this.sc.nextLine().trim();
-
-        try {
-          this.model.getAllCharacters();
-        }
-        catch (IllegalStateException e) {
-          this.view.display("The Manager doesn't have any Characters!\n");
-          this.view.display("Add Characters using the create-char command.\n");
-          return;
-        }
-
-        if (!this.model.doesCharacterExist(name)) {
-          this.view.display("The Character " + name + " doesn't exist in this Manager.\n");
-          return;
-        }
-
-        Character c = this.model.findCharByName(name);
-
-        if (this.heal) {
-          c.setHP(c.getHP() + amount);
-          this.view.display(name + " had " + amount + " hp restored.\n");
-
+          this.party(amount);
         }
         else {
-          c.setHP(c.getHP() - Clamp.run((amount) - c.getDefense(), 1, 100));
-          this.view.display(name + " lost " + Clamp.run((amount) - c.getDefense(), 1, 100) + " hp.\n");
+          this.single(amount);
         }
-
-        this.view.display(c.getName() + " (" + c.getPlayerName() + ") ");
-        this.view.display("Hp: " + c.getHP() + "/" + c.getMaxHP() + "\n");
-
       }
       catch (InputMismatchException e) {
         this.sc.nextLine();
         this.view.display("Invalid input: Amount cannot be a decimal.\n");
       }
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+  }
+
+  private void single(int amount) {
+    String name = this.sc.nextLine().trim();
+    try {
+      try {
+        if (!this.model.hasStartedACampaign()) {
+          this.model.getAllCharacters();
+        }
+      }
+      catch (IllegalStateException e) {
+        this.view.display("The Manager doesn't have any Characters!\n");
+        this.view.display("Add Characters using the create-char command.\n");
+        return;
+      }
+
+      if (!this.model.doesCharacterExist(name)) {
+        this.view.display("The Character " + name + " doesn't exist in this Manager.\n");
+        return;
+      }
+
+      Character c = this.model.findCharByName(name);
+
+      this.changeHp(c, amount);
+
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+  }
+
+  private void party(int amount) {
+    try {
+      if (!this.model.hasStartedACampaign()) {
+        this.view.display("Invalid state: This command is to be used during a campaign.\n");
+        this.view.display("Use the start command to start a campaign.\n");
+        return;
+      }
+
+      for (Character c : this.model.getActiveParty().getParty()) {
+        this.changeHp(c, amount);
+      }
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+  }
+
+  private void changeHp(Character c, int amount) {
+    try {
+      if (this.heal) {
+        c.setHP(c.getHP() + amount);
+        this.view.display(c.getName() + " had " + amount + " hp restored.\n");
+
+      } else {
+        c.setHP(c.getHP() - Clamp.run((amount) - c.getDefense(), 1, 100));
+        this.view.display(
+            c.getName() + " lost " + Clamp.run((amount) - c.getDefense(), 1, 100) + " hp.\n");
+      }
+
+      this.view.display(c.getName() + " (" + c.getPlayerName() + ") ");
+      this.view.display("Hp: " + c.getHP() + "/" + c.getMaxHP() + "\n");
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");

@@ -3,10 +3,12 @@ package controller.command.stats;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
+import java.util.NoSuchElementException;
 import model.infiniteodysseys.IOManager;
 import org.junit.Test;
 import view.IOManagerTextView;
@@ -200,6 +202,187 @@ public class ChangeHpTest extends IOManagerControllerTest {
   }
 
   @Test
+  public void successfulHealAll() {
+    Readable input = new StringReader("create-char\n"
+        + "Onion\n"
+        + "Steven\n"
+        + "Human\n"
+        + "n/a\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Jake Walker\n"
+        + "Jake\n"
+        + "Warrior\n"
+        + "Soldier\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Steven Universe\n"
+        + "Steven\n"
+        + "Bard\n"
+        + "Musician\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Randy\n"
+        + "Randy\n"
+        + "Rogue\n"
+        + "Ninja\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-party\n"
+        + "The Boys\n"
+        + "Onion, Steven Universe, Jake Walker, Randy\n"
+        + "y\n"
+        + "start The Boys\n"
+        + "y\n"
+        + "damage 20 Onion\n"
+        + "damage 20 Steven Universe\n"
+        + "damage 20 Jake Walker\n"
+        + "damage 20 Randy\n"
+        + "heal-all 100\n"
+        );
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+    try {
+      this.controller.start();
+      fail();
+    }
+    catch (NoSuchElementException | IllegalStateException e) {
+      assertTrue(this.model.doesCharacterExist("Onion"));
+      assertTrue(this.model.doesCharacterExist("Steven Universe"));
+      assertTrue(this.model.doesCharacterExist("Jake Walker"));
+      assertTrue(this.model.doesCharacterExist("Randy"));
+      assertTrue(this.model.doesPartyExist("The Boys"));
+
+      assertEquals("Onion had 100 hp restored.\n"
+              + "Onion (Steven) Hp: 100/100\n"
+              + "Steven Universe had 100 hp restored.\n"
+              + "Steven Universe (Steven) Hp: 100/100\n"
+              + "Jake Walker had 100 hp restored.\n"
+              + "Jake Walker (Jake) Hp: 100/100\n"
+              + "Randy had 100 hp restored.\n"
+              + "Randy (Randy) Hp: 100/100\n",
+          output.toString()
+              .split("WARNING")[0]
+              .split("Awaiting command:\n")[11]);
+    }
+  }
+
+  @Test
+  public void successfulDamageAll() {
+    Readable input = new StringReader("create-char\n"
+        + "Onion\n"
+        + "Steven\n"
+        + "Human\n"
+        + "n/a\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Jake Walker\n"
+        + "Jake\n"
+        + "Warrior\n"
+        + "Soldier\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Steven Universe\n"
+        + "Steven\n"
+        + "Bard\n"
+        + "Musician\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Randy\n"
+        + "Randy\n"
+        + "Rogue\n"
+        + "Ninja\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-party\n"
+        + "The Boys\n"
+        + "Onion, Steven Universe, Jake Walker, Randy\n"
+        + "y\n"
+        + "start The Boys\n"
+        + "y\n"
+        + "damage-all 100\n"
+        + "heal-all 1\n"
+    );
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+    try {
+      this.controller.start();
+      fail();
+    }
+    catch (NoSuchElementException | IllegalStateException e) {
+      assertTrue(this.model.doesCharacterExist("Onion"));
+      assertTrue(this.model.doesCharacterExist("Steven Universe"));
+      assertTrue(this.model.doesCharacterExist("Jake Walker"));
+      assertTrue(this.model.doesCharacterExist("Randy"));
+      assertTrue(this.model.doesPartyExist("The Boys"));
+
+      assertEquals("Onion lost 100 hp.\n"
+              + "Onion (Steven) Hp: 0/100\n"
+              + "Steven Universe lost 99 hp.\n"
+              + "Steven Universe (Steven) Hp: 1/100\n"
+              + "Jake Walker lost 95 hp.\n"
+              + "Jake Walker (Jake) Hp: 5/100\n"
+              + "Randy lost 100 hp.\n"
+              + "Randy (Randy) Hp: 0/100\n",
+          output.toString()
+              .split("WARNING")[0]
+              .split("Awaiting command:\n")[7]);
+    }
+  }
+
+  @Test
   public void amount0() {
     Readable input = new StringReader("create-char\n"
         + "Onion\n"
@@ -274,7 +457,33 @@ public class ChangeHpTest extends IOManagerControllerTest {
   }
 
   @Test
-  public void nonExistHealAndDamage() {
+  public void noStartHealAndDamageAll() {
+    Readable input = new StringReader("damage-all 20\n"
+        + "heal-all 10\n"
+        + "quit y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+    this.controller.start();
+
+    assertFalse(this.model.doesCharacterExist("Onion"));
+    assertEquals("Invalid state: This command is to be used during a campaign.\n"
+            + "Use the start command to start a campaign.\n",
+        output.toString()
+            .split("WARNING")[0]
+            .split("Awaiting command:\n")[1]);
+
+    assertEquals("Invalid state: This command is to be used during a campaign.\n"
+            + "Use the start command to start a campaign.\n",
+        output.toString()
+            .split("WARNING")[0]
+            .split("Awaiting command:\n")[2]);
+  }
+
+  @Test
+  public void nonExistCharHealAndDamage() {
     Readable input = new StringReader("create-char\n"
         + "Onion\n"
         + "Steven\n"
@@ -325,6 +534,8 @@ public class ChangeHpTest extends IOManagerControllerTest {
         + "y\n"
         + "damage 20.5 Onion\n"
         + "heal 10.223 Onion\n"
+        + "damage-all 20.5\n"
+        + "heal-all 10.223\n"
         + "quit y");
     Appendable output = new StringBuilder();
 
@@ -343,41 +554,15 @@ public class ChangeHpTest extends IOManagerControllerTest {
         output.toString()
             .split("WARNING")[0]
             .split("Awaiting command:\n")[3]);
-  }
-
-  @Test
-  public void decimalHealAndDamage2() {
-    Readable input = new StringReader("create-char\n"
-        + "Onion\n"
-        + "Steven\n"
-        + "Human\n"
-        + "n/a\n"
-        + "1\n"
-        + "1\n"
-        + "1\n"
-        + "1\n"
-        + "1\n"
-        + "1\n"
-        + "y\n"
-        + "damage 20.5\n"
-        + "heal 10.223\n"
-        + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-    this.controller.start();
-
-    assertTrue(this.model.doesCharacterExist("Onion"));
-    assertEquals("Invalid input: Amount cannot be a decimal.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[2]);
 
     assertEquals("Invalid input: Amount cannot be a decimal.\n",
         output.toString()
             .split("WARNING")[0]
-            .split("Awaiting command:\n")[3]);
+            .split("Awaiting command:\n")[4]);
+
+    assertEquals("Invalid input: Amount cannot be a decimal.\n",
+        output.toString()
+            .split("WARNING")[0]
+            .split("Awaiting command:\n")[5]);
   }
 }
