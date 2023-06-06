@@ -98,7 +98,7 @@ public final class CreateParty extends ACommand {
       Character[] c = new Character[charsAdd.size()];
 
       for (int i = 0; i < charsAdd.size(); i++) {
-        c[i] = this.findByName(charsAdd.get(i));
+        c[i] = this.model.findCharByName(charsAdd.get(i));
       }
 
       this.model.addParty(name, c);
@@ -158,15 +158,4 @@ public final class CreateParty extends ACommand {
       throw new RuntimeException("Fatal Error: IOException occurred.");
     }
   }
-
-
-  private Character findByName(String name) {
-    for (Character c : this.model.getAllCharacters()) {
-      if (c.getName().equalsIgnoreCase(name)) {
-        return c;
-      }
-    }
-    return null;
-  }
-
 }

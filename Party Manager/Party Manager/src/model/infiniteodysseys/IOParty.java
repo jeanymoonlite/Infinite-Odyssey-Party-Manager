@@ -93,26 +93,4 @@ public final class IOParty implements Party {
     }
     return false;
   }
-
-  @Override
-  public void damage(String name, int amount) throws IllegalArgumentException {
-    Character c = this.getPartyMember(name);
-
-    if (amount < 0) {
-      throw new IllegalArgumentException("Damage amount should be a positive number.");
-    }
-
-    c.setHP(Clamp.run(c.getHP() - amount, 0, 100));
-  }
-
-  @Override
-  public void heal(String name, int amount) throws IllegalArgumentException {
-    Character c = this.getPartyMember(name);
-
-    if (amount < 0) {
-      throw new IllegalArgumentException("ChangeHp amount should be a positive number.");
-    }
-
-    c.setHP(Clamp.run(c.getHP() + amount, 0, 100));
-  }
 }

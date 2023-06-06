@@ -252,8 +252,8 @@ public class IOManagerTextViewTest extends IOManagerTest {
     }
 
     this.model.setActiveParty("The Infinite Odyssey");
-    this.model.getActiveParty().damage("Lunarose", 640);
-    this.model.getActiveParty().damage("Rose Walker", 2);
+    this.model.damage("Lunarose", 640);
+    this.model.damage("Rose Walker", 2);
 
     try {
       this.view.displayParty("The Infinite Odyssey");

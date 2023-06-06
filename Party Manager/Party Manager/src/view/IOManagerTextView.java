@@ -128,7 +128,7 @@ public class IOManagerTextView implements TextView {
     this.model.getAllCharacters();
 
 
-    Character c = this.findCharByName(name);
+    Character c = this.model.findCharByName(name);
 
     assert c != null;
     String playerName = c.getName() + " (" + c.getPlayerName() + ")";
@@ -165,25 +165,12 @@ public class IOManagerTextView implements TextView {
     }
   }
 
-  private Character findCharByName(String name) {
-    if (!this.model.doesCharacterExist(name)) {
-      throw new IllegalArgumentException("This Manager doesn't have a Character named " + name + ".");
-    }
-
-    for (Character character : this.model.getAllCharacters()) {
-      if (character.getName().equalsIgnoreCase(name)) {
-        return character;
-      }
-    }
-    return null;
-  }
-
   @Override
   public void displayParty(String name)
       throws IOException, IllegalArgumentException, IllegalStateException {
     this.model.getAllParties();
 
-    Party party = this.findPartyByName(name);
+    Party party = this.model.findPartyByName(name);
 
     for (int i = 0; i < party.size(); i++) {
       Character character = party.getParty()[i];
@@ -193,19 +180,6 @@ public class IOManagerTextView implements TextView {
         this.display("\n");
       }
     }
-  }
-
-  private Party findPartyByName(String name) {
-    if (!this.model.doesPartyExist(name)) {
-      throw new IllegalArgumentException("This Manager doesn't have a Party named " + name + ".");
-    }
-
-    for (Party party : this.model.getAllParties()) {
-      if (party.getName().equalsIgnoreCase(name)) {
-        return party;
-      }
-    }
-    throw new IllegalArgumentException("This Manager doesn't have a Party named " + name + ".");
   }
 
   @Override

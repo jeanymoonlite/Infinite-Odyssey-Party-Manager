@@ -7,9 +7,21 @@ package model;
 public interface Manager {
 
   /**
+   * Returns whether a campaign has been started with this {@code Manager}.
+   * @return true if a campaign has been started, otherwise false.
+   */
+  boolean hasStartedACampaign();
+
+  /**
+   * Starts or ends a campaign with this {@code Manager}, using the active party.
+   * @throws IllegalStateException if the active party is null.
+   */
+  void startCampaign(boolean start) throws IllegalStateException;
+
+  /**
    * Sets the party the manager is going to use.
    * @param name the name of the party to use
-   * @throws IllegalStateException if the manager has no parties
+   * @throws IllegalStateException if the manager has no parties OR if a campaign has been started
    * @throws IllegalArgumentException if the given String is null
    *                                  OR there's no party with the given name
    */
@@ -26,6 +38,7 @@ public interface Manager {
    * Returns every {@code Party} this {@code Manager} has.
    * @return every {@code Party} this {@code Manager} has.
    * @throws IllegalStateException if the manager has no parties
+   *                               OR if a campaign has been started
    */
   Party[] getAllParties() throws IllegalStateException;
 
@@ -33,6 +46,7 @@ public interface Manager {
    * Returns every {@code Character} this {@code Manager} has.
    * @return every {@code Character} this {@code Manager} has.
    * @throws IllegalStateException if the manager has no characters
+   *                               OR if a campaign has been started
    */
   Character[] getAllCharacters() throws IllegalStateException;
 
@@ -51,6 +65,24 @@ public interface Manager {
   String[] getRoles();
 
   /**
+   * Reduces the hp of the {@code Character} in the party that has the given name.
+   * @param name the name of the character to damage
+   * @param amount the amount of hp to reduce
+   * @throws IllegalArgumentException if the amount is less than 0
+   *                                  OR if the given String is null
+   */
+  void damage(String name, int amount) throws IllegalArgumentException;
+
+  /**
+   * Adds to the hp value of a the {@code Character} in the party that has the given name.
+   * @param name the name of the character to damage
+   * @param amount the amount of hp to reduce
+   * @throws IllegalArgumentException if the amount is less than 0
+   *                                  OR if the given String is null
+   */
+  void heal(String name, int amount) throws IllegalArgumentException;
+
+  /**
    * Determines whether this {@code Manager} contains a {@code Character} with the given
    * name.
    * @param name the name to look for
@@ -67,6 +99,26 @@ public interface Manager {
    * @throws IllegalArgumentException if the given String is null
    */
   boolean doesPartyExist(String name) throws IllegalArgumentException;
+
+  /**
+   * Returns the {@code Character} in this manage with the given name.
+   * @param name the name of the character to find.
+   * @return the character with the given name
+   * @throws IllegalArgumentException if the given String is null
+   *                                  OR if there's no character with the given name.
+   * @throws IllegalStateException if the manager has no characters
+   */
+  Character findCharByName(String name) throws IllegalArgumentException, IllegalStateException;
+
+  /**
+   * Returns the {@code Party} in this manage with the given name.
+   * @param name the name of the party to find.
+   * @return the party with the given name
+   * @throws IllegalArgumentException if the given String is null
+   *                                  OR if there's no party with the given name.
+   * @throws IllegalStateException if the manager has no parties
+   */
+  Party findPartyByName(String name) throws IllegalArgumentException, IllegalStateException;
 
   /**
    * Adds the given {@code Character} to this {@code Manager}.

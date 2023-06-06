@@ -40,23 +40,4 @@ public interface Party {
    */
   boolean hasCharacter(String name) throws IllegalArgumentException;
 
-  /**
-   * Reduces the hp of the {@code Character} in the party that has the given name.
-   * @param name the name of the character to damage
-   * @param amount the amount of hp to reduce
-   * @throws IllegalArgumentException if the amount is less than 0
-   *                                  OR if the given String is null
-   */
-  void damage(String name, int amount) throws IllegalArgumentException;
-
-  /**
-   * Adds to the hp value of a the {@code Character} in the party that has the given name.
-   * @param name the name of the character to damage
-   * @param amount the amount of hp to reduce
-   * @throws IllegalArgumentException if the amount is less than 0
-   *                                  OR if the given String is null
-   */
-  void heal(String name, int amount) throws IllegalArgumentException;
-
-
 }

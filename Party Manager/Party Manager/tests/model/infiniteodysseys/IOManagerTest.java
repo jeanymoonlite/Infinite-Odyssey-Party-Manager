@@ -2,6 +2,7 @@ package model.infiniteodysseys;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -41,6 +42,31 @@ public class IOManagerTest extends IOPartyTest {
     m.addParty("The Boys", this.luna, this.jake, this.bryan, this.steven);
     m.addParty("The Infinite Odyssey", this.luna, this.rose);
     m.addParty("Future", this.luna, this.dre, this.steven, this.rose);
+  }
+
+  @Test
+  public void startCampaignAndHasStartedCampaign() {
+    this.addCharsAndParties();
+    assertNull(this.m.getActiveParty());
+
+    assertFalse(this.m.hasStartedACampaign());
+    try {
+      this.m.startCampaign(true);
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("A active party needs to be set first before starting a campaign.", e.getMessage());
+    }
+
+    this.m.setActiveParty("The Boys");
+    assertEquals("The Boys", this.m.getActiveParty().getName());
+
+    this.m.startCampaign(true);
+
+    assertTrue(this.m.hasStartedACampaign());
+
+    this.m.startCampaign(false);
+    assertFalse(this.m.hasStartedACampaign());
   }
 
   @Test
@@ -102,6 +128,16 @@ public class IOManagerTest extends IOPartyTest {
     this.m.setActiveParty("The Infinite Odyssey");
 
     assertEquals("The Infinite Odyssey", this.m.getActiveParty().getName());
+
+    this.m.startCampaign(true);
+
+    try {
+      this.m.setActiveParty("Le Boys");
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("Unable to use this method since a campaign is in progress.", e.getMessage());
+    }
   }
 
   @Test
@@ -118,6 +154,17 @@ public class IOManagerTest extends IOPartyTest {
 
     assertEquals(4, this.m.getAllParties()[0].size());
     assertEquals(2, this.m.getAllParties()[1].size());
+
+    this.m.setActiveParty("The Infinite Odyssey");
+    this.m.startCampaign(true);
+
+    try {
+      this.m.setActiveParty("Le Boys");
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("Unable to use this method since a campaign is in progress.", e.getMessage());
+    }
   }
 
   @Test
@@ -137,6 +184,17 @@ public class IOManagerTest extends IOPartyTest {
     assertEquals(this.bryan, this.m.getAllCharacters()[2]);
     assertEquals(this.rose, this.m.getAllCharacters()[3]);
     assertEquals(this.steven, this.m.getAllCharacters()[4]);
+
+    this.m.setActiveParty("The Infinite Odyssey");
+    this.m.startCampaign(true);
+
+    try {
+      this.m.setActiveParty("Le Boys");
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("Unable to use this method since a campaign is in progress.", e.getMessage());
+    }
   }
 
   @Test
@@ -160,6 +218,64 @@ public class IOManagerTest extends IOPartyTest {
     assertEquals("Rogue", this.m.getRoles()[4]);
     assertEquals("Monk", this.m.getRoles()[5]);
     assertEquals("Human", this.m.getRoles()[6]);
+  }
+
+  @Test
+  public void findCharByName() {
+    try {
+      this.m.findCharByName("");
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("This Manager doesn't have any Characters!", e.getMessage());
+    }
+
+    this.addCharsAndParties();
+
+    try {
+      this.m.findCharByName(null);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("The given String cannot be null.", e.getMessage());
+    }
+
+    try {
+      this.m.findCharByName("null");
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("There's no Character with the name null.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void findPartyByName() {
+    try {
+      this.m.findPartyByName("");
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("This Manager doesn't have any Parties!", e.getMessage());
+    }
+
+    this.addCharsAndParties();
+
+    try {
+      this.m.findPartyByName(null);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("The given String cannot be null.", e.getMessage());
+    }
+
+    try {
+      this.m.findPartyByName("null");
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("There's no Party with the name null.", e.getMessage());
+    }
   }
 
   @Test
@@ -233,6 +349,29 @@ public class IOManagerTest extends IOPartyTest {
     }
     catch (IllegalStateException e) {
       assertEquals("Unable to add Lunarose since there's already a Character with that name.",
+          e.getMessage());
+    }
+
+    this.initManager();
+    this.addCharsAndParties();
+    this.m.setActiveParty("The Infinite Odyssey");
+    this.m.startCampaign(true);
+
+    try {
+      this.m.setActiveParty("Le Boys");
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("Unable to use this method since a campaign is in progress.", e.getMessage());
+    }
+    this.m.startCampaign(false);
+
+    try {
+      this.m.addCharacter(new MockNonIOCharacter());
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("This Character does not have all of the stats this Manager requires.",
           e.getMessage());
     }
   }
@@ -330,6 +469,19 @@ public class IOManagerTest extends IOPartyTest {
       assertEquals("Unable to add The Boys since there's already a Party with that name.",
           e.getMessage());
     }
+
+    this.initManager();
+    this.addCharsAndParties();
+    this.m.setActiveParty("The Infinite Odyssey");
+    this.m.startCampaign(true);
+
+    try {
+      this.m.setActiveParty("Le Boys");
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("Unable to use this method since a campaign is in progress.", e.getMessage());
+    }
   }
 
   @Test
@@ -391,6 +543,19 @@ public class IOManagerTest extends IOPartyTest {
     this.m.removeCharacter("Onion");
     assertFalse(this.m.doesPartyExist("Future"));
     assertFalse(this.m.doesCharacterExist("Dre"));
+
+    this.initManager();
+    this.addCharsAndParties();
+    this.m.setActiveParty("The Infinite Odyssey");
+    this.m.startCampaign(true);
+
+    try {
+      this.m.setActiveParty("Le Boys");
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("Unable to use this method since a campaign is in progress.", e.getMessage());
+    }
   }
 
   @Test
@@ -435,6 +600,108 @@ public class IOManagerTest extends IOPartyTest {
     catch (IllegalStateException e) {
       assertEquals("This Manager doesn't have any Parties!", e.getMessage());
     }
+
+    this.initManager();
+    this.addCharsAndParties();
+    this.m.setActiveParty("The Infinite Odyssey");
+    this.m.startCampaign(true);
+
+    try {
+      this.m.setActiveParty("Le Boys");
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("Unable to use this method since a campaign is in progress.", e.getMessage());
+    }
+  }
+
+  @Test
+  public void damageAndHeal() {
+    try {
+      this.m.damage(null, -1);
+      fail();
+    }
+    catch (IllegalStateException e) {
+      assertEquals("This Manager doesn't have any Characters!",
+          e.getMessage());
+    }
+
+    this.addCharsAndParties();
+
+    try {
+      this.m.damage(null, -1);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("The given String cannot be null.",
+          e.getMessage());
+    }
+
+    try {
+      this.m.heal(null, -1);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("The given String cannot be null.",
+          e.getMessage());
+    }
+
+    try {
+      this.m.damage("", -1);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("There's no Character with the name .",
+          e.getMessage());
+    }
+
+    try {
+      this.m.heal("", -1);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("There's no Character with the name .",
+          e.getMessage());
+    }
+
+    try {
+      this.m.damage("Lunarose", -1);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("Damage amount should be a positive number.",
+          e.getMessage());
+    }
+
+    try {
+      this.m.heal("Lunarose", -1);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("Heal amount should be a positive number.",
+          e.getMessage());
+    }
+
+    assertEquals(100, this.luna.getHP());
+    this.m.damage("Lunarose", 50);
+
+    assertEquals(50, this.luna.getHP());
+
+    this.m.damage("Lunarose", 20);
+
+    assertEquals(30, this.luna.getHP());
+
+    this.m.damage("Lunarose", 50);
+
+    assertEquals(0, this.luna.getHP());
+
+    this.m.heal("Lunarose", 50);
+
+    assertEquals(50, this.luna.getHP());
+
+    this.m.heal("Lunarose", 500);
+
+    assertEquals(100, this.luna.getHP());
   }
 
   @Test
@@ -446,7 +713,7 @@ public class IOManagerTest extends IOPartyTest {
     assertEquals(100,
         this.m.getActiveParty().getPartyMember("Lunarose").getHP());
 
-    this.m.getActiveParty().damage("Lunarose", 50);
+    this.m.damage("Lunarose", 50);
 
     assertEquals(50,
         this.m.getActiveParty().getPartyMember("Lunarose").getHP());

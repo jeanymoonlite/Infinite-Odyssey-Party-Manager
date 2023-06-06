@@ -67,6 +67,7 @@ public final class IOCharacter implements Character {
     this.stats.put("Max HP", 100);
     this.hp = this.stats.get("Max HP");
 
+    this.stats.put("Hp", this.hp);
     this.stats.put("Strength", str);
     this.stats.put("Intelligence", intel);
     this.stats.put("Creativity", cre);

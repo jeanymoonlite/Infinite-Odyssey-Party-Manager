@@ -70,7 +70,7 @@ public class ChangeHp extends ACommand {
           return;
         }
 
-        Character c = this.findByName(name);
+        Character c = this.model.findCharByName(name);
 
         if (this.heal) {
           c.setHP(c.getHP() + amount);
@@ -94,14 +94,5 @@ public class ChangeHp extends ACommand {
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
     }
-  }
-
-  private Character findByName(String name) {
-    for (Character c : this.model.getAllCharacters()) {
-      if (c.getName().equalsIgnoreCase(name)) {
-        return c;
-      }
-    }
-    return null;
   }
 }

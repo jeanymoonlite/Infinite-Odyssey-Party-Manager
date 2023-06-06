@@ -7,6 +7,7 @@ import java.util.Objects;
 import model.Character;
 import model.Manager;
 import model.Party;
+import utils.Clamp;
 
 /**
  * An implementation of the {@code Manager} for Infinite Odysseys.
@@ -16,6 +17,7 @@ public class IOManager implements Manager {
   private final List<Party> parties;
   private final List<Character> characters;
   private Party curParty;
+  private boolean startedCampaign;
 
   /**
    * Constructs a new {@code IOManager}.
@@ -23,6 +25,21 @@ public class IOManager implements Manager {
   public IOManager() {
     this.parties = new ArrayList<Party>();
     this.characters = new ArrayList<Character>();
+    this.startedCampaign = false;
+  }
+
+  @Override
+  public boolean hasStartedACampaign() {
+    return this.startedCampaign;
+  }
+
+  @Override
+  public void startCampaign(boolean start) throws IllegalStateException {
+    if ((start) && (this.curParty == null)) {
+      throw new IllegalStateException("A active party needs to be set first before starting a campaign.");
+    }
+
+    this.startedCampaign = start;
   }
 
   @Override
@@ -31,6 +48,10 @@ public class IOManager implements Manager {
 
     if (this.parties.size() == 0) {
       throw new IllegalStateException("This Manager doesn't have any Parties!");
+    }
+
+    if (this.startedCampaign) {
+      throw new IllegalStateException("Unable to use this method since a campaign is in progress.");
     }
 
     if (name == null) {
@@ -62,6 +83,10 @@ public class IOManager implements Manager {
       throw new IllegalStateException("This Manager doesn't have any Parties!");
     }
 
+    if (this.startedCampaign) {
+      throw new IllegalStateException("Unable to use this method since a campaign is in progress.");
+    }
+
     Party[] result = new Party[this.parties.size()];
 
     for (int i = 0; i < this.parties.size(); i++) {
@@ -77,6 +102,10 @@ public class IOManager implements Manager {
       throw new IllegalStateException("This Manager doesn't have any Characters!");
     }
 
+    if (this.startedCampaign) {
+      throw new IllegalStateException("Unable to use this method since a campaign is in progress.");
+    }
+
     Character[] result = new Character[this.characters.size()];
 
     for (int i = 0; i < this.characters.size(); i++) {
@@ -88,15 +117,34 @@ public class IOManager implements Manager {
 
   @Override
   public String[] getStats() {
-    String[] stats = new String[] {"Hp", "Defense", "Strength", "Intelligence", "Creativity", "Charisma", "Stealth", "Intimidation"};
-    return stats;
+    return IOStats.getAll();
   }
 
   @Override
   public String[] getRoles() {
-    String[] roles = new String[] {"Warrior", "Wizard", "Bard",
-        "Engineer", "Rogue", "Monk", "Human"};
-    return roles;
+    return IORoles.getAll();
+  }
+
+  @Override
+  public void damage(String name, int amount) throws IllegalArgumentException {
+    Character c = this.findCharByName(name);
+
+    if (amount < 0) {
+      throw new IllegalArgumentException("Damage amount should be a positive number.");
+    }
+
+    c.setHP(Clamp.run(c.getHP() - amount, 0, 100));
+  }
+
+  @Override
+  public void heal(String name, int amount) throws IllegalArgumentException {
+    Character c = this.findCharByName(name);
+
+    if (amount < 0) {
+      throw new IllegalArgumentException("Heal amount should be a positive number.");
+    }
+
+    c.setHP(Clamp.run(c.getHP() + amount, 0, 100));
   }
 
   @Override
@@ -128,8 +176,52 @@ public class IOManager implements Manager {
   }
 
   @Override
+  public Character findCharByName(String name)
+      throws IllegalArgumentException, IllegalStateException {
+    if (this.characters.size() == 0) {
+      throw new IllegalStateException("This Manager doesn't have any Characters!");
+    }
+
+    if (name == null) {
+      throw new IllegalArgumentException("The given String cannot be null.");
+    }
+
+    for (Character c : this.getAllCharacters()) {
+      if (c.getName().equalsIgnoreCase(name)) {
+        return c;
+      }
+    }
+
+    throw new IllegalArgumentException("There's no Character with the name " + name + ".");
+  }
+
+  @Override
+  public Party findPartyByName(String name)
+      throws IllegalArgumentException, IllegalStateException {
+    if (this.parties.size() == 0) {
+      throw new IllegalStateException("This Manager doesn't have any Parties!");
+    }
+
+    if (name == null) {
+      throw new IllegalArgumentException("The given String cannot be null.");
+    }
+
+    for (Party p : this.getAllParties()) {
+      if (p.getName().equalsIgnoreCase(name)) {
+        return p;
+      }
+    }
+
+    throw new IllegalArgumentException("There's no Party with the name " + name + ".");
+  }
+
+  @Override
   public void addCharacter(Character c)
       throws IllegalArgumentException, IllegalStateException {
+
+    if (this.startedCampaign) {
+      throw new IllegalStateException("Unable to use this method since a campaign is in progress.");
+    }
 
     if (c == null) {
       throw new IllegalArgumentException("Null cannot be added as a Character.");
@@ -140,12 +232,27 @@ public class IOManager implements Manager {
           + c.getName() + " since there's already a Character with that name.");
     }
 
+    try {
+      String[] stats = this.getStats();
+
+      for (String s : stats) {
+        c.getValueOf(s);
+      }
+    }
+    catch (IllegalArgumentException e) {
+      throw new IllegalArgumentException("This Character does not have all of the stats this Manager requires.");
+    }
+
     this.characters.add(c);
   }
 
   @Override
   public void addParty(String name, Character... c)
       throws IllegalArgumentException, IllegalStateException {
+
+    if (this.startedCampaign) {
+      throw new IllegalStateException("Unable to use this method since a campaign is in progress.");
+    }
 
     if (name == null) {
       throw new IllegalArgumentException("The given String cannot be null.");
@@ -180,6 +287,10 @@ public class IOManager implements Manager {
   @Override
   public void removeCharacter(String name)
       throws IllegalArgumentException, IllegalStateException {
+
+    if (this.startedCampaign) {
+      throw new IllegalStateException("Unable to use this method since a campaign is in progress.");
+    }
 
     if (this.characters.size() == 0) {
       throw new IllegalStateException("This Manager doesn't have any Characters!");
@@ -246,6 +357,10 @@ public class IOManager implements Manager {
   public void removeParty(String name)
       throws IllegalArgumentException, IllegalStateException {
 
+    if (this.startedCampaign) {
+      throw new IllegalStateException("Unable to use this method since a campaign is in progress.");
+    }
+
     if (this.parties.size() == 0) {
       throw new IllegalStateException("This Manager doesn't have any Parties!");
     }
@@ -269,4 +384,5 @@ public class IOManager implements Manager {
 
     this.curParty = this.parties.get(0);
   }
+
 }

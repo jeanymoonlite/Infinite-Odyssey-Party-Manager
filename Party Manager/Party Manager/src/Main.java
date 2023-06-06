@@ -3,6 +3,7 @@ import controller.IOManagerController;
 import java.io.InputStreamReader;
 import model.Manager;
 import model.infiniteodysseys.IOManager;
+import model.infiniteodysseys.IOStats;
 import view.IOManagerTextView;
 import view.TextView;
 
@@ -16,7 +17,10 @@ public class Main {
     Readable rd = new InputStreamReader(System.in);
     Controller controller = new IOManagerController(model, view, rd);
 
-    controller.start();
+    for (IOStats s : IOStats.values()) {
+      System.out.println(s.toString());
+    }
+//    controller.start();
   }
 
 
