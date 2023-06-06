@@ -64,8 +64,8 @@ Party Related
   [] add-char (character...) : Adds the given characters to the party. The character names MUST all be
                                in one line. Like create party, this command will ignore invalid
                                characters and characters that are already in the party.
-                               Note: This command should also, like create party, inform users when they
-                               are giving a party a name that already exists.
+
+  [] remove-char (name) : Removes the character with the given name from the party.
 
   [] edit-name (newName): Changes the name of the party with the given one.
                           Note: This command should also, like create party, inform users when they
