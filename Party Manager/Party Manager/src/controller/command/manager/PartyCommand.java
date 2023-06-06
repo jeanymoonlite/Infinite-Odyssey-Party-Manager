@@ -3,10 +3,7 @@ package controller.command.manager;
 import controller.command.ACommand;
 import java.io.IOException;
 import java.util.Scanner;
-import model.Character;
 import model.Manager;
-import model.infiniteodysseys.IOCharacter;
-import model.infiniteodysseys.IORoles;
 import view.TextView;
 
 public final class PartyCommand extends ACommand {

@@ -2,7 +2,6 @@ package controller;
 
 import controller.command.ACommand;
 import controller.command.character.CreateChar;
-import controller.command.character.RemoveChar;
 import controller.command.dice.Dice;
 import controller.command.dice.Roll;
 import controller.command.dice.SetSeed;

@@ -4,7 +4,6 @@ import controller.IOManagerSeedHolder;
 import controller.command.ACommand;
 import java.io.IOException;
 import java.util.Random;
-import java.util.Scanner;
 import model.Manager;
 import utils.Clamp;
 import view.TextView;

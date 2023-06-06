@@ -1,12 +1,13 @@
 package controller.command.manager;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
-import model.infiniteodysseys.IOCharacter;
 import model.Character;
+import model.infiniteodysseys.IOCharacter;
 import model.infiniteodysseys.IOManager;
 import model.infiniteodysseys.IORoles;
 import org.junit.Test;

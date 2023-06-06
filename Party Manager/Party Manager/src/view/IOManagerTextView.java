@@ -4,7 +4,6 @@ import java.io.IOException;
 import model.Character;
 import model.Manager;
 import model.Party;
-import model.infiniteodysseys.IORoles;
 import utils.RomanNumerals;
 
 public class IOManagerTextView implements TextView {

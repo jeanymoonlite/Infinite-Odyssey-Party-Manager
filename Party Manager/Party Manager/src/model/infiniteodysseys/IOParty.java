@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Objects;
 import model.Character;
 import model.Party;
-import utils.Clamp;
 
 /**
  * Represents an Infinite Odysseys party.

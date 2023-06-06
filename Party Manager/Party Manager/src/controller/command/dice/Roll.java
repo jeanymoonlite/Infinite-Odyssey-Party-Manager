@@ -1,6 +1,5 @@
 package controller.command.dice;
 
-import controller.IOManagerSeedHolder;
 import controller.command.ACommand;
 import java.io.IOException;
 import java.util.InputMismatchException;

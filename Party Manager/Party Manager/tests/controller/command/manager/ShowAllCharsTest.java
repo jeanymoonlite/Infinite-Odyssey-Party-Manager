@@ -1,6 +1,7 @@
 package controller.command.manager;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
@@ -65,7 +66,7 @@ public class ShowAllCharsTest extends IOManagerControllerTest {
     this.view = new IOManagerTextView(this.model, output);
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
-    
+
     assertEquals("The Manager doesn't have any Characters!\n"
             + "Add Characters using the create-char command.\n",
         output.toString()
