@@ -18,6 +18,7 @@ public final class ShowParty extends ACommand {
    *
    * @param model the model to use
    * @param view  the view to use to render messages
+   * @param sc  the scanner to read input from
    */
   public ShowParty(Manager model, TextView view, Scanner sc) {
     super(model, view);

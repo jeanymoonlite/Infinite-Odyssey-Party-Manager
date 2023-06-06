@@ -14,6 +14,7 @@ public class SomeCommand extends ACommand {
    *
    * @param model the model to use
    * @param view  the view to use to render messages
+   * @param sc  the scanner to read input from
    */
   public SomeCommand(Manager model, TextView view, Scanner sc) {
     super(model, view);

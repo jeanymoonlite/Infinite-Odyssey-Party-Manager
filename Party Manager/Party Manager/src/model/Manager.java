@@ -14,6 +14,7 @@ public interface Manager {
 
   /**
    * Starts or ends a campaign with this {@code Manager}, using the active party.
+   * @param start flag to either start or end a campaign
    * @throws IllegalStateException if the active party is null.
    */
   void startCampaign(boolean start) throws IllegalStateException;

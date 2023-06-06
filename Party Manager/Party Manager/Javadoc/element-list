@@ -1,7 +1,12 @@
 unnamed package
 controller
 controller.command
+controller.command.character
+controller.command.dice
 controller.command.help
+controller.command.manager
+controller.command.party
+controller.command.stats
 model
 model.infiniteodysseys
 utils

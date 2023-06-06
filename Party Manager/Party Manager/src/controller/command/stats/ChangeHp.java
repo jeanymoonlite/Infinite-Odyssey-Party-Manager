@@ -25,6 +25,8 @@ public class ChangeHp extends ACommand {
    * @param model the model to use
    * @param view  the view to use to render messages
    * @param sc  the scanner to read input from
+   * @param heal whether to heal or damage
+   * @param all whether the command affects one character or a party
    */
   public ChangeHp(Manager model, TextView view, Scanner sc, boolean heal, boolean all) {
     super(model, view);
