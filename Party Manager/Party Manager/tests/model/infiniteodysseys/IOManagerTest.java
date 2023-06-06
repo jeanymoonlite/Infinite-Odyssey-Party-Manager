@@ -245,7 +245,7 @@ public class IOManagerTest extends IOPartyTest {
       fail();
     }
     catch (IllegalArgumentException e) {
-      assertEquals("There's no Character with the name null.", e.getMessage());
+      assertEquals("This Manager doesn't have a Character named null.", e.getMessage());
     }
   }
 
@@ -274,7 +274,7 @@ public class IOManagerTest extends IOPartyTest {
       fail();
     }
     catch (IllegalArgumentException e) {
-      assertEquals("There's no Party with the name null.", e.getMessage());
+      assertEquals("This Manager doesn't have a Party named null.", e.getMessage());
     }
   }
 
@@ -651,7 +651,7 @@ public class IOManagerTest extends IOPartyTest {
       fail();
     }
     catch (IllegalArgumentException e) {
-      assertEquals("There's no Character with the name .",
+      assertEquals("This Manager doesn't have a Character named .",
           e.getMessage());
     }
 
@@ -660,7 +660,7 @@ public class IOManagerTest extends IOPartyTest {
       fail();
     }
     catch (IllegalArgumentException e) {
-      assertEquals("There's no Character with the name .",
+      assertEquals("This Manager doesn't have a Character named .",
           e.getMessage());
     }
 

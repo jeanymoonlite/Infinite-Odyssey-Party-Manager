@@ -192,7 +192,7 @@ public class IOManager implements Manager {
       }
     }
 
-    throw new IllegalArgumentException("There's no Character with the name " + name + ".");
+    throw new IllegalArgumentException("This Manager doesn't have a Character named " + name + ".");
   }
 
   @Override
@@ -212,7 +212,7 @@ public class IOManager implements Manager {
       }
     }
 
-    throw new IllegalArgumentException("There's no Party with the name " + name + ".");
+    throw new IllegalArgumentException("This Manager doesn't have a Party named " + name + ".");
   }
 
   @Override
