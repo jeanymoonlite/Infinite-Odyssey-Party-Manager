@@ -15,7 +15,7 @@ Help Related
 [x] quit : Exits the entire program if a campaign hasn't started. If a campaign has started,
           the program will exit back to the Manager, where all the commands will be available.
 [] back : Will return the programs state back to requesting general commands.
-[] clear : Will render 100 linebreaks to "clear" the screen of text.
+[x] clear : Will render 100 linebreaks to "clear" the screen of text.
 
 Character Related
 [x] create-char (name playerName role roleSpecification strength intelligence creativity charisma stealth intimidation)

@@ -1,6 +1,7 @@
 package controller;
 
 import controller.command.ACommand;
+import controller.command.Clear;
 import controller.command.Start;
 import controller.command.character.CreateChar;
 import controller.command.dice.Dice;
@@ -76,6 +77,8 @@ public class IOManagerController implements Controller {
     this.commands = new HashMap<String, ACommand>();
 
     this.commands.put("start", new Start(this.model, this.view, this.sc));
+
+    this.commands.put("clear", new Clear(this.model, this.view, 100));
 
     //Help
     this.commands.put("help", new Help(this.model, this.view));
