@@ -218,7 +218,7 @@ public class IOPartyTest extends IOCharacterTest {
       fail();
     }
     catch (IllegalArgumentException e) {
-      assertEquals("Heal amount should be a positive number.",
+      assertEquals("ChangeHp amount should be a positive number.",
           e.getMessage());
     }
 

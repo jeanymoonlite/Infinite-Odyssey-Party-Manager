@@ -20,6 +20,7 @@ import controller.command.manager.ShowAllParties;
 import controller.command.manager.ShowChar;
 import controller.command.manager.ShowParty;
 import controller.command.party.CreateParty;
+import controller.command.stats.ChangeHp;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -74,6 +75,7 @@ public class IOManagerController implements Controller {
   public void initCommands() {
     this.commands = new HashMap<String, ACommand>();
 
+    //Help
     this.commands.put("help", new Help(this.model, this.view));
     this.commands.put("help-all", new HelpAll(this.model, this.view));
 
@@ -85,11 +87,18 @@ public class IOManagerController implements Controller {
     this.commands.put("help-dice", new HelpDice(this.model, this.view));
     this.commands.put("help-stats", new HelpStats(this.model, this.view));
 
-    this.commands.put("create-char", new CreateChar(this.model, this.view, this.sc));
-    this.commands.put("remove-char", new RemoveChar(this.model, this.view, this.sc));
 
+    //Character
+    this.commands.put("create-char", new CreateChar(this.model, this.view, this.sc));
+//    this.commands.put("remove-char", new RemoveChar(this.model, this.view, this.sc));
+
+
+    //Party
     this.commands.put("create-party", new CreateParty(this.model, this.view, this.sc));
 
+    //Stat
+    this.commands.put("heal", new ChangeHp(this.model, this.view, this.sc, true));
+    this.commands.put("damage", new ChangeHp(this.model, this.view, this.sc, false));
 
     //Manager
     this.commands.put("party", new PartyCommand(this.model, this.view, this.sc));

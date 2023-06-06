@@ -110,7 +110,7 @@ public final class IOParty implements Party {
     Character c = this.getPartyMember(name);
 
     if (amount < 0) {
-      throw new IllegalArgumentException("Heal amount should be a positive number.");
+      throw new IllegalArgumentException("ChangeHp amount should be a positive number.");
     }
 
     c.setHP(Clamp.run(c.getHP() + amount, 0, 100));
