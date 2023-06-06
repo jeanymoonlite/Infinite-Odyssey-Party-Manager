@@ -97,8 +97,11 @@ public class IOManagerController implements Controller {
     this.commands.put("create-party", new CreateParty(this.model, this.view, this.sc));
 
     //Stat
-    this.commands.put("heal", new ChangeHp(this.model, this.view, this.sc, true));
-    this.commands.put("damage", new ChangeHp(this.model, this.view, this.sc, false));
+    this.commands.put("heal", new ChangeHp(this.model, this.view, this.sc, true, false));
+    this.commands.put("damage", new ChangeHp(this.model, this.view, this.sc, false, false));
+
+    this.commands.put("heal-all", new ChangeHp(this.model, this.view, this.sc, true, true));
+    this.commands.put("damage-all", new ChangeHp(this.model, this.view, this.sc, false, true));
 
     //Manager
     this.commands.put("party", new PartyCommand(this.model, this.view, this.sc));

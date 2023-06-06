@@ -17,6 +17,7 @@ public class ChangeHp extends ACommand {
 
   private final Scanner sc;
   private final boolean heal;
+  private final boolean all;
 
   /**
    * Constructs a new {@code Dice}.
@@ -25,10 +26,11 @@ public class ChangeHp extends ACommand {
    * @param view  the view to use to render messages
    * @param sc  the scanner to read input from
    */
-  public ChangeHp(Manager model, TextView view, Scanner sc, boolean heal) {
+  public ChangeHp(Manager model, TextView view, Scanner sc, boolean heal, boolean all) {
     super(model, view);
     this.sc = sc;
     this.heal = heal;
+    this.all = all;
   }
 
   @Override
@@ -38,8 +40,18 @@ public class ChangeHp extends ACommand {
         int amount = this.sc.nextInt();
 
         if (amount <= 0) {
+          this.sc.nextLine();
           this.view.display("Invalid input: Amount cannot be less than 1.\n");
           return;
+        }
+
+        if (this.all) {
+          try {
+            this.model.getActiveParty();
+          }
+          catch (IllegalStateException e) {
+            this.view.display("Invalid state: This command is to be used during a campaign.");
+          }
         }
 
         String name = this.sc.nextLine().trim();
@@ -75,7 +87,7 @@ public class ChangeHp extends ACommand {
 
       }
       catch (InputMismatchException e) {
-        this.sc.next();
+        this.sc.nextLine();
         this.view.display("Invalid input: Amount cannot be a decimal.\n");
       }
     }

@@ -80,11 +80,11 @@ Party Related
                          party is.
 
 Stats Related
-[] heal (amount name) : Adds the amount to the character's hp with the given name.
+[x] heal (amount name) : Adds the amount to the character's hp with the given name.
                         This command rejects any doubles and negative numbers.
                         Additionally, if the character doesn't exist, the command informs the user.
 
-[] damage (amount name) : Subtracts the amount to the character's hp with the given name.
+[x] damage (amount name) : Subtracts the amount to the character's hp with the given name.
                           This command rejects any doubles and negative numbers.
                           Additionally, if the character doesn't exist, the command informs the user.
 
