@@ -1,6 +1,7 @@
 package controller;
 
 import controller.command.ACommand;
+import controller.command.Start;
 import controller.command.character.CreateChar;
 import controller.command.dice.Dice;
 import controller.command.dice.Roll;
@@ -73,6 +74,8 @@ public class IOManagerController implements Controller {
   @Override
   public void initCommands() {
     this.commands = new HashMap<String, ACommand>();
+
+    this.commands.put("start", new Start(this.model, this.view, this.sc));
 
     //Help
     this.commands.put("help", new Help(this.model, this.view));

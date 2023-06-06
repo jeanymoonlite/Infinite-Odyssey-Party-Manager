@@ -6,7 +6,7 @@ Help Related
   [x] manager : Displays all the Manager related commands.
   [x] dice : Displays all the Dice related commands.
 
-[] start (partyName) : Starts a campaign with the given party. This party will be set as the
+[x] start (partyName) : Starts a campaign with the given party. This party will be set as the
                        active party. If the given party doesn't exist, this command will
                        inform the user. Additionally, if there are no parties in the Manager, the
                        command will tell the user to make a party first.

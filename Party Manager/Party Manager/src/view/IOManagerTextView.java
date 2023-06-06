@@ -124,8 +124,9 @@ public class IOManagerTextView implements TextView {
   @Override
   public void displayCharacter(String name)
       throws IOException, IllegalArgumentException, IllegalStateException {
-    this.model.getAllCharacters();
-
+    if (!this.model.hasStartedACampaign()) {
+      this.model.getAllCharacters();
+    }
 
     Character c = this.model.findCharByName(name);
 
@@ -167,7 +168,9 @@ public class IOManagerTextView implements TextView {
   @Override
   public void displayParty(String name)
       throws IOException, IllegalArgumentException, IllegalStateException {
-    this.model.getAllParties();
+    if (!this.model.hasStartedACampaign()) {
+      this.model.getAllParties();
+    }
 
     Party party = this.model.findPartyByName(name);
 

@@ -186,7 +186,7 @@ public class IOManager implements Manager {
       throw new IllegalArgumentException("The given String cannot be null.");
     }
 
-    for (Character c : this.getAllCharacters()) {
+    for (Character c : this.characters) {
       if (c.getName().equalsIgnoreCase(name)) {
         return c;
       }
@@ -206,7 +206,7 @@ public class IOManager implements Manager {
       throw new IllegalArgumentException("The given String cannot be null.");
     }
 
-    for (Party p : this.getAllParties()) {
+    for (Party p : this.parties) {
       if (p.getName().equalsIgnoreCase(name)) {
         return p;
       }
