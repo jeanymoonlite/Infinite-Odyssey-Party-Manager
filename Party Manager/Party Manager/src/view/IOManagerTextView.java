@@ -210,7 +210,12 @@ public class IOManagerTextView implements TextView {
 
   @Override
   public void displayActiveParty() throws IOException, IllegalStateException {
-    this.display("Active Party: " + this.model.getActiveParty().getName() + "\n\n");
-    this.displayParty(this.model.getActiveParty().getName());
+    try {
+      this.display("Active Party: " + this.model.getActiveParty().getName() + "\n\n");
+      this.displayParty(this.model.getActiveParty().getName());
+    }
+    catch (NullPointerException e) {
+      this.display("Active Party: None\n");
+    }
   }
 }

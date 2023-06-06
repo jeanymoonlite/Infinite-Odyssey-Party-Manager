@@ -294,7 +294,19 @@ public class IOManagerTextViewTest extends IOManagerTest {
     }
 
     this.addCharsAndParties(this.model);
+
+    try {
+      this.view.displayActiveParty();
+      assertEquals("Active Party: None\n", this.output.toString());
+    }
+    catch (NullPointerException | IOException e) {
+      fail();
+    }
+
     this.model.setActiveParty("The Boys");
+
+    this.output = new StringBuilder();
+    this.view = new IOManagerTextView(this.model, this.output);
 
     try {
       this.view.displayActiveParty();

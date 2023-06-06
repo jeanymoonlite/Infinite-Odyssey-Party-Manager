@@ -440,10 +440,12 @@ public class CreatePartyTest extends IOManagerControllerTest {
             + "Please input a different name.\n"
             + "Party name: "
             + "Characters (Each by a comma): \n"
-            + "Create the following Party? (Confirm y or n): \n"
-            + "Party name: Ninja\n"
+            + "Invalid input: A Party needs at least one Character.\n"
+            + "Ninja is not a Character in this Manager, therefore they won't be added.\n"
+            + "\nCreate the following Party? (Confirm y or n): \n"
+            + "Party name: create-party\n"
             + "Party members: Ninja Brian\n"
-            + "The Party Ninja was added to the Manager.\n"
+            + "The Party create-party was added to the Manager.\n"
             + "Awaiting command:\n",
         output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
   }

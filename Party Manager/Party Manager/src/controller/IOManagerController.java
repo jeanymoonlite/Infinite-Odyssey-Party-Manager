@@ -3,6 +3,10 @@ package controller;
 import controller.command.ACommand;
 import controller.command.character.CreateChar;
 import controller.command.character.RemoveChar;
+import controller.command.dice.Dice;
+import controller.command.dice.Roll;
+import controller.command.dice.SetSeed;
+import controller.command.dice.UseSeed;
 import controller.command.help.Help;
 import controller.command.help.HelpAll;
 import controller.command.help.HelpChar;
@@ -14,6 +18,7 @@ import controller.command.manager.PartyCommand;
 import controller.command.manager.ShowAllChars;
 import controller.command.manager.ShowAllParties;
 import controller.command.manager.ShowChar;
+import controller.command.manager.ShowParty;
 import controller.command.party.CreateParty;
 import java.io.IOException;
 import java.util.HashMap;
@@ -56,6 +61,7 @@ public class IOManagerController implements Controller {
       throw new IllegalArgumentException("The Readable for the Controller cannot be null.");
     }
 
+    IOManagerSeedHolder.getInstance().reset();
     this.model = model;
     this.view = view;
     this.sc = new Scanner(input);
@@ -83,16 +89,32 @@ public class IOManagerController implements Controller {
 
     this.commands.put("create-party", new CreateParty(this.model, this.view, this.sc));
 
+
+    //Manager
     this.commands.put("party", new PartyCommand(this.model, this.view, this.sc));
 
     this.commands.put("show-all-chars", new ShowAllChars(this.model, this.view));
     this.commands.put("show-all-parties", new ShowAllParties(this.model, this.view));
 
     this.commands.put("show-char", new ShowChar(this.model, this.view, this.sc));
+    this.commands.put("show-party", new ShowParty(this.model, this.view, this.sc));
 
+    //Dice
+    this.commands.put("set-seed", new SetSeed(this.model, this.view, this.sc));
+    this.commands.put("use-seed", new UseSeed(this.model, this.view, this.sc));
 
+    this.commands.put("roll", new Roll(this.model, this.view, this.sc));
 
+    this.commands.put("d2", new Dice(this.model, this.view, 2));
+    this.commands.put("coin-flip", new Dice(this.model, this.view, 2));
 
+    this.commands.put("d4", new Dice(this.model, this.view, 4));
+    this.commands.put("d6", new Dice(this.model, this.view, 6));
+    this.commands.put("d8", new Dice(this.model, this.view, 8));
+    this.commands.put("d10", new Dice(this.model, this.view, 10));
+    this.commands.put("d12", new Dice(this.model, this.view, 12));
+    this.commands.put("d20", new Dice(this.model, this.view, 20));
+    this.commands.put("d100", new Dice(this.model, this.view, 100));
   }
 
   @Override
@@ -103,72 +125,54 @@ public class IOManagerController implements Controller {
 
     // begin command input loop
     while (this.running) {
-
-      if (!this.tryingToQuit) {
-        try {
+      try {
+        if (!this.tryingToQuit) {
           this.view.display("Awaiting command:\n");
         }
-        catch (IOException io) {
-          throw new RuntimeException("Fatal Error: IOException occurred.");
+
+        // Make sure there is input to read
+        if (!this.sc.hasNext()) {
+          throw new IllegalStateException("No input detected.");
         }
-      }
 
-      // Make sure there is input to read
-      if (!this.sc.hasNext()) {
-        throw new IllegalStateException("No input detected.");
-      }
+        String currCommand = this.sc.next();
 
-      String currCommand = this.sc.next();
-
-      if (this.tryingToQuit) {
-        if (currCommand.equalsIgnoreCase("y")) {
-          this.running = false;
-          try {
+        if (this.tryingToQuit) {
+          if (currCommand.equalsIgnoreCase("y")) {
+            this.running = false;
             this.view.display("Bye Bye!");
+            break;
           }
-
-          catch (IOException e) {
-            throw new RuntimeException("Fatal Error: IOException occurred.");
+          else if (currCommand.equalsIgnoreCase("n")) {
+            tryingToQuit = false;
+            continue;
           }
-          break;
-        }
-        else if (currCommand.equalsIgnoreCase("n")) {
-          tryingToQuit = false;
-          continue;
-        }
-        else {
-          try {
+          else {
             this.view.display("Invalid command\n");
             this.quitMessage();
+            continue;
           }
-          catch (IOException ignored) {
-            throw new RuntimeException("Fatal Error: IOException occurred.");
-          }
+        }
+
+        //quitting
+        if (currCommand.equalsIgnoreCase("quit")
+            || (currCommand.equalsIgnoreCase("q"))) {
+
+          this.quitMessage();
           continue;
         }
-      }
 
-      //quitting
-      if (currCommand.equalsIgnoreCase("quit")
-          || (currCommand.equalsIgnoreCase("q"))) {
-
-        this.quitMessage();
-        continue;
-      }
-
-      if (this.commands.containsKey(currCommand)) {
-        this.commands.get(currCommand).run();
-      }
-      else {
-        try {
+        if (this.commands.containsKey(currCommand)) {
+          this.commands.get(currCommand).run();
+        }
+        else {
           this.view.display("Invalid command\n");
         }
-        catch (IOException io) {
-          throw new RuntimeException("Fatal Error: IOException occurred.");
-        }
+      }
+      catch (IOException io) {
+        throw new RuntimeException("Fatal Error: IOException occurred.");
       }
     }
-
     this.sc.close();
   }
 
@@ -192,4 +196,5 @@ public class IOManagerController implements Controller {
     }
     this.tryingToQuit = true;
   }
+
 }

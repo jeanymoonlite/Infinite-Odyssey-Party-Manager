@@ -45,7 +45,7 @@ Character Related
                         of this.
 
 Party Related
-[] create-party (name character...) : Creates a new party with the given name and characters.
+[x] create-party (name character...) : Creates a new party with the given name and characters.
                                       The character names MUST all be in one line, separated by commas.
                                       Invalid characters (as in characters that don't exist) will be
                                       ignored and will be informed to the user that that character
@@ -94,22 +94,22 @@ Stats Related
 
 
 Manager Observer
-[] party : Returns the active party if there is one. If there isn't, the command will tell
+[x] party : Returns the active party if there is one. If there isn't, the command will tell
                       the user that there are no parties.
 
 [x] show-all-chars / get-all-characters : Returns a list of every character with their name and player name.
 
-[] show-all-parties : Returns a list of every party with their names, followed by the characters in them.
+[x] show-all-parties : Returns a list of every party with their names, followed by the characters in them.
 
 [x] show-char (name) : Returns the name, role, role specification, and stats of a specified character.
                           If the character doesn't exist, the command will inform the user.
 
-[] show-party (name) : Returns the name, role, role specification, and stats of every character in the
+[x] show-party (name) : Returns the name, role, role specification, and stats of every character in the
                       specified party. If the party doesn't exist, the command will inform the user.
 
 Dice Related
-[] set-seed (seed) : Sets a seed to use for seeded-rolls.
-[] use-seed (y|n) : Enables or disables the seed for dice rolls. If a seed has NOT been set, the
+[x] set-seed (seed) : Sets a seed to use for seeded-rolls.
+[x] use-seed (y|n) : Enables or disables the seed for dice rolls. If a seed has NOT been set, the
                     command will request one. The command will ONLY accept y or n; y enables the seed,
                     n disables the seed. Seeds cannot be set for specific dice, they're either enabled
                     for all or disabled for all.

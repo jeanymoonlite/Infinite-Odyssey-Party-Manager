@@ -3,23 +3,23 @@ package controller.command.manager;
 import controller.command.ACommand;
 import java.io.IOException;
 import java.util.Scanner;
-import model.Character;
 import model.Manager;
-import model.infiniteodysseys.IOCharacter;
-import model.infiniteodysseys.IORoles;
 import view.TextView;
 
-public final class PartyCommand extends ACommand {
+/**
+ * A command that displays a party in the given {@code Manager}.
+ */
+public final class ShowParty extends ACommand {
 
   private final Scanner sc;
 
   /**
-   * Constructs a new {@code PartyCommand}.
+   * Constructs a new {@code ShowParty}.
    *
    * @param model the model to use
    * @param view  the view to use to render messages
    */
-  public PartyCommand(Manager model, TextView view, Scanner sc) {
+  public ShowParty(Manager model, TextView view, Scanner sc) {
     super(model, view);
     this.sc = sc;
   }
@@ -27,12 +27,13 @@ public final class PartyCommand extends ACommand {
   @Override
   public void run() {
     try {
-      try {
-        this.view.displayActiveParty();
+      String name = this.sc.nextLine().trim();
 
-        if (this.model.getActiveParty() == null) {
-          this.view.display("Set the active party using the start command.\n");
-        }
+      try {
+        this.view.displayParty(name);
+      }
+      catch (IllegalArgumentException e) {
+        this.view.display("The Party " + name + " doesn't exist in this Manager.\n");
       }
       catch (IllegalStateException e) {
         this.view.display("The Manager doesn't have any Parties!\n");
