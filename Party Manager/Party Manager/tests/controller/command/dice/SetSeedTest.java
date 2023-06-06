@@ -48,7 +48,7 @@ public class SetSeedTest extends IOManagerControllerTest {
     assertEquals(0, IOManagerSeedHolder.getInstance().getSeed());
     assertFalse(IOManagerSeedHolder.getInstance().isUsingSeed());
     assertEquals("Awaiting command:\n"
-            + "Invalid input: A stat's value cannot be decimal.\n"
+            + "Invalid input: A seed cannot be decimal.\n"
             + "Awaiting command:\n",
         output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
   }

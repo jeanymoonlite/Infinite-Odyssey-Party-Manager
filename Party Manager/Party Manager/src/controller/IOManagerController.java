@@ -70,7 +70,8 @@ public class IOManagerController implements Controller {
 
   }
 
-  private void initCommands() {
+  @Override
+  public void initCommands() {
     this.commands = new HashMap<String, ACommand>();
 
     this.commands.put("help", new Help(this.model, this.view));
@@ -100,13 +101,13 @@ public class IOManagerController implements Controller {
     this.commands.put("show-party", new ShowParty(this.model, this.view, this.sc));
 
     //Dice
-    this.commands.put("set-seed", new SetSeed(this.model, this.view, this.sc));
+    this.commands.put("set-seed", new SetSeed(this.model, this.view, this.sc, this));
     this.commands.put("use-seed", new UseSeed(this.model, this.view, this.sc));
 
     this.commands.put("roll", new Roll(this.model, this.view, this.sc));
 
     this.commands.put("d2", new Dice(this.model, this.view, 2));
-    this.commands.put("coin-flip", new Dice(this.model, this.view, 2));
+//    this.commands.put("coin-flip", new Dice(this.model, this.view, 2));
 
     this.commands.put("d4", new Dice(this.model, this.view, 4));
     this.commands.put("d6", new Dice(this.model, this.view, 6));

@@ -10,4 +10,9 @@ public interface Controller {
    */
   void start();
 
+  /**
+   * Initializes the commands that this {@code Controller} supports.
+   */
+  void initCommands();
+
 }

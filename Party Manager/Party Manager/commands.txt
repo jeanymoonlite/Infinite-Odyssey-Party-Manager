@@ -115,16 +115,16 @@ Dice Related
                     for all or disabled for all.
 [] get-seeded-rolls (d2|d4|d6|d8|d10|d12|d20|d100)
 
-[] roll (upperBound) : Returns a random number between 1 and the given upper bound.
+[x] roll (upperBound) : Returns a random number between 1 and the given upper bound.
                        upperBound cannot be less than 2; if it is, the user will be informed.
                        The number generator does NOT use a seed.
 
 The following dice will utilize a seed if enabled; otherwise they will be purely random.
-[] d2 / coin-flip : Rolls a random number between 1 and 2.
-[] d4 : Rolls a random number between 1 and 4.
-[] d6 : Rolls a random number between 1 and 6.
-[] d8 : Rolls a random number between 1 and 8.
-[] d10 : Rolls a random number between 1 and 10.
-[] d12 : Rolls a random number between 1 and 12.
-[] d20 : Rolls a random number between 1 and 20.
-[] d100 : Rolls a random number between 1 and 100.
+[x] d2 / coin-flip : Rolls a random number between 1 and 2.
+[x] d4 : Rolls a random number between 1 and 4.
+[x] d6 : Rolls a random number between 1 and 6.
+[x] d8 : Rolls a random number between 1 and 8.
+[x] d10 : Rolls a random number between 1 and 10.
+[x] d12 : Rolls a random number between 1 and 12.
+[x] d20 : Rolls a random number between 1 and 20.
+[x] d100 : Rolls a random number between 1 and 100.

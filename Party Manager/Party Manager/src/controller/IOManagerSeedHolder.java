@@ -25,7 +25,7 @@ public final class IOManagerSeedHolder {
   }
 
   public boolean isUsingSeed() {
-    return this.usingSeed;
+    return this.hasSet && this.usingSeed;
   }
 
   public void usingSeed(boolean b) {

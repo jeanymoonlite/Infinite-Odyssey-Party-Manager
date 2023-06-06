@@ -1,9 +1,13 @@
 package controller.command.dice;
 
+import controller.IOManagerSeedHolder;
 import controller.command.ACommand;
 import java.io.IOException;
+import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 import model.Manager;
+import utils.Clamp;
 import view.TextView;
 
 /**
@@ -29,7 +33,21 @@ public class Roll extends ACommand {
   @Override
   public void run() {
     try {
-      this.view.display("");
+      try {
+        int upperBound = this.sc.nextInt();
+
+        if (upperBound < 2) {
+          this.view.display("Invalid input: The upper bound must be greater than 1.\n");
+          return;
+        }
+
+        int roll = Clamp.run(new Random().nextInt(upperBound + 1), 1, upperBound);
+        this.view.display("The roll is [" + roll + "]\n");
+      }
+      catch (InputMismatchException e) {
+        this.sc.next();
+        this.view.display("Invalid input: The upper bound for the roll cannot be a decimal.\n");
+      }
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");

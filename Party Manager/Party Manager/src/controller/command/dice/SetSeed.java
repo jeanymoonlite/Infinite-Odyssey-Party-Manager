@@ -1,5 +1,6 @@
 package controller.command.dice;
 
+import controller.Controller;
 import controller.IOManagerSeedHolder;
 import controller.command.ACommand;
 import java.io.IOException;
@@ -14,16 +15,20 @@ import view.TextView;
 public class SetSeed extends ACommand {
 
   private final Scanner sc;
+  private final Controller con;
 
   /**
    * Constructs a new {@code SetSeed}.
    *
    * @param model the model to use
    * @param view  the view to use to render messages
+   * @param sc the input to view
+   * @param controller the controller to use, to input the new seed.
    */
-  public SetSeed(Manager model, TextView view, Scanner sc) {
+  public SetSeed(Manager model, TextView view, Scanner sc, Controller controller) {
     super(model, view);
     this.sc = sc;
+    this.con = controller;
   }
 
   @Override
@@ -34,11 +39,12 @@ public class SetSeed extends ACommand {
         IOManagerSeedHolder.getInstance().setSeed(seed);
         this.view.display("The seed has been set to " + seed + ".\n");
         this.view.display("To use the seed, use the use-seed command to enable or disable it.\n");
+        this.con.initCommands();
 //        new UseSeed(this.model, this.view, this.sc).run();
       }
       catch (InputMismatchException e) {
         this.sc.next();
-        this.view.display("Invalid input: A stat's value cannot be decimal.\n");
+        this.view.display("Invalid input: A seed cannot be decimal.\n");
       }
     }
     catch (IOException e) {
