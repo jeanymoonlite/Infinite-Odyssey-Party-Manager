@@ -102,6 +102,18 @@ public interface Manager {
   boolean doesPartyExist(String name) throws IllegalArgumentException;
 
   /**
+   * Returns whether this {@code Manager} has any {@code Character}s in it.
+   * @return true if this {@code Manager} has any {@code Character}s in it, otherwise false.
+   */
+  boolean hasCharacters();
+
+  /**
+   * Returns whether this {@code Manager} has any {@code Party}s in it.
+   * @return true if this {@code Manager} has any {@code Party}s in it, otherwise false.
+   */
+  boolean hasParties();
+
+  /**
    * Returns the {@code Character} in this manage with the given name.
    * @param name the name of the character to find.
    * @return the character with the given name

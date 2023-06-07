@@ -327,6 +327,24 @@ public class IOManagerTest extends IOPartyTest {
   }
 
   @Test
+  public void hasCharacters() {
+    assertFalse(this.m.hasCharacters());
+
+    this.addCharsAndParties();
+
+    assertTrue(this.m.hasCharacters());
+  }
+
+  @Test
+  public void hasParties() {
+    assertFalse(this.m.hasParties());
+
+    this.addCharsAndParties();
+
+    assertTrue(this.m.hasParties());
+  }
+
+  @Test
   public void addCharacter() {
     try {
       this.m.addCharacter(null);

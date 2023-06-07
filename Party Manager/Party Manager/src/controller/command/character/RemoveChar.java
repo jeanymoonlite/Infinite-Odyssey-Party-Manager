@@ -6,6 +6,9 @@ import java.util.Scanner;
 import model.Manager;
 import view.TextView;
 
+/**
+ * A command that remove the given character from the given Manager.
+ */
 public final class RemoveChar extends ACommand {
 
   private final Scanner sc;
@@ -25,6 +28,19 @@ public final class RemoveChar extends ACommand {
   @Override
   public void run() {
     try {
+      if (this.model.hasStartedACampaign()) {
+        this.view.display("Invalid state: This command can't be used during a campaign.\n");
+        this.view.display("Use the quit command to end the current campaign.\n");
+        return;
+      }
+
+      try {
+
+      }
+      catch (IllegalStateException e) {
+
+      }
+
       this.view.display("");
     }
     catch (IOException e) {

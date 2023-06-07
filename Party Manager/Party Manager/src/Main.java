@@ -17,10 +17,7 @@ public class Main {
     Readable rd = new InputStreamReader(System.in);
     Controller controller = new IOManagerController(model, view, rd);
 
-    for (IOStats s : IOStats.values()) {
-      System.out.println(s.toString());
-    }
-//    controller.start();
+    controller.start();
   }
 
 

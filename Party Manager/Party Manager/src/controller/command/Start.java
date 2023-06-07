@@ -26,39 +26,37 @@ public class Start extends ACommand {
     try {
       String name = this.sc.nextLine().trim();
 
-      try {
-        this.model.getAllParties();
-
-        if (!this.model.doesPartyExist(name)) {
-          this.view.display("The Party " + name + " doesn't exist in this Manager.\n");
-          return;
-        }
-
-        while (true) {
-          this.view.display("Start a Campaign with the " + name + " Party? (Confirm y or n): \n");
-
-          String answer = this.sc.next();
-
-          if (answer.equalsIgnoreCase("y")) {
-            this.view.display("A Campaign has been started with " + name + ":\n\n");
-            this.model.setActiveParty(name);
-            this.model.startCampaign(true);
-            this.view.displayActiveParty();
-            break;
-          }
-
-          else if (answer.equalsIgnoreCase("n")) {
-            break;
-          }
-
-          else {
-            this.view.display("Invalid input.\n");
-          }
-        }
-      }
-      catch (IllegalStateException e) {
+      if (!this.model.hasParties()) {
         this.view.display("The Manager doesn't have any Parties!\n");
         this.view.display("Add Parties using the create-party command.\n");
+        return;
+      }
+
+      if (!this.model.doesPartyExist(name)) {
+        this.view.display("The Party " + name + " doesn't exist in this Manager.\n");
+        return;
+      }
+
+      while (true) {
+        this.view.display("Start a Campaign with the " + name + " Party? (Confirm y or n): \n");
+
+        String answer = this.sc.next();
+
+        if (answer.equalsIgnoreCase("y")) {
+          this.view.display("A Campaign has been started with " + name + ":\n\n");
+          this.model.setActiveParty(name);
+          this.model.startCampaign(true);
+          this.view.displayActiveParty();
+          break;
+        }
+
+        else if (answer.equalsIgnoreCase("n")) {
+          break;
+        }
+
+        else {
+          this.view.display("Invalid input.\n");
+        }
       }
     }
     catch (IOException e) {

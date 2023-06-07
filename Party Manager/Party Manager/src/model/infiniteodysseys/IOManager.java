@@ -176,9 +176,19 @@ public class IOManager implements Manager {
   }
 
   @Override
+  public boolean hasCharacters() {
+    return this.characters.size() > 0;
+  }
+
+  @Override
+  public boolean hasParties() {
+    return this.parties.size() > 0;
+  }
+
+  @Override
   public Character findCharByName(String name)
       throws IllegalArgumentException, IllegalStateException {
-    if (this.characters.size() == 0) {
+    if (!this.hasCharacters()) {
       throw new IllegalStateException("This Manager doesn't have any Characters!");
     }
 
@@ -198,7 +208,7 @@ public class IOManager implements Manager {
   @Override
   public Party findPartyByName(String name)
       throws IllegalArgumentException, IllegalStateException {
-    if (this.parties.size() == 0) {
+    if (!this.hasParties()) {
       throw new IllegalStateException("This Manager doesn't have any Parties!");
     }
 

@@ -507,12 +507,12 @@ public class ChangeHpTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertTrue(this.model.doesCharacterExist("Onion"));
-    assertEquals("The Character Luna doesn't exist in this Manager.\n",
+    assertEquals("Invalid input: The Character Luna doesn't exist in this Manager.\n",
         output.toString()
             .split("WARNING")[0]
             .split("Awaiting command:\n")[2]);
 
-    assertEquals("The Character Luna doesn't exist in this Manager.\n",
+    assertEquals("Invalid input: The Character Luna doesn't exist in this Manager.\n",
         output.toString()
             .split("WARNING")[0]
             .split("Awaiting command:\n")[3]);

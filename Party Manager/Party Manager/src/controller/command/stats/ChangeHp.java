@@ -67,19 +67,14 @@ public class ChangeHp extends ACommand {
   private void single(int amount) {
     String name = this.sc.nextLine().trim();
     try {
-      try {
-        if (!this.model.hasStartedACampaign()) {
-          this.model.getAllCharacters();
-        }
-      }
-      catch (IllegalStateException e) {
+      if (!this.model.hasCharacters()) {
         this.view.display("The Manager doesn't have any Characters!\n");
         this.view.display("Add Characters using the create-char command.\n");
         return;
       }
 
       if (!this.model.doesCharacterExist(name)) {
-        this.view.display("The Character " + name + " doesn't exist in this Manager.\n");
+        this.view.display("Invalid input: The Character " + name + " doesn't exist in this Manager.\n");
         return;
       }
 
