@@ -4,6 +4,7 @@ import controller.command.ACommand;
 import controller.command.Clear;
 import controller.command.Start;
 import controller.command.character.CreateChar;
+import controller.command.character.RemoveChar;
 import controller.command.dice.Dice;
 import controller.command.dice.Roll;
 import controller.command.dice.SetSeed;
@@ -95,7 +96,7 @@ public class IOManagerController implements Controller {
 
     //Character
     this.commands.put("create-char", new CreateChar(this.model, this.view, this.sc));
-//    this.commands.put("remove-char", new RemoveChar(this.model, this.view, this.sc));
+    this.commands.put("remove-char", new RemoveChar(this.model, this.view, this.sc));
 
 
     //Party
