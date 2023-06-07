@@ -23,10 +23,10 @@ public final class ShowAllParties extends ACommand {
   @Override
   public void run() {
     try {
-      try {
+      if (this.model.hasParties()) {
         this.view.displayAllParties();
       }
-      catch (IllegalStateException e) {
+      else {
         this.view.display("The Manager doesn't have any Parties!\n");
         this.view.display("Add Parties using the create-party command.\n");
       }

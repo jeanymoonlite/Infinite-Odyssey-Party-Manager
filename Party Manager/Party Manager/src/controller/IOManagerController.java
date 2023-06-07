@@ -22,6 +22,7 @@ import controller.command.manager.ShowAllParties;
 import controller.command.manager.ShowChar;
 import controller.command.manager.ShowParty;
 import controller.command.party.CreateParty;
+import controller.command.party.RemoveParty;
 import controller.command.stats.ChangeHp;
 import java.io.IOException;
 import java.util.HashMap;
@@ -101,6 +102,7 @@ public class IOManagerController implements Controller {
 
     //Party
     this.commands.put("create-party", new CreateParty(this.model, this.view, this.sc));
+    this.commands.put("remove-party", new RemoveParty(this.model, this.view, this.sc));
 
     //Stat
     this.commands.put("heal", new ChangeHp(this.model, this.view, this.sc, true, false));

@@ -259,6 +259,237 @@ public class RemoveCharTest extends IOManagerControllerTest {
   }
 
   @Test
+  public void removedFromParty() {
+    Readable input = new StringReader("create-char\n"
+        + "Onion\n"
+        + "Steven\n"
+        + "Human\n"
+        + "New Yorker\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Lunarose\n"
+        + "Luna\n"
+        + "Wizard\n"
+        + "Mage\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-party\n"
+        + "Boys\n"
+        + "Onion, Lunarose\n"
+        + "y\n"
+        + "show-party Boys\n"
+        + "remove-char Lunarose\ny\n"
+        + "show-party Boys\n"
+        + "n quit y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+    this.controller.start();
+
+    assertTrue(this.model.doesCharacterExist("Onion"));
+    assertFalse(this.model.doesCharacterExist("Lunarose"));
+
+    assertEquals("Onion (Steven)\n"
+            + "Role: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "\n"
+            + "Lunarose (Luna)\n"
+            + "Role: Wizard (Mage)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1\n"
+            + "Intelligence: 1\n"
+            + "Creativity: 1 (+5)\n"
+            + "Charisma: 1\n"
+            + "Stealth: 1\n"
+            + "Intimidation: 1\n",
+        output.toString().split("Awaiting command:\n")[4].split("WARNING")[0]);
+
+    assertEquals("Onion (Steven)\n"
+            + "Role: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n",
+        output.toString().split("Awaiting command:\n")[6].split("WARNING")[0]);
+  }
+
+  @Test
+  public void removedCharAndAParty() {
+    Readable input = new StringReader("create-char\n"
+        + "Onion\n"
+        + "Steven\n"
+        + "Human\n"
+        + "New Yorker\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Lunarose\n"
+        + "Luna\n"
+        + "Wizard\n"
+        + "Mage\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-party\n"
+        + "Luna\n"
+        + "Lunarose\n"
+        + "y\n"
+        + "show-party Luna\n"
+        + "remove-char Lunarose\ny\n"
+        + "show-all-parties\n"
+        + "quit y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+    this.controller.start();
+
+    assertTrue(this.model.doesCharacterExist("Onion"));
+    assertFalse(this.model.doesCharacterExist("Lunarose"));
+
+    assertEquals("Lunarose (Luna)\n"
+            + "Role: Wizard (Mage)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1\n"
+            + "Intelligence: 1\n"
+            + "Creativity: 1 (+5)\n"
+            + "Charisma: 1\n"
+            + "Stealth: 1\n"
+            + "Intimidation: 1\n",
+        output.toString().split("Awaiting command:\n")[4].split("WARNING")[0]);
+
+    assertEquals("The following action cannot be undone.\n"
+            + "Remove the following Character? (Confirm y or n): \n"
+            + "Lunarose (Luna)\n"
+            + "Role: Wizard (Mage)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1\n"
+            + "Intelligence: 1\n"
+            + "Creativity: 1 (+5)\n"
+            + "Charisma: 1\n"
+            + "Stealth: 1\n"
+            + "Intimidation: 1\n"
+            + "Lunarose (Luna) was removed from the Manager.\n"
+            + "The Party Luna was removed from the Manager.\n",
+        output.toString().split("Awaiting command:\n")[5].split("WARNING")[0]);
+
+    assertEquals("The Manager doesn't have any Parties!\n"
+            + "Add Parties using the create-party command.\n",
+        output.toString().split("Awaiting command:\n")[6].split("WARNING")[0]);
+  }
+
+  @Test
+  public void removedCharAndAParty2() {
+    Readable input = new StringReader("create-char\n"
+        + "Onion\n"
+        + "Steven\n"
+        + "Human\n"
+        + "New Yorker\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Lunarose\n"
+        + "Luna\n"
+        + "Wizard\n"
+        + "Mage\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-party\n"
+        + "Luna\n"
+        + "Lunarose\n"
+        + "y\n"
+        + "create-party\n"
+        + "Boys\n"
+        + "Onion, Lunarose\n"
+        + "y\n"
+        + "show-party Luna\n"
+        + "remove-char Lunarose\ny\n"
+        + "show-all-parties\n"
+        + "quit y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+    this.controller.start();
+
+    assertTrue(this.model.doesCharacterExist("Onion"));
+    assertFalse(this.model.doesCharacterExist("Lunarose"));
+
+    assertEquals("Lunarose (Luna)\n"
+            + "Role: Wizard (Mage)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1\n"
+            + "Intelligence: 1\n"
+            + "Creativity: 1 (+5)\n"
+            + "Charisma: 1\n"
+            + "Stealth: 1\n"
+            + "Intimidation: 1\n",
+        output.toString().split("Awaiting command:\n")[5].split("WARNING")[0]);
+
+    assertEquals("The following action cannot be undone.\n"
+            + "Remove the following Character? (Confirm y or n): \n"
+            + "Lunarose (Luna)\n"
+            + "Role: Wizard (Mage)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1\n"
+            + "Intelligence: 1\n"
+            + "Creativity: 1 (+5)\n"
+            + "Charisma: 1\n"
+            + "Stealth: 1\n"
+            + "Intimidation: 1\n"
+            + "Lunarose (Luna) was removed from the Manager.\n"
+            + "The Party Luna was removed from the Manager.\n",
+        output.toString().split("Awaiting command:\n")[6].split("WARNING")[0]);
+
+    assertEquals("Boys: Onion (Steven)\n"
+            + "Total Parties: 1\n",
+        output.toString().split("Awaiting command:\n")[7].split("WARNING")[0]);
+  }
+
+  @Test
   public void badInputRemoveChar() {
     Readable input = new StringReader("create-char\n"
         + "Onion\n"
@@ -350,5 +581,4 @@ public class RemoveCharTest extends IOManagerControllerTest {
             + "Lunarose (Luna) will not be removed.\n",
         output.toString().split("Awaiting command:\n")[3].split("WARNING")[0]);
   }
-
 }
