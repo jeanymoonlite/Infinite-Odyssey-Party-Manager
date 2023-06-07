@@ -32,6 +32,7 @@ public final class RemoveChar extends ACommand {
       if (this.model.hasStartedACampaign()) {
         this.view.display("Invalid state: This command can't be used during a campaign.\n");
         this.view.display("Use the quit command to end the current campaign.\n");
+        this.sc.nextLine();
         return;
       }
 
@@ -41,7 +42,7 @@ public final class RemoveChar extends ACommand {
         return;
       }
 
-      String name = this.sc.nextLine();
+      String name = this.sc.nextLine().trim();
 
       if (!this.model.doesCharacterExist(name)) {
         this.view.display("Invalid input: The Character " + name + " doesn't exist in this Manager.\n");
@@ -76,7 +77,5 @@ public final class RemoveChar extends ACommand {
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
     }
-
-    this.sc.close();
   }
 }

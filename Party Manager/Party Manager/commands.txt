@@ -39,7 +39,7 @@ Character Related
   [] save : Saves the edits made to the character (it also actually modifies the character).
             Then it returns back to requesting general commands.
 
-[] remove-char (name) : Removes a character with the given name. This command rejects any characters
+[x] remove-char (name) : Removes a character with the given name. This command rejects any characters
                         that don't exist in the manager. Note: If the character that was removed,
                         was in a 1-person party, that party will be removed. The user should be informed
                         of this.
