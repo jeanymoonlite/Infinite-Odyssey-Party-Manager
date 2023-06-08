@@ -31,6 +31,12 @@ public final class CreateParty extends ACommand {
   @Override
   public void run() {
     try {
+      if (!this.model.hasCharacters()) {
+        this.view.display("The Manager doesn't have any Characters!\n");
+        this.view.display("Add Characters using the create-char command.\n");
+        return;
+      }
+
       this.sc.nextLine();
       String name = this.getName();
 

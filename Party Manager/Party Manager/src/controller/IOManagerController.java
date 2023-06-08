@@ -4,6 +4,7 @@ import controller.command.ACommand;
 import controller.command.Clear;
 import controller.command.Start;
 import controller.command.character.CreateChar;
+import controller.command.character.EditChar;
 import controller.command.character.RemoveChar;
 import controller.command.dice.Dice;
 import controller.command.dice.Roll;
@@ -98,7 +99,7 @@ public class IOManagerController implements Controller {
     //Character
     this.commands.put("create-char", new CreateChar(this.model, this.view, this.sc));
     this.commands.put("remove-char", new RemoveChar(this.model, this.view, this.sc));
-
+    this.commands.put("edit-char", new EditChar(this.model, this.view, this.sc));
 
     //Party
     this.commands.put("create-party", new CreateParty(this.model, this.view, this.sc));

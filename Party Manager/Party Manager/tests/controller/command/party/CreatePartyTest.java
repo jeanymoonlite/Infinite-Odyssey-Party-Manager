@@ -454,7 +454,7 @@ public class CreatePartyTest extends IOManagerControllerTest {
   }
 
   @Test
-  public void noCharsCreateParty() {
+  public void noGivenCharsCreateParty() {
     Readable input = new StringReader("create-char\n"
         + "Danny Sexbang\n"
         + "Dan\n"
@@ -525,6 +525,26 @@ public class CreatePartyTest extends IOManagerControllerTest {
               + "Party name: "
               + "Characters (Each by a comma): "
               + "\nInvalid input: A Party needs at least one Character.\n",
+          output.toString().split("\tvii. Human\n")[1]);
+    }
+  }
+
+  @Test
+  public void noCharsCreateParty() {
+    Readable input = new StringReader("create-party\n");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+    try {
+      this.controller.start();
+      fail();
+    } catch (NoSuchElementException | IllegalStateException e) {
+      assertEquals("Awaiting command:\n"
+              + "The Manager doesn't have any Characters!\n"
+              + "Add Characters using the create-char command.\n"
+              + "Awaiting command:\n",
           output.toString().split("\tvii. Human\n")[1]);
     }
   }

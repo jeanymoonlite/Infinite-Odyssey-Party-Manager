@@ -74,7 +74,7 @@ Party Related
   [] save : Saves the edits made to the party (it also actually modifies the party).
             Then it returns back to requesting general commands.
 
-[] remove-party (name) : Remove the party with the given name. This command rejects any parties
+[x] remove-party (name) : Remove the party with the given name. This command rejects any parties
                          that don't exist in the manager. Note: If the party that was remove is the
                          current active party, this command should inform the user what the new active
                          party is.
