@@ -67,9 +67,17 @@ public interface Character {
    int getMaxHP();
 
    /**
-    * Returns the value of this {@code Character}'s defense.
-    * @return the value of this {@code Character}'s defense.
+    * Returns this {@code Character}'s name and player name.
+    * The player name should be in parentheses.
+    * @return this character's name and playerName.
     */
-   int getDefense();
+   String toString();
+
+   /**
+    * Returns this {@code Character}'s name, player name, role, role specification, and
+    * all of its stats, along with their values.
+    * @return this character's information.
+    */
+   String toStringAll();
 
 }

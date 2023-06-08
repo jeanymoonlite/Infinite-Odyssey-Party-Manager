@@ -107,14 +107,16 @@ public class ChangeHp extends ACommand {
 
   private void changeHp(Character c, int amount) {
     try {
+      int defense = c.getValueOf("Defense");
+
       if (this.heal) {
         c.setHP(c.getHP() + amount);
         this.view.display(c.getName() + " had " + amount + " hp restored.\n");
 
       } else {
-        c.setHP(c.getHP() - Clamp.run((amount) - c.getDefense(), 1, 100));
+        c.setHP(c.getHP() - Clamp.run((amount) - defense, 1, 100));
         this.view.display(
-            c.getName() + " lost " + Clamp.run((amount) - c.getDefense(), 1, 100) + " hp.\n");
+            c.getName() + " lost " + Clamp.run((amount) - defense, 1, 100) + " hp.\n");
       }
 
       this.view.display(c.getName() + " (" + c.getPlayerName() + ") ");

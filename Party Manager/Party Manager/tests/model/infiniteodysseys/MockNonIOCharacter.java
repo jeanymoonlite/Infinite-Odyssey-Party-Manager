@@ -52,7 +52,7 @@ public final class MockNonIOCharacter implements Character {
   }
 
   @Override
-  public int getDefense() {
-    return 0;
+  public String toStringAll() {
+    return null;
   }
 }

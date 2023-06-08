@@ -460,13 +460,94 @@ public class IOCharacterTest {
   }
 
   @Test
-  public void getDefense() {
-    assertEquals(5, this.jake.getDefense());
-    assertEquals(0, this.luna.getDefense());
-    assertEquals(1, this.dre.getDefense());
-    assertEquals(0, this.bryan.getDefense());
-    assertEquals(-5, this.rose.getDefense());
-    assertEquals(2, this.sarah.getDefense());
-    assertEquals(0, this.steven.getDefense());
+  public void testToString() {
+    assertEquals("Jake Walker (Jacob)", this.jake.toString());
+    assertEquals("Lunarose (Luna)", this.luna.toString());
+    assertEquals("Dre (Andre)", this.dre.toString());
+    assertEquals("Manuel (Bryan)", this.bryan.toString());
+    assertEquals("Rose Walker (Day)", this.rose.toString());
+    assertEquals("Mazikeen (Sarah)", this.sarah.toString());
+    assertEquals("Onion (Steven)", this.steven.toString());
+  }
+
+  @Test
+  public void testToStringAll() {
+    assertEquals("Jake Walker (Jacob)\n"
+        + "Role: Warrior (Soldier)\n"
+        + "Hp: 100/100 (+5 Def)\n"
+        + "Strength: 12\n"
+        + "Intelligence: 5\n"
+        + "Creativity: 1\n"
+        + "Charisma: 1\n"
+        + "Stealth: 4\n"
+        + "Intimidation: 7\n"
+        + "Stealth: 4\n"
+        + "Intimidation: 7\n", this.jake.toStringAll());
+    assertEquals("Lunarose (Luna)\n"
+        + "Role: Wizard (Fire Mage)\n"
+        + "Hp: 100/100\n"
+        + "Strength: 5\n"
+        + "Intelligence: 5\n"
+        + "Creativity: 10 (+5)\n"
+        + "Charisma: 5\n"
+        + "Stealth: 0\n"
+        + "Intimidation: 0\n"
+        + "Stealth: 0\n"
+        + "Intimidation: 0\n", this.luna.toStringAll());
+    assertEquals("Dre (Andre)\n"
+        + "Role: Bard (DJ)\n"
+        + "Hp: 100/100 (+1 Def)\n"
+        + "Strength: 2\n"
+        + "Intelligence: 5\n"
+        + "Creativity: 5\n"
+        + "Charisma: 15 (+4)\n"
+        + "Stealth: 3\n"
+        + "Intimidation: 0\n"
+        + "Stealth: 3\n"
+        + "Intimidation: 0\n", this.dre.toStringAll());
+    assertEquals("Manuel (Bryan)\n"
+        + "Role: Engineer (Mechanic)\n"
+        + "Hp: 100/100\n"
+        + "Strength: 9\n"
+        + "Intelligence: 6 (+3)\n"
+        + "Creativity: 1 (+2)\n"
+        + "Charisma: 3\n"
+        + "Stealth: 4\n"
+        + "Intimidation: 7\n"
+        + "Stealth: 4\n"
+        + "Intimidation: 7\n", this.bryan.toStringAll());
+    assertEquals("Rose Walker (Day)\n"
+        + "Role: Rogue (Assassin)\n"
+        + "Hp: 100/100 (-5 Def)\n"
+        + "Strength: 12 (+2)\n"
+        + "Intelligence: 5\n"
+        + "Creativity: 1\n"
+        + "Charisma: 1\n"
+        + "Stealth: 7 (+3)\n"
+        + "Intimidation: 4\n"
+        + "Stealth: 7 (+3)\n"
+        + "Intimidation: 4\n", this.rose.toStringAll());
+    assertEquals("Mazikeen (Sarah)\n"
+        + "Role: Monk\n"
+        + "Hp: 100/100 (+2 Def)\n"
+        + "Strength: 6\n"
+        + "Intelligence: 2\n"
+        + "Creativity: 3\n"
+        + "Charisma: 10 (+3)\n"
+        + "Stealth: 4\n"
+        + "Intimidation: 5\n"
+        + "Stealth: 4\n"
+        + "Intimidation: 5\n", this.sarah.toStringAll());
+    assertEquals("Onion (Steven)\n"
+        + "Role: Human\n"
+        + "Hp: 100/100\n"
+        + "Strength: 1 (+1)\n"
+        + "Intelligence: 1 (+1)\n"
+        + "Creativity: 1 (+1)\n"
+        + "Charisma: 1 (+1)\n"
+        + "Stealth: 1 (+1)\n"
+        + "Intimidation: 1 (+1)\n"
+        + "Stealth: 1 (+1)\n"
+        + "Intimidation: 1 (+1)\n", this.steven.toStringAll());
   }
 }

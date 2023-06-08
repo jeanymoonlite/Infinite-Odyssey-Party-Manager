@@ -8,7 +8,9 @@ import java.util.Scanner;
 import model.Character;
 import model.Manager;
 import model.infiniteodysseys.IOCharacter;
+import model.infiniteodysseys.IOManager;
 import model.infiniteodysseys.IORoles;
+import view.IOManagerTextView;
 import view.TextView;
 
 public class EditChar extends ACommand {
@@ -66,7 +68,7 @@ public class EditChar extends ACommand {
 
       while (running) {
         if (!this.tryingToQuit) {
-          this.view.displayCharacter(name);
+          this.view.displayCharacter(this.newCharacter.getName());
           this.view.display("Awaiting edit command:\n");
         }
 
@@ -219,6 +221,7 @@ public class EditChar extends ACommand {
           statVals[0], statVals[1],
           statVals[2], statVals[3],
           statVals[4], statVals[5]);
+      this.view.display("\n");
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");

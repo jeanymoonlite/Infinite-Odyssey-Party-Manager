@@ -74,7 +74,7 @@ public final class IOCharacter implements Character {
     this.stats.put("Charisma", cha);
     this.stats.put("Stealth", ste);
     this.stats.put("Intimidation", intim);
-    this.stats.put("Defense", 0);
+    this.stats.put("Defense", this.getRoleValueOf("Defense"));
 
   }
 
@@ -198,7 +198,45 @@ public final class IOCharacter implements Character {
   }
 
   @Override
-  public int getDefense() {
-    return this.getRoleValueOf("Defense");
+  public String toString() {
+    return this.name + " (" + this.playerName + ")";
   }
+
+  @Override
+  public String toStringAll() {
+    String role = "Role: " + this.getRole();
+    String roleSpecification = (this.getSpecification().isBlank()) ?
+        "" : " (" + this.getSpecification() + ")";
+
+    String health = "Hp: " + this.getHP() + "/" + this.getMaxHP();
+
+    String defenseSign = (this.getValueOf("Defense") >= 0) ? "+" : "-";
+    String defense = (this.getValueOf("Defense") == 0) ?
+        "" : " (" + defenseSign + Math.abs(this.getValueOf("Defense")) + " Def)";
+    String stats = "";
+
+    String[] statsArray = IOStats.getAll();
+    System.arraycopy(IOStats.getAll(), 2,
+        statsArray, 0, statsArray.length - 2);
+
+
+    for (String s : statsArray) {
+      stats = stats.concat(s + ": " + this.getValueOf(s));
+
+      int roleValue = this.getRoleValueOf(s);
+
+      if (roleValue != 0) {
+        String roleSign = (roleValue >= 0) ? "+" : "-";
+
+        stats = stats.concat(" (" + roleSign + Math.abs(roleValue) + ")");
+      }
+      stats = stats.concat("\n");
+    }
+
+    return this.toString() + "\n"
+        + role + roleSpecification + "\n"
+        + health + defense + "\n"
+        + stats;
+  }
+
 }

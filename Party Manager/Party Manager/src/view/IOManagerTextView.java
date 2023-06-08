@@ -131,38 +131,7 @@ public class IOManagerTextView implements TextView {
     Character c = this.model.findCharByName(name);
 
     assert c != null;
-    String playerName = c.getName() + " (" + c.getPlayerName() + ")";
-
-    String role = "Role: " + c.getRole();
-    String roleSpecification = (c.getSpecification().isBlank()) ?
-        "" : " (" + c.getSpecification() + ")";
-
-    String health = "Hp: " + c.getHP() + "/" + c.getMaxHP();
-
-    String defenseSign = (c.getDefense() >= 0) ? "+" : "-";
-    String defense = (c.getDefense() == 0) ?
-        "" : " (" + defenseSign + Math.abs(c.getDefense()) + " Def)";
-
-
-    this.display(playerName + "\n");
-    this.display(role + roleSpecification + "\n");
-    this.display(health + defense + "\n");
-
-    String[] stats = new String[this.model.getStats().length - 2];
-    System.arraycopy(this.model.getStats(), 2, stats, 0, stats.length);
-
-    for (String s : stats) {
-      this.display(s + ": " + c.getValueOf(s));
-
-      int roleValue = c.getRoleValueOf(s);
-
-      if (roleValue != 0) {
-        String roleSign = (roleValue >= 0) ? "+" : "-";
-
-        this.display(" (" + roleSign + Math.abs(roleValue) + ")");
-      }
-      this.display("\n");
-    }
+    this.display(c.toStringAll());
   }
 
   @Override
