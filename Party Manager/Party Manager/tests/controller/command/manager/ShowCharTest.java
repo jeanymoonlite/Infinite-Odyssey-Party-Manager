@@ -13,6 +13,21 @@ import view.IOManagerTextView;
 public class ShowCharTest extends IOManagerControllerTest {
 
   @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("show-char (name)",
+        new ShowChar(this.model, null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Displays the name, class, class specification, and stats \n"
+            + "of the specified character.",
+        new ShowChar(this.model, null, null).getDescription());
+  }
+
+  @Test
   public void successfulShowChar() {
     Readable input = new StringReader("create-char\n"
         + "Onion\n"
@@ -105,7 +120,7 @@ public class ShowCharTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertTrue(this.model.doesCharacterExist("Lunarose"));
-    assertEquals("The Character Onion doesn't exist in this Manager.\n",
+    assertEquals("Invalid input: The Character Onion doesn't exist in this Manager.\n",
         output.toString()
             .split("WARNING")[0]
             .split("Awaiting command:\n")[2]);

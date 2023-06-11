@@ -13,6 +13,20 @@ import view.IOManagerTextView;
 public class ShowAllCharsTest extends IOManagerControllerTest {
 
   @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("show-all-chars",
+        new ShowAllChars(null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Displays a list of every character with their name and player name.",
+        new ShowAllChars(null, null).getDescription());
+  }
+
+  @Test
   public void successfulShowAllChars() {
     Readable input = new StringReader("create-char\n"
         + "Onion\n"

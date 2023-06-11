@@ -13,6 +13,21 @@ import view.IOManagerTextView;
 public class ShowAllPartiesTest extends IOManagerControllerTest {
 
   @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("show-all-parties",
+        new ShowAllParties(this.model, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Displays a list of every party with their name, followed \n"
+            + "by the characters within them.",
+        new ShowAllParties(this.model, null).getDescription());
+  }
+
+  @Test
   public void successfulShowAllParties() {
     Readable input = new StringReader("create-char\n"
         + "Danny Sexbang\n"

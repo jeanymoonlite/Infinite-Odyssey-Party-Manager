@@ -10,6 +10,7 @@ import view.TextView;
 /**
  * A command that enables the seed given seed to be used. This only works if a seed has been set.
  */
+@Deprecated
 public class UseSeed extends ACommand {
 
   private final Scanner sc;

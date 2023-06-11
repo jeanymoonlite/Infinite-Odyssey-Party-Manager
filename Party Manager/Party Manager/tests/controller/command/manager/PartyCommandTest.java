@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
+import controller.command.dice.Dice;
 import java.io.StringReader;
 import model.Character;
 import model.infiniteodysseys.IOCharacter;
@@ -14,6 +15,20 @@ import org.junit.Test;
 import view.IOManagerTextView;
 
 public class PartyCommandTest extends IOManagerControllerTest {
+
+  @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("party",
+        new PartyCommand(this.model, null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Displays the active party if there is one.",
+        new PartyCommand(this.model, null, null).getDescription());
+  }
 
   private void addGrumps() {
     Character dan = new IOCharacter("Danny Sexbang", "Dan", IORoles.BARD, "Lover",
@@ -112,8 +127,8 @@ public class PartyCommandTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertEquals("Awaiting command:\n"
-            + "Active Party: None\n"
-            + "Set the active party using the start command.\n"
+            + "Invalid state: This command can only be used during a campaign.\n"
+            + "Use the start command to start a campaign.\n"
             + "Awaiting command:\n",
         output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
   }

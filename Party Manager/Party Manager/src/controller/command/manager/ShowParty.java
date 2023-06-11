@@ -1,6 +1,8 @@
 package controller.command.manager;
 
 import controller.command.ACommand;
+import controller.input.validation.CharacterValid;
+import controller.input.validation.PartyValid;
 import java.io.IOException;
 import java.util.Scanner;
 import model.Manager;
@@ -23,6 +25,9 @@ public final class ShowParty extends ACommand {
   public ShowParty(Manager model, TextView view, Scanner sc) {
     super(model, view);
     this.sc = sc;
+    this.signature = "show-party (name)";
+    this.description = "Displays the name, class, class specification, and stats of \n"
+        + "the every character in the specified party.";
   }
 
   @Override
@@ -30,16 +35,11 @@ public final class ShowParty extends ACommand {
     try {
       String name = this.sc.nextLine().trim();
 
-      try {
-        this.view.displayParty(name);
+      if (!new PartyValid(this.model, this.view, this.sc).isValid(name)) {
+        return;
       }
-      catch (IllegalArgumentException e) {
-        this.view.display("The Party " + name + " doesn't exist in this Manager.\n");
-      }
-      catch (IllegalStateException e) {
-        this.view.display("The Manager doesn't have any Parties!\n");
-        this.view.display("Add Parties using the create-party command.\n");
-      }
+
+      this.view.displayParty(name);
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");

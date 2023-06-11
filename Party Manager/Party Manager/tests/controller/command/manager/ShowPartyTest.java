@@ -14,6 +14,21 @@ import view.IOManagerTextView;
 public class ShowPartyTest extends IOManagerControllerTest {
 
   @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("show-party (name)",
+        new ShowParty(this.model, null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Displays the name, class, class specification, and stats of \n"
+            + "the every character in the specified party.",
+        new ShowParty(this.model, null, null).getDescription());
+  }
+
+  @Test
   public void successfulShowParty() {
     Readable input = new StringReader("create-char\n"
         + "Danny Sexbang\n"
@@ -166,7 +181,7 @@ public class ShowPartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
     assertTrue(this.model.doesCharacterExist("Ninja Brian"));
     assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
-    assertEquals("The Party The Boys doesn't exist in this Manager.\n",
+    assertEquals("Invalid input: The Party The Boys doesn't exist in this Manager.\n",
         output.toString()
             .split("WARNING")[0]
             .split("Awaiting command:\n")[4]);

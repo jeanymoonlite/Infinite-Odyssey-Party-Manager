@@ -11,6 +11,7 @@
 //import org.junit.Test;
 //import view.IOManagerTextView;
 //
+//@Deprecated
 //public class SetSeedTest extends IOManagerControllerTest {
 //
 //  @Test

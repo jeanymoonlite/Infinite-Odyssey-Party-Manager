@@ -12,6 +12,7 @@ import view.TextView;
 /**
  * This command sets the seed that the {@code Roll} and all the dice commands will use.
  */
+@Deprecated
 public class SetSeed extends ACommand {
 
   private final Scanner sc;

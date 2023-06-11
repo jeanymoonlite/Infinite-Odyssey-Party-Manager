@@ -18,18 +18,20 @@ public final class ShowAllChars extends ACommand {
    */
   public ShowAllChars(Manager model, TextView view) {
     super(model, view);
+    this.signature = "show-all-chars";
+    this.description = "Displays a list of every character with their name and player name.";
   }
 
   @Override
   public void run() {
     try {
-      try {
-        this.view.displayAllCharacters();
-      }
-      catch (IllegalStateException e) {
+      if (!this.model.hasCharacters()) {
         this.view.display("The Manager doesn't have any Characters!\n");
         this.view.display("Add Characters using the create-char command.\n");
+        return;
       }
+
+      this.view.displayAllCharacters();
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
