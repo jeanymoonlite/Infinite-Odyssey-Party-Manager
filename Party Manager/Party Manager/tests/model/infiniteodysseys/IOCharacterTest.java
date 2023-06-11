@@ -489,7 +489,7 @@ public class IOCharacterTest {
   @Test
   public void testToStringAll() {
     assertEquals("Jake Walker (Jacob)\n"
-        + "Role: Warrior (Soldier)\n"
+        + "Class: Warrior (Soldier)\n"
         + "Hp: 100/100 (+5 Def)\n"
         + "Strength: 12\n"
         + "Intelligence: 5\n"
@@ -498,7 +498,7 @@ public class IOCharacterTest {
         + "Stealth: 4\n"
         + "Intimidation: 7\n", this.jake.toStringAll());
     assertEquals("Lunarose (Luna)\n"
-        + "Role: Wizard (Fire Mage)\n"
+        + "Class: Wizard (Fire Mage)\n"
         + "Hp: 100/100\n"
         + "Strength: 5\n"
         + "Intelligence: 5\n"
@@ -507,7 +507,7 @@ public class IOCharacterTest {
         + "Stealth: 0\n"
         + "Intimidation: 0\n", this.luna.toStringAll());
     assertEquals("Dre (Andre)\n"
-        + "Role: Bard (DJ)\n"
+        + "Class: Bard (DJ)\n"
         + "Hp: 100/100 (+1 Def)\n"
         + "Strength: 2\n"
         + "Intelligence: 5\n"
@@ -516,7 +516,7 @@ public class IOCharacterTest {
         + "Stealth: 3\n"
         + "Intimidation: 0\n", this.dre.toStringAll());
     assertEquals("Manuel (Bryan)\n"
-        + "Role: Engineer (Mechanic)\n"
+        + "Class: Engineer (Mechanic)\n"
         + "Hp: 100/100\n"
         + "Strength: 9\n"
         + "Intelligence: 6 (+3)\n"
@@ -525,7 +525,7 @@ public class IOCharacterTest {
         + "Stealth: 4\n"
         + "Intimidation: 7\n", this.bryan.toStringAll());
     assertEquals("Rose Walker (Day)\n"
-        + "Role: Rogue (Assassin)\n"
+        + "Class: Rogue (Assassin)\n"
         + "Hp: 100/100 (-5 Def)\n"
         + "Strength: 12 (+2)\n"
         + "Intelligence: 5\n"
@@ -534,7 +534,7 @@ public class IOCharacterTest {
         + "Stealth: 7 (+3)\n"
         + "Intimidation: 4\n", this.rose.toStringAll());
     assertEquals("Mazikeen (Sarah)\n"
-        + "Role: Monk\n"
+        + "Class: Monk\n"
         + "Hp: 100/100 (+2 Def)\n"
         + "Strength: 6\n"
         + "Intelligence: 2\n"
@@ -543,7 +543,7 @@ public class IOCharacterTest {
         + "Stealth: 4\n"
         + "Intimidation: 5\n", this.sarah.toStringAll());
     assertEquals("Onion (Steven)\n"
-        + "Role: Human\n"
+        + "Class: Human\n"
         + "Hp: 100/100\n"
         + "Strength: 1 (+1)\n"
         + "Intelligence: 1 (+1)\n"

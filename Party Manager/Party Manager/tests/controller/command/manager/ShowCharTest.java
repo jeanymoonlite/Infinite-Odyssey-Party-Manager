@@ -65,7 +65,7 @@ public class ShowCharTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertTrue(this.model.doesCharacterExist("Lunarose"));
     assertEquals("Onion (Steven)\n"
-            + "Role: Human\n"
+            + "Class: Human\n"
             + "Hp: 100/100\n"
             + "Strength: 1 (+1)\n"
             + "Intelligence: 1 (+1)\n"

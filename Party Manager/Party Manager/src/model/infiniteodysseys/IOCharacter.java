@@ -205,7 +205,7 @@ public final class IOCharacter implements Character {
 
   @Override
   public String toStringAll() {
-    String role = "Role: " + this.getRole();
+    String role = "Class: " + this.getRole();
     String roleSpecification = (this.getSpecification().isBlank()) ?
         "" : " (" + this.getSpecification() + ")";
 

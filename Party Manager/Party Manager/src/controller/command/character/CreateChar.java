@@ -151,7 +151,7 @@ public final class CreateChar extends ACommand {
 
   private IORoles getRole() {
     try {
-      this.view.display("Role: ");
+      this.view.display("Class: ");
       IORoles validRole = null;
       String role = this.sc.nextLine();
 
@@ -177,7 +177,7 @@ public final class CreateChar extends ACommand {
 
   private String getRoleSpec() {
     try {
-      this.view.display("Role Specification (Type n/a to leave blank): ");
+      this.view.display("Class Specification (Type n/a to leave blank): ");
       String roleSpec = this.sc.nextLine();
 
       if (roleSpec.equalsIgnoreCase("n/a")) {

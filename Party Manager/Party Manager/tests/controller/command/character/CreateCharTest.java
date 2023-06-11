@@ -55,8 +55,8 @@ public class CreateCharTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertEquals("Character name: "
             + "Player name: "
-            + "Role: "
-            + "Role Specification (Type n/a to leave blank): "
+            + "Class: "
+            + "Class Specification (Type n/a to leave blank): "
             + "Strength: "
             + "Intelligence: "
             + "Creativity: "
@@ -65,7 +65,7 @@ public class CreateCharTest extends IOManagerControllerTest {
             + "Intimidation: \n"
             + "Create the following Character? (Confirm y or n): \n"
             + "Onion (Steven)\n"
-            + "Role: Human (New Yorker)\n"
+            + "Class: Human (New Yorker)\n"
             + "Hp: 100/100\n"
             + "Strength: 1 (+1)\n"
             + "Intelligence: 1 (+1)\n"
@@ -101,8 +101,8 @@ public class CreateCharTest extends IOManagerControllerTest {
     assertFalse(this.model.doesCharacterExist("Onion"));
     assertEquals("Character name: "
             + "Player name: "
-            + "Role: "
-            + "Role Specification (Type n/a to leave blank): "
+            + "Class: "
+            + "Class Specification (Type n/a to leave blank): "
             + "Strength: "
             + "Intelligence: "
             + "Creativity: "
@@ -111,7 +111,7 @@ public class CreateCharTest extends IOManagerControllerTest {
             + "Intimidation: \n"
             + "Create the following Character? (Confirm y or n): \n"
             + "Onion (Steven)\n"
-            + "Role: Human\n"
+            + "Class: Human\n"
             + "Hp: 100/100\n"
             + "Strength: 1 (+1)\n"
             + "Intelligence: 1 (+1)\n"
@@ -147,8 +147,8 @@ public class CreateCharTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertEquals("Character name: "
             + "Player name: "
-            + "Role: "
-            + "Role Specification (Type n/a to leave blank): "
+            + "Class: "
+            + "Class Specification (Type n/a to leave blank): "
             + "Strength: "
             + "Intelligence: "
             + "Creativity: "
@@ -157,7 +157,7 @@ public class CreateCharTest extends IOManagerControllerTest {
             + "Intimidation: \n"
             + "Create the following Character? (Confirm y or n): \n"
             + "Onion (Steven)\n"
-            + "Role: Human\n"
+            + "Class: Human\n"
             + "Hp: 100/100\n"
             + "Strength: 1 (+1)\n"
             + "Intelligence: 1 (+1)\n"
@@ -168,7 +168,7 @@ public class CreateCharTest extends IOManagerControllerTest {
             + "Invalid input.\n"
             + "Create the following Character? (Confirm y or n): \n"
             + "Onion (Steven)\n"
-            + "Role: Human\n"
+            + "Class: Human\n"
             + "Hp: 100/100\n"
             + "Strength: 1 (+1)\n"
             + "Intelligence: 1 (+1)\n"
@@ -202,7 +202,7 @@ public class CreateCharTest extends IOManagerControllerTest {
               + "\nInvalid input: Character name cannot be whitespace. Please try again.\n"
               + "Character name: Player name: "
               + "\nInvalid input: Player name cannot be whitespace. Please try again.\n"
-              + "Player name: Role: ",
+              + "Player name: Class: ",
           output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
     }
   }
@@ -227,21 +227,21 @@ public class CreateCharTest extends IOManagerControllerTest {
       fail();
     }
     catch (NoSuchElementException e) {
-      assertEquals("Character name: Player name: Role: "
+      assertEquals("Character name: Player name: Class: "
               + "\nInvalid input: h is not a valid role. Please try again.\n"
-              + "Role: "
+              + "Class: "
               + "\nInvalid input: quit is not a valid role. Please try again.\n"
-              + "Role: "
+              + "Class: "
               + "\nInvalid input: a is not a valid role. Please try again.\n"
-              + "Role: "
+              + "Class: "
               + "\nInvalid input: Tank is not a valid role. Please try again.\n"
-              + "Role: ",
+              + "Class: ",
           output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
     }
   }
 
   @Test
-  public void emptyRoleSpec() {
+  public void emptyClassSpec() {
     Readable input = new StringReader("create-char\n"
         + "Onion\n"
         + "Steven\n"
@@ -261,8 +261,8 @@ public class CreateCharTest extends IOManagerControllerTest {
     catch (NoSuchElementException e) {
       assertEquals("Character name: "
               + "Player name: "
-              + "Role: "
-              + "Role Specification (Type n/a to leave blank): "
+              + "Class: "
+              + "Class Specification (Type n/a to leave blank): "
               + "Strength: "
               + "Intelligence: ",
           output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
@@ -291,8 +291,8 @@ public class CreateCharTest extends IOManagerControllerTest {
     catch (NoSuchElementException e) {
       assertEquals("Character name: "
               + "Player name: "
-              + "Role: "
-              + "Role Specification (Type n/a to leave blank): "
+              + "Class: "
+              + "Class Specification (Type n/a to leave blank): "
               + "Strength: "
               + "\nInvalid input: A stat's value cannot be negative.\n"
               + "Strength: "
@@ -328,8 +328,8 @@ public class CreateCharTest extends IOManagerControllerTest {
     catch (NoSuchElementException e) {
       assertEquals("Character name: "
               + "Player name: "
-              + "Role: "
-              + "Role Specification (Type n/a to leave blank): "
+              + "Class: "
+              + "Class Specification (Type n/a to leave blank): "
               + "Strength: "
               + "Intelligence: "
               + "Creativity: "

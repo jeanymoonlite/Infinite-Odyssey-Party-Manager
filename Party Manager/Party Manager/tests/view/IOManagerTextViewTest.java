@@ -196,7 +196,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
     try {
       this.view.displayCharacter("Lunarose");
       assertEquals("Lunarose (Luna)\n"
-              + "Role: Wizard (Fire Mage)\n"
+              + "Class: Wizard (Fire Mage)\n"
               + "Hp: 100/100\n"
               + "Strength: 5\n"
               + "Intelligence: 5\n"
@@ -211,7 +211,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
 
       this.view.displayCharacter("Onion");
       assertEquals("Onion (Steven)\n"
-              + "Role: Human\n"
+              + "Class: Human\n"
               + "Hp: 100/100\n"
               + "Strength: 1 (+1)\n"
               + "Intelligence: 1 (+1)\n"
@@ -261,7 +261,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
     try {
       this.view.displayParty("The Infinite Odyssey");
       assertEquals("Lunarose (Luna)\n"
-              + "Role: Wizard (Fire Mage)\n"
+              + "Class: Wizard (Fire Mage)\n"
               + "Hp: 0/100\n"
               + "Strength: 5\n"
               + "Intelligence: 5\n"
@@ -271,7 +271,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
               + "Intimidation: 0\n"
               + "\n"
               + "Rose Walker (Day)\n"
-              + "Role: Rogue (Assassin)\n"
+              + "Class: Rogue (Assassin)\n"
               + "Hp: 98/100 (-5 Def)\n"
               + "Strength: 12 (+2)\n"
               + "Intelligence: 5\n"
@@ -315,7 +315,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
       this.view.displayActiveParty();
       assertEquals("Active Party: The Boys\n\n"
               + "Lunarose (Luna)\n"
-              + "Role: Wizard (Fire Mage)\n"
+              + "Class: Wizard (Fire Mage)\n"
               + "Hp: 100/100\n"
               + "Strength: 5\n"
               + "Intelligence: 5\n"
@@ -325,7 +325,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
               + "Intimidation: 0\n"
               + "\n"
               + "Jake Walker (Jacob)\n"
-              + "Role: Warrior (Soldier)\n"
+              + "Class: Warrior (Soldier)\n"
               + "Hp: 100/100 (+5 Def)\n"
               + "Strength: 12\n"
               + "Intelligence: 5\n"
@@ -335,7 +335,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
               + "Intimidation: 7\n"
               + "\n"
               + "Manuel (Bryan)\n"
-              + "Role: Engineer (Mechanic)\n"
+              + "Class: Engineer (Mechanic)\n"
               + "Hp: 100/100\n"
               + "Strength: 9\n"
               + "Intelligence: 6 (+3)\n"
@@ -345,7 +345,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
               + "Intimidation: 7\n"
               + "\n"
               + "Onion (Steven)\n"
-              + "Role: Human\n"
+              + "Class: Human\n"
               + "Hp: 100/100\n"
               + "Strength: 1 (+1)\n"
               + "Intelligence: 1 (+1)\n"

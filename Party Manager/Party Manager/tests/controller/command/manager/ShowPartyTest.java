@@ -70,7 +70,7 @@ public class ShowPartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
     assertTrue(this.model.doesCharacterExist("Ninja Brian"));
     assertEquals("Danny Sexbang (Dan)\n"
-            + "Role: Bard (Lover)\n"
+            + "Class: Bard (Lover)\n"
             + "Hp: 100/100 (+1 Def)\n"
             + "Strength: 1\n"
             + "Intelligence: 1\n"
@@ -80,7 +80,7 @@ public class ShowPartyTest extends IOManagerControllerTest {
             + "Intimidation: 1\n"
             + "\n"
             + "Ninja Brian (Brian)\n"
-            + "Role: Rogue (Ninja)\n"
+            + "Class: Rogue (Ninja)\n"
             + "Hp: 100/100 (-5 Def)\n"
             + "Strength: 1 (+2)\n"
             + "Intelligence: 1\n"
