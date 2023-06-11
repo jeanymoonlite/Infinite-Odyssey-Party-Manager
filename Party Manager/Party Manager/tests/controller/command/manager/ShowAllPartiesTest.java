@@ -132,7 +132,7 @@ public class ShowAllPartiesTest extends IOManagerControllerTest {
             + "Ninja Sex Party: Danny Sexbang (Dan), Ninja Brian (Brian)\n"
             + "Game Grumps: Danny Sexbang (Dan), Egoraptor (Arin)\n"
             + "Total Parties: 2\n"
-            + "Awaiting command:\n" ,
+            + "Awaiting command:\n",
         output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
   }
 

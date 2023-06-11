@@ -1,8 +1,8 @@
 package utils;
 
 /**
- * A utility method that takes in an integer and returns back it's roman numeral
- * representation. This class goes up to 100.
+ * A utility method that takes in an integer and returns back it's roman numeral representation.
+ * This class goes up to 100.
  */
 public final class RomanNumerals {
 

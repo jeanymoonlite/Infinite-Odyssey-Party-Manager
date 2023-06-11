@@ -19,7 +19,7 @@ public final class CharacterValid extends ACommand implements InputValidation {
    *
    * @param model the model to use
    * @param view  the view to use to render messages
-   * @param sc the scanner to read input from
+   * @param sc    the scanner to read input from
    */
   public CharacterValid(Manager model, TextView view, Scanner sc) {
     super(model, view);
@@ -42,7 +42,8 @@ public final class CharacterValid extends ACommand implements InputValidation {
       }
 
       if (!this.model.doesCharacterExist(input)) {
-        this.view.display("Invalid input: The Character " + input + " doesn't exist in this Manager.\n");
+        this.view.display(
+            "Invalid input: The Character " + input + " doesn't exist in this Manager.\n");
         return false;
       }
 

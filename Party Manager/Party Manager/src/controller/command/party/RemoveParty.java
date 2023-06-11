@@ -19,7 +19,7 @@ public final class RemoveParty extends ACommand {
    *
    * @param model the model to use
    * @param view  the view to use to render messages
-   * @param sc  the scanner to read input from
+   * @param sc    the scanner to read input from
    */
   public RemoveParty(Manager model, TextView view, Scanner sc) {
     super(model, view);

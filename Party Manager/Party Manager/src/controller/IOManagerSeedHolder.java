@@ -1,8 +1,8 @@
 package controller;
 
 /**
- * An interface that just contains the seed set by the {@code SetSeed} command.
- * The {@code IOManagerController} uses this seed for the dice related commands.
+ * An interface that just contains the seed set by the {@code SetSeed} command. The
+ * {@code IOManagerController} uses this seed for the dice related commands.
  */
 public final class IOManagerSeedHolder {
 
@@ -11,7 +11,8 @@ public final class IOManagerSeedHolder {
   private boolean usingSeed = false;
   private static IOManagerSeedHolder instance;
 
-  private IOManagerSeedHolder() {}
+  private IOManagerSeedHolder() {
+  }
 
   public static synchronized IOManagerSeedHolder getInstance() {
     if (instance == null) {

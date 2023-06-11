@@ -1,7 +1,6 @@
 package controller.command;
 
 import java.io.IOException;
-import java.util.Scanner;
 import model.Manager;
 import view.TextView;
 

@@ -21,7 +21,7 @@ public final class CreateParty extends ACommand {
    *
    * @param model the model to use
    * @param view  the view to use to render messages
-   * @param sc  the scanner to read input from
+   * @param sc    the scanner to read input from
    */
   public CreateParty(Manager model, TextView view, Scanner sc) {
     super(model, view);
@@ -109,7 +109,7 @@ public final class CreateParty extends ACommand {
         this.view.display("Party name: " + name + "\n");
         this.view.display("Party members: ");
 
-        for (int i = 0; i < charsAdd.size(); i ++) {
+        for (int i = 0; i < charsAdd.size(); i++) {
           this.view.display(charsAdd.get(i));
 
           if (i != charsAdd.size() - 1) {

@@ -9,9 +9,7 @@ import java.util.Scanner;
 import model.Character;
 import model.Manager;
 import model.infiniteodysseys.IOCharacter;
-import model.infiniteodysseys.IOManager;
 import model.infiniteodysseys.IORoles;
-import view.IOManagerTextView;
 import view.TextView;
 
 public class EditChar extends ACommand {
@@ -165,7 +163,8 @@ public class EditChar extends ACommand {
     try {
       String attribute = this.sc.nextLine().trim();
 
-      String[] attributes = new String[] {"Name", "Player Name", "Role", "Role Spec", "Role Specification"};
+      String[] attributes = new String[]{"Name", "Player Name", "Role", "Role Spec",
+          "Role Specification"};
 
       String[] statNames = new String[this.model.getStats().length - 2];
       System.arraycopy(this.model.getStats(), 2, statNames, 0, statNames.length);
@@ -175,7 +174,8 @@ public class EditChar extends ACommand {
       System.arraycopy(statNames, 0, validAttribute, attributes.length, statNames.length);
 
       if (Arrays.stream(validAttribute).noneMatch((s) -> s.equalsIgnoreCase(attribute))) {
-        this.view.display("Invalid input: The attribute " + attribute + " does not exist for " + this.character.getName() + "\n"
+        this.view.display("Invalid input: The attribute " + attribute + " does not exist for "
+            + this.character.getName() + "\n"
             + "or cannot be edited.\n");
         return;
       }
@@ -291,14 +291,16 @@ public class EditChar extends ACommand {
       }
 
       return validRole;
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
     }
   }
 
   private String getRoleSpec() {
     try {
-      this.view.display("Current Role Specification: " + this.newCharacter.getSpecification() + "\n");
+      this.view.display(
+          "Current Role Specification: " + this.newCharacter.getSpecification() + "\n");
       this.view.display("New Role Specification (Type enter to leave blank): ");
       String roleSpec = this.sc.nextLine();
 

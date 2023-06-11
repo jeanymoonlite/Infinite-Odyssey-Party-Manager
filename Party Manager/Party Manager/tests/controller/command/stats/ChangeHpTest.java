@@ -262,7 +262,7 @@ public class ChangeHpTest extends IOManagerControllerTest {
         + "damage 20 Jake Walker\n"
         + "damage 20 Randy\n"
         + "heal-all 100\n"
-        );
+    );
     Appendable output = new StringBuilder();
 
     this.model = new IOManager();

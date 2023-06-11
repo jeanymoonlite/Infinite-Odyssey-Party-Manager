@@ -19,8 +19,8 @@ public class CreateCharTest extends IOManagerControllerTest {
   public void getSignature() {
     this.model = new IOManager();
     assertEquals("create-char (name playerName class classSpecification\n"
-        + "             strength intelligence creativity\n"
-        + "             charisma stealth intimidation)",
+            + "             strength intelligence creativity\n"
+            + "             charisma stealth intimidation)",
         new CreateChar(this.model, null, null).getSignature());
   }
 
@@ -375,7 +375,7 @@ public class CreateCharTest extends IOManagerControllerTest {
               + "\nInvalid input: There is already a Character named Onion.\n"
               + "Please input a different name.\n"
               + "Character name: ",
-      output.toString().split("Awaiting command:\n")[2]);
+          output.toString().split("Awaiting command:\n")[2]);
     }
   }
 

@@ -15,7 +15,7 @@ public class IOManagerTextView implements TextView {
    * Constructs a new {@code IOManagerTextView} with the given {@code Manager} and
    * {@code Appendable}.
    *
-   * @param model the manager to view
+   * @param model  the manager to view
    * @param output the appendable to output to
    * @throws IllegalArgumentException if either arguments are null
    */
@@ -33,8 +33,8 @@ public class IOManagerTextView implements TextView {
   }
 
   /**
-   * Constructs a new {@code GamePhase1View} with the given {@code Manager} and sets the output
-   * to be {@code System.out}.
+   * Constructs a new {@code GamePhase1View} with the given {@code Manager} and sets the output to
+   * be {@code System.out}.
    *
    * @param model the manager to view
    * @throws IllegalArgumentException if either arguments are null

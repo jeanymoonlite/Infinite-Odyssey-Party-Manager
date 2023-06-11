@@ -25,7 +25,8 @@ public final class HelpParty extends ACommand {
     try {
       this.view.display("create-party (name characters...)\n");
       this.view.display("\tCreates a new party with the given name and list of characters.\n");
-      this.view.display("\tEach character's name must be seperated by a space and they should all be on one line.\n");
+      this.view.display(
+          "\tEach character's name must be seperated by a space and they should all be on one line.\n");
       this.view.display("\tDuplicate characters cannot be used.\n");
       this.view.display("\n");
 

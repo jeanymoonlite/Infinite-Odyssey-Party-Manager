@@ -1,10 +1,9 @@
 package model.infiniteodysseys;
 
 /**
- * Represents one of the 6 stats featured in Infinite Odysseys and implements the
- * Roles interface. Every role has 5 bonus stat points that get distributed to a
- * {@code Character}'s stats based on the role. The role also determines the
- * {@code Character}'s defense stat.
+ * Represents one of the 6 stats featured in Infinite Odysseys and implements the Roles interface.
+ * Every role has 5 bonus stat points that get distributed to a {@code Character}'s stats based on
+ * the role. The role also determines the {@code Character}'s defense stat.
  */
 public enum IOStats {
 

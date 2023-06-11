@@ -15,10 +15,11 @@ public final class IOParty implements Party {
 
   /**
    * Constructs a new {@code IOParty} with the given name and {@code Character}s.
-   * @param name the name to give the party
+   *
+   * @param name       the name to give the party
    * @param characters the characters that will be in the party
-   * @throws IllegalArgumentException if the given String is null or whitespace
-   *                                  OR if any of the Characters are null.
+   * @throws IllegalArgumentException if the given String is null or whitespace OR if any of the
+   *                                  Characters are null.
    */
   public IOParty(String name, Character... characters)
       throws IllegalArgumentException {
@@ -69,7 +70,9 @@ public final class IOParty implements Party {
   public Character getPartyMember(String name) throws IllegalArgumentException {
     if (this.hasCharacter(name)) {
       for (Character c : this.party) {
-        if (c.getName().equalsIgnoreCase(name)) { return c; }
+        if (c.getName().equalsIgnoreCase(name)) {
+          return c;
+        }
       }
     }
     else {

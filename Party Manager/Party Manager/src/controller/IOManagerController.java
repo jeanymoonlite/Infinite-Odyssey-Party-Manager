@@ -32,8 +32,8 @@ import model.Manager;
 import view.TextView;
 
 /**
- * An implementation {@code Controller} for the {@code IOManager}, using the {@code IOManagerTextView}, to render
- * messages to a given {@code Appendable}.
+ * An implementation {@code Controller} for the {@code IOManager}, using the
+ * {@code IOManagerTextView}, to render messages to a given {@code Appendable}.
  */
 public class IOManagerController implements Controller {
 
@@ -95,7 +95,6 @@ public class IOManagerController implements Controller {
     this.commands.put("help-dice", new HelpDice(this.model, this.view));
     this.commands.put("help-stats", new HelpStats(this.model, this.view));
 
-
     //Character
     this.commands.put("create-char", new CreateChar(this.model, this.view, this.sc));
     this.commands.put("remove-char", new RemoveChar(this.model, this.view, this.sc));
@@ -122,13 +121,12 @@ public class IOManagerController implements Controller {
     this.commands.put("show-party", new ShowParty(this.model, this.view, this.sc));
 
     //Dice
-    this.commands.put("set-seed", new SetSeed(this.model, this.view, this.sc, this));
-    this.commands.put("use-seed", new UseSeed(this.model, this.view, this.sc));
+//    this.commands.put("set-seed", new SetSeed(this.model, this.view, this.sc, this));
+//    this.commands.put("use-seed", new UseSeed(this.model, this.view, this.sc));
 
     this.commands.put("roll", new Roll(this.model, this.view, this.sc));
 
-    this.commands.put("d2", new Dice(this.model, this.view, 2));
-//    this.commands.put("coin-flip", new Dice(this.model, this.view, 2));
+    this.commands.put("cf", new Dice(this.model, this.view, 2));
 
     this.commands.put("d4", new Dice(this.model, this.view, 4));
     this.commands.put("d6", new Dice(this.model, this.view, 6));

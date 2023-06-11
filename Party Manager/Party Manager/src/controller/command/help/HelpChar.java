@@ -26,21 +26,21 @@ public final class HelpChar extends ACommand {
   @Override
   public void run() {
     try {
-      this.view.display(new CreateChar(this.model, null, null).getSignature());
+      this.view.display(new CreateChar(this.model, null, null).getSignature() + ": ");
       this.view.display("\n\t");
       this.view.display(new CreateChar(this.model, null, null)
           .getDescription().replace("\n", "\n\t"));
       this.view.display("\n");
       this.view.display("\n");
 
-      this.view.display(new EditChar(null, null, null).getSignature());
+      this.view.display(new EditChar(null, null, null).getSignature() + ": ");
       this.view.display("\n\t");
       this.view.display(new EditChar(null, null, null)
           .getDescription().replace("\n", "\n\t"));
       this.view.display("\n");
       this.view.display("\n");
 
-      this.view.display(new RemoveChar(null, null, null).getSignature());
+      this.view.display(new RemoveChar(null, null, null).getSignature() + ": ");
       this.view.display("\n\t");
       this.view.display(new RemoveChar(null, null, null)
           .getDescription().replace("\n", "\n\t"));

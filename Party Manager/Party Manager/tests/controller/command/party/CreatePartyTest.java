@@ -490,7 +490,8 @@ public class CreatePartyTest extends IOManagerControllerTest {
     try {
       this.controller.start();
       fail();
-    } catch (NoSuchElementException e) {
+    }
+    catch (NoSuchElementException e) {
       assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
       assertTrue(this.model.doesCharacterExist("Ninja Brian"));
       assertEquals("Awaiting command:\n"
@@ -540,7 +541,8 @@ public class CreatePartyTest extends IOManagerControllerTest {
     try {
       this.controller.start();
       fail();
-    } catch (NoSuchElementException | IllegalStateException e) {
+    }
+    catch (NoSuchElementException | IllegalStateException e) {
       assertEquals("Awaiting command:\n"
               + "The Manager doesn't have any Characters!\n"
               + "Add Characters using the create-char command.\n"

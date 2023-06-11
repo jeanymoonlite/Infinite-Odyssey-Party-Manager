@@ -10,13 +10,13 @@ public class RomanNumeralsTest {
 
   @Test
   public void numberOver100() {
-   try {
+    try {
       RomanNumerals.get(101);
       fail();
-   }
-   catch (IllegalArgumentException e) {
-     assertEquals("This class can only convert integers 1-100.", e.getMessage());
-   }
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("This class can only convert integers 1-100.", e.getMessage());
+    }
 
     try {
       RomanNumerals.get(-10);

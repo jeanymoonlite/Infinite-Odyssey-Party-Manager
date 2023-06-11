@@ -20,15 +20,18 @@ public class SetSeed extends ACommand {
   /**
    * Constructs a new {@code SetSeed}.
    *
-   * @param model the model to use
-   * @param view  the view to use to render messages
-   * @param sc the input to view
+   * @param model      the model to use
+   * @param view       the view to use to render messages
+   * @param sc         the input to view
    * @param controller the controller to use, to input the new seed.
    */
   public SetSeed(Manager model, TextView view, Scanner sc, Controller controller) {
     super(model, view);
     this.sc = sc;
     this.con = controller;
+
+    this.signature = "set-seed (seed)";
+    this.description = "Sets a seed to use for seeded-rolls.";
   }
 
   @Override

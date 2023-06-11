@@ -1,15 +1,32 @@
 package controller.command.dice;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
+import controller.command.character.CreateChar;
 import java.io.StringReader;
 import model.infiniteodysseys.IOManager;
 import org.junit.Test;
 import view.IOManagerTextView;
 
 public class RollTest extends IOManagerControllerTest {
+
+  @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("roll (upperBound)",
+        new Roll(this.model, null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Returns a random number between 1 and the given upper bound.\n"
+            + "The upper bound cannot be less than 2.",
+        new Roll(this.model, null, null).getDescription());
+  }
 
   @Test
   public void roll20() {
@@ -41,7 +58,7 @@ public class RollTest extends IOManagerControllerTest {
 
   @Test
   public void roll2() {
-    int n = 2; 
+    int n = 2;
 
     String rolls = "";
     for (int i = 0; i < 1000; i++) {
@@ -70,7 +87,7 @@ public class RollTest extends IOManagerControllerTest {
 
   @Test
   public void roll4() {
-    int n = 4; 
+    int n = 4;
 
     String rolls = "";
     for (int i = 0; i < 1000; i++) {
@@ -99,7 +116,7 @@ public class RollTest extends IOManagerControllerTest {
 
   @Test
   public void roll6() {
-    int n = 6; 
+    int n = 6;
 
     String rolls = "";
     for (int i = 0; i < 1000; i++) {
@@ -128,7 +145,7 @@ public class RollTest extends IOManagerControllerTest {
 
   @Test
   public void roll100() {
-    int n = 100; 
+    int n = 100;
 
     String rolls = "";
     for (int i = 0; i < 1000; i++) {
@@ -157,7 +174,7 @@ public class RollTest extends IOManagerControllerTest {
 
   @Test
   public void roll1000() {
-    int n = 1000; 
+    int n = 1000;
 
     String rolls = "";
     for (int i = 0; i < 1000; i++) {

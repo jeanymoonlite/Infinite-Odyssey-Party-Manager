@@ -55,7 +55,8 @@ public class IOManagerTest extends IOPartyTest {
       fail();
     }
     catch (IllegalStateException e) {
-      assertEquals("A active party needs to be set first before starting a campaign.", e.getMessage());
+      assertEquals("A active party needs to be set first before starting a campaign.",
+          e.getMessage());
     }
 
     this.m.setActiveParty("The Boys");

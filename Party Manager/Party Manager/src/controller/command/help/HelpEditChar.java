@@ -28,10 +28,10 @@ public final class HelpEditChar extends ACommand {
           + "strength, intelligence, creativity, charisma, stealth, intimidation\n");
       this.view.display("\tnewValue is the new value to give the specified attribute.\n");
       this.view.display("\t\tname and playerName cannot be whitespace.\n");
-      this.view.display("\t\trole must be one of the following: Warrior, Wizard, Bard, Engineer, Rogue, Monk, Human.\n");
+      this.view.display(
+          "\t\trole must be one of the following: Warrior, Wizard, Bard, Engineer, Rogue, Monk, Human.\n");
       this.view.display("\t\tthe remaining stats must be positive whole numbers.\n");
       this.view.display("\t\tthe sum of the stats must not exceed 30.\n\n");
-
 
       this.view.display("save\n\n");
       this.view.display("back\n");

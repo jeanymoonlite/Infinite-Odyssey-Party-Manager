@@ -19,7 +19,8 @@ public class IOPartyTest extends IOCharacterTest {
   public void initParty() {
     this.init();
     this.p1 = new IOParty("p1", this.luna, this.bryan, this.jake, this.steven);
-    this.p2 = new IOParty("p2", this.luna, this.bryan, this.jake, this.steven, this.rose, this.sarah);
+    this.p2 = new IOParty("p2", this.luna, this.bryan, this.jake, this.steven, this.rose,
+        this.sarah);
     this.p7 = new IOParty("p7", this.luna, this.jake, this.bryan);
   }
 

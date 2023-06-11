@@ -8,8 +8,7 @@ import model.Manager;
 import view.TextView;
 
 /**
- * A command that enables the seed given seed to be used. This only works if a seed
- * has been set.
+ * A command that enables the seed given seed to be used. This only works if a seed has been set.
  */
 public class UseSeed extends ACommand {
 
@@ -20,11 +19,17 @@ public class UseSeed extends ACommand {
    *
    * @param model the model to use
    * @param view  the view to use to render messages
-   * @param sc  the scanner to read input from
+   * @param sc    the scanner to read input from
    */
   public UseSeed(Manager model, TextView view, Scanner sc) {
     super(model, view);
     this.sc = sc;
+    this.signature = "use-seed (y or n)";
+    this.description = "Enables or disables the seed for dice rolls. If a seed has \n"
+        + "NOT been set, the command will request one.\n"
+        + "The command will ONLY accept y or n; y enables the seed, \n"
+        + "n disables the seed. Seeds cannot be set for specific dice, \n"
+        + "they're either enabled for all or disabled for all.";
   }
 
   @Override

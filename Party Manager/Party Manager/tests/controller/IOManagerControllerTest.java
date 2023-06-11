@@ -46,7 +46,8 @@ public class IOManagerControllerTest {
     try {
       this.controller = new IOManagerController(null, null, null);
       fail("Model is null");
-    } catch (IllegalArgumentException e) {
+    }
+    catch (IllegalArgumentException e) {
       assertEquals("The Model for the Controller cannot be null.",
           e.getMessage());
     }
@@ -55,7 +56,8 @@ public class IOManagerControllerTest {
       this.model = new IOManager();
       this.controller = new IOManagerController(this.model, null, null);
       fail("View is null");
-    } catch (IllegalArgumentException e) {
+    }
+    catch (IllegalArgumentException e) {
       assertEquals("The View for the Controller cannot be null.",
           e.getMessage());
     }
@@ -65,7 +67,8 @@ public class IOManagerControllerTest {
       this.view = new IOManagerTextView(this.model, System.out);
       this.controller = new IOManagerController(this.model, this.view, null);
       fail("Output is null");
-    } catch (IllegalArgumentException e) {
+    }
+    catch (IllegalArgumentException e) {
       assertEquals("The Readable for the Controller cannot be null.",
           e.getMessage());
     }
@@ -174,7 +177,6 @@ public class IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-
     assertEquals(this.startMessage
             + "Awaiting command:\n"
             + "WARNING: Quitting will delete any unsaved progress. "
@@ -195,7 +197,6 @@ public class IOManagerControllerTest {
     this.view = new IOManagerTextView(this.model, output);
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
-
 
     assertEquals(this.startMessage
             + "Awaiting command:\n"

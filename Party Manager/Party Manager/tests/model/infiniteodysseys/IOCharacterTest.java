@@ -54,91 +54,108 @@ public class IOCharacterTest {
     try {
       new IOCharacter(-1, -2, -3, -4, -5, -6);
       fail();
-    } catch (IllegalArgumentException e) {
+    }
+    catch (IllegalArgumentException e) {
       assertEquals("Stat value cannot be less than 0.", e.getMessage());
     }
 
     try {
       new IOCharacter(5, -2, -3, -4, -5, -6);
       fail();
-    } catch (IllegalArgumentException e) {
+    }
+    catch (IllegalArgumentException e) {
       assertEquals("Stat value cannot be less than 0.", e.getMessage());
     }
 
     try {
       new IOCharacter(5, 2, -3, -4, -5, -6);
       fail();
-    } catch (IllegalArgumentException e) {
+    }
+    catch (IllegalArgumentException e) {
       assertEquals("Stat value cannot be less than 0.", e.getMessage());
     }
 
     try {
       new IOCharacter(5, 2, 3, -4, -5, -6);
       fail();
-    } catch (IllegalArgumentException e) {
+    }
+    catch (IllegalArgumentException e) {
       assertEquals("Stat value cannot be less than 0.", e.getMessage());
     }
 
     try {
       new IOCharacter(5, 2, 3, 4, -5, -6);
       fail();
-    } catch (IllegalArgumentException e) {
+    }
+    catch (IllegalArgumentException e) {
       assertEquals("Stat value cannot be less than 0.", e.getMessage());
     }
 
     try {
       new IOCharacter(5, 2, 3, 4, 5, -6);
       fail();
-    } catch (IllegalArgumentException e) {
+    }
+    catch (IllegalArgumentException e) {
       assertEquals("Stat value cannot be less than 0.", e.getMessage());
     }
 
     try {
       new IOCharacter(5, 6, 6, 6, 5, 6);
       fail();
-    } catch (IllegalArgumentException e) {
+    }
+    catch (IllegalArgumentException e) {
       assertEquals("Overall stats must add up to or less than 30.", e.getMessage());
     }
 
     try {
       new IOCharacter(null, null, null, null, 5, 6, 6, 6, 5, 6);
       fail();
-    } catch (IllegalArgumentException e) {
-      assertEquals("Character name, Player name, Role, or Role specification cannot be null.", e.getMessage());
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("Character name, Player name, Role, or Role specification cannot be null.",
+          e.getMessage());
     }
 
     try {
       new IOCharacter("Luna", null, null, null, 5, 6, 6, 6, 5, 6);
       fail();
-    } catch (IllegalArgumentException e) {
-      assertEquals("Character name, Player name, Role, or Role specification cannot be null.", e.getMessage());
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("Character name, Player name, Role, or Role specification cannot be null.",
+          e.getMessage());
     }
 
     try {
       new IOCharacter("Luna", "Jean", null, null, 5, 6, 6, 6, 5, 6);
       fail();
-    } catch (IllegalArgumentException e) {
-      assertEquals("Character name, Player name, Role, or Role specification cannot be null.", e.getMessage());
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("Character name, Player name, Role, or Role specification cannot be null.",
+          e.getMessage());
     }
 
     try {
       new IOCharacter("Luna", "Jean", IORoles.WIZARD, null, 5, 6, 6, 6, 5, 6);
       fail();
-    } catch (IllegalArgumentException e) {
-      assertEquals("Character name, Player name, Role, or Role specification cannot be null.", e.getMessage());
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("Character name, Player name, Role, or Role specification cannot be null.",
+          e.getMessage());
     }
 
     try {
       new IOCharacter(" ", "Jean", IORoles.WIZARD, "The Human", 5, 6, 6, 6, 5, 6);
       fail();
-    } catch (IllegalArgumentException e) {
+    }
+    catch (IllegalArgumentException e) {
       assertEquals("Character name or Player name cannot be whitespace.", e.getMessage());
     }
 
     try {
       new IOCharacter(" ", " ", IORoles.WIZARD, "The Human", 5, 6, 6, 6, 5, 6);
       fail();
-    } catch (IllegalArgumentException e) {
+    }
+    catch (IllegalArgumentException e) {
       assertEquals("Character name or Player name cannot be whitespace.", e.getMessage());
     }
   }
@@ -216,7 +233,7 @@ public class IOCharacterTest {
   }
 
   @Test
-  public void getRoleValueException()  {
+  public void getRoleValueException() {
     try {
       this.jake.getRoleValueOf("Special");
       fail();
@@ -237,7 +254,7 @@ public class IOCharacterTest {
   }
 
   @Test
-  public void getRoleValueWarrior()  {
+  public void getRoleValueWarrior() {
     assertEquals(5, this.jake.getRoleValueOf("Defense"));
     assertEquals(5, this.jake.getRoleValueOf("defense"));
 
@@ -261,7 +278,7 @@ public class IOCharacterTest {
   }
 
   @Test
-  public void getRoleValueWizard()  {
+  public void getRoleValueWizard() {
     assertEquals(0, this.luna.getRoleValueOf("Defense"));
     assertEquals(0, this.luna.getRoleValueOf("defense"));
 
@@ -285,7 +302,7 @@ public class IOCharacterTest {
   }
 
   @Test
-  public void getRoleValueBard()  {
+  public void getRoleValueBard() {
     assertEquals(1, this.dre.getRoleValueOf("Defense"));
     assertEquals(1, this.dre.getRoleValueOf("defense"));
 
@@ -309,7 +326,7 @@ public class IOCharacterTest {
   }
 
   @Test
-  public void getRoleValueEngineer()  {
+  public void getRoleValueEngineer() {
     assertEquals(0, this.bryan.getRoleValueOf("Defense"));
     assertEquals(0, this.bryan.getRoleValueOf("defense"));
 
@@ -333,7 +350,7 @@ public class IOCharacterTest {
   }
 
   @Test
-  public void getRoleValueRogue()  {
+  public void getRoleValueRogue() {
     assertEquals(-5, this.rose.getRoleValueOf("Defense"));
     assertEquals(-5, this.rose.getRoleValueOf("defense"));
 
@@ -357,7 +374,7 @@ public class IOCharacterTest {
   }
 
   @Test
-  public void getRoleValueMonk()  {
+  public void getRoleValueMonk() {
     assertEquals(2, this.sarah.getRoleValueOf("Defense"));
     assertEquals(2, this.sarah.getRoleValueOf("defense"));
 
@@ -381,7 +398,7 @@ public class IOCharacterTest {
   }
 
   @Test
-  public void getRoleValueHuman()  {
+  public void getRoleValueHuman() {
     assertEquals(0, this.steven.getRoleValueOf("Defense"));
     assertEquals(0, this.steven.getRoleValueOf("defense"));
 
@@ -425,8 +442,8 @@ public class IOCharacterTest {
     assertEquals(100, this.sarah.getHP());
     assertEquals(100, this.steven.getHP());
 
-    int[] hps = new int[] {92, 57, 18, 99, 7, 33, 41};
-    Character[] c = new Character[] {this.jake, this.luna, this.dre,
+    int[] hps = new int[]{92, 57, 18, 99, 7, 33, 41};
+    Character[] c = new Character[]{this.jake, this.luna, this.dre,
         this.bryan, this.rose, this.sarah, this.steven};
 
     for (int i = 0; i < c.length; i++) {
@@ -440,7 +457,6 @@ public class IOCharacterTest {
     assertEquals(7, this.rose.getHP());
     assertEquals(33, this.sarah.getHP());
     assertEquals(41, this.steven.getHP());
-
 
     this.jake.setHP(10000);
     this.luna.setHP(-10000);

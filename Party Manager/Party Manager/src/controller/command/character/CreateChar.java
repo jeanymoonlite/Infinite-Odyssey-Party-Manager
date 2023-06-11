@@ -12,8 +12,7 @@ import model.infiniteodysseys.IORoles;
 import view.TextView;
 
 /**
- * A command object that creates a {@code Character} and adds it to the given
- * model.
+ * A command object that creates a {@code Character} and adds it to the given model.
  */
 public final class CreateChar extends ACommand {
 
@@ -24,7 +23,7 @@ public final class CreateChar extends ACommand {
    *
    * @param model the model to use
    * @param view  the view to use to render messages
-   * @param sc  the scanner to read input from
+   * @param sc    the scanner to read input from
    */
   public CreateChar(Manager model, TextView view, Scanner sc) {
     super(model, view);
@@ -144,7 +143,8 @@ public final class CreateChar extends ACommand {
       }
 
       return name;
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
     }
   }
@@ -169,7 +169,8 @@ public final class CreateChar extends ACommand {
       }
 
       return validRole;
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
     }
   }
@@ -229,7 +230,8 @@ public final class CreateChar extends ACommand {
         this.view.display("Please try again.\n");
         return this.getStats();
       }
-    } catch (IOException e) {
+    }
+    catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
     }
   }

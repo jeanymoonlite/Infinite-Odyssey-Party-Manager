@@ -36,7 +36,8 @@ public class IOManager implements Manager {
   @Override
   public void startCampaign(boolean start) throws IllegalStateException {
     if ((start) && (this.curParty == null)) {
-      throw new IllegalStateException("A active party needs to be set first before starting a campaign.");
+      throw new IllegalStateException(
+          "A active party needs to be set first before starting a campaign.");
     }
 
     this.startedCampaign = start;
@@ -250,7 +251,8 @@ public class IOManager implements Manager {
       }
     }
     catch (IllegalArgumentException e) {
-      throw new IllegalArgumentException("This Character does not have all of the stats this Manager requires.");
+      throw new IllegalArgumentException(
+          "This Character does not have all of the stats this Manager requires.");
     }
 
     this.characters.add(c);
@@ -347,7 +349,8 @@ public class IOManager implements Manager {
             partiesToRemove.add(curParty.getName());
             break;
           }
-        } else {
+        }
+        else {
           temp[counter] = curParty.getParty()[c];
           counter++;
         }

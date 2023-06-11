@@ -26,7 +26,8 @@ public final class Help extends ACommand {
       this.view.display("All Help Commands:\n");
 
       this.view.display("help\n");
-      this.view.display("\tWhen in Character or Party editing mode, this command displays the edit specific commands.\n");
+      this.view.display(
+          "\tWhen in Character or Party editing mode, this command displays the edit specific commands.\n");
       this.view.display("\n");
 
       this.view.display("help-all\n");

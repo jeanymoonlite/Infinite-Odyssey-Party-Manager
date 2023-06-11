@@ -10,8 +10,8 @@ import utils.Clamp;
 import view.TextView;
 
 /**
- * This command generates a random number between 1 and the given upper bound.
- * This command does NOT use the controller's seed.
+ * This command generates a random number between 1 and the given upper bound. This command does NOT
+ * use the controller's seed.
  */
 public class Roll extends ACommand {
 
@@ -22,11 +22,15 @@ public class Roll extends ACommand {
    *
    * @param model the model to use
    * @param view  the view to use to render messages
-   * @param sc  the scanner to read input from
+   * @param sc    the scanner to read input from
    */
   public Roll(Manager model, TextView view, Scanner sc) {
     super(model, view);
     this.sc = sc;
+
+    this.signature = "roll (upperBound)";
+    this.description = "Returns a random number between 1 and the given upper bound.\n"
+        + "The upper bound cannot be less than 2.";
   }
 
   @Override

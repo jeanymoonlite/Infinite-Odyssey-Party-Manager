@@ -12,13 +12,34 @@ import org.junit.Test;
 import view.IOManagerTextView;
 
 public class DiceTest extends IOManagerControllerTest {
-  @Test
-  public void d2() {
-    int n = 2;
 
+  @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("cf",
+        new Dice(this.model, null, 2).getSignature());
+    assertEquals("d20",
+        new Dice(this.model, null, 20).getSignature());
+    assertEquals("d50",
+        new Dice(this.model, null, 50).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Flips a coin.",
+        new Dice(this.model, null, 2).getDescription());
+    assertEquals("Rolls a random number between 1 and 20.",
+        new Dice(this.model, null, 20).getDescription());
+    assertEquals("Rolls a random number between 1 and 50.",
+        new Dice(this.model, null, 50).getDescription());
+  }
+
+  @Test
+  public void cf() {
     String rolls = "";
     for (int i = 0; i < 1000; i++) {
-      rolls = rolls.concat("d" + n + "\n");
+      rolls = rolls.concat("cf\n");
     }
 
     Readable input = new StringReader(rolls + "quit y");
@@ -33,100 +54,10 @@ public class DiceTest extends IOManagerControllerTest {
     for (int i = 0; i < 1000; i++) {
       String out = output.toString()
           .split("Awaiting command:\n")[i + 1]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
+          .split("The coin landed on ")[1];
+      assertTrue(out.equalsIgnoreCase("Heads.\n")
+          || out.equalsIgnoreCase("Tails.\n"));
     }
-  }
-
-  @Test
-  public void d2Seeded() {
-    int n = 2;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 1 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(1, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [2]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 1.\n")[1].split("WARNING")[0]);
-  }
-
-  @Test
-  public void d2Seeded2() {
-    int n = 2;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 2 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(2, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [2]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 2.\n")[1].split("WARNING")[0]);
   }
 
   @Test
@@ -159,94 +90,6 @@ public class DiceTest extends IOManagerControllerTest {
   }
 
   @Test
-  public void d4Seeded() {
-    int n = 4;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 1 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(1, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [3]\n"
-            + "Awaiting command:\n"
-            + "The roll is [2]\n"
-            + "Awaiting command:\n"
-            + "The roll is [3]\n"
-            + "Awaiting command:\n"
-            + "The roll is [4]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 1.\n")[1].split("WARNING")[0]);
-  }
-
-  @Test
-  public void d4Seeded2() {
-    int n = 4;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 2 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(2, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [3]\n"
-            + "Awaiting command:\n"
-            + "The roll is [2]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [2]\n"
-            + "Awaiting command:\n"
-            + "The roll is [4]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 2.\n")[1].split("WARNING")[0]);
-  }
-
-  @Test
   public void d6() {
     int n = 6;
 
@@ -273,94 +116,6 @@ public class DiceTest extends IOManagerControllerTest {
       out = out.trim();
       assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
     }
-  }
-
-  @Test
-  public void d6Seeded() {
-    int n = 6;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 1 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(1, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [4]\n"
-            + "Awaiting command:\n"
-            + "The roll is [4]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [6]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 1.\n")[1].split("WARNING")[0]);
-  }
-
-  @Test
-  public void d6Seeded2() {
-    int n = 6;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 2 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(2, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [5]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [4]\n"
-            + "Awaiting command:\n"
-            + "The roll is [4]\n"
-            + "Awaiting command:\n"
-            + "The roll is [5]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 2.\n")[1].split("WARNING")[0]);
   }
 
   @Test
@@ -393,94 +148,6 @@ public class DiceTest extends IOManagerControllerTest {
   }
 
   @Test
-  public void d8Seeded() {
-    int n = 8;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 1 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(1, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [6]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [6]\n"
-            + "Awaiting command:\n"
-            + "The roll is [8]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 1.\n")[1].split("WARNING")[0]);
-  }
-
-  @Test
-  public void d8Seeded2() {
-    int n = 8;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 2 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(2, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [4]\n"
-            + "Awaiting command:\n"
-            + "The roll is [6]\n"
-            + "Awaiting command:\n"
-            + "The roll is [2]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [6]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 2.\n")[1].split("WARNING")[0]);
-  }
-
-  @Test
   public void d10() {
     int n = 10;
 
@@ -507,94 +174,6 @@ public class DiceTest extends IOManagerControllerTest {
       out = out.trim();
       assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
     }
-  }
-
-  @Test
-  public void d10Seeded() {
-    int n = 10;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 1 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(1, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [4]\n"
-            + "Awaiting command:\n"
-            + "The roll is [6]\n"
-            + "Awaiting command:\n"
-            + "The roll is [8]\n"
-            + "Awaiting command:\n"
-            + "The roll is [8]\n"
-            + "Awaiting command:\n"
-            + "The roll is [9]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 1.\n")[1].split("WARNING")[0]);
-  }
-
-  @Test
-  public void d10Seeded2() {
-    int n = 10;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 2 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(2, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [2]\n"
-            + "Awaiting command:\n"
-            + "The roll is [9]\n"
-            + "Awaiting command:\n"
-            + "The roll is [8]\n"
-            + "Awaiting command:\n"
-            + "The roll is [9]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 2.\n")[1].split("WARNING")[0]);
   }
 
   @Test
@@ -627,94 +206,6 @@ public class DiceTest extends IOManagerControllerTest {
   }
 
   @Test
-  public void d12Seeded() {
-    int n = 12;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 1 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(1, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [4]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [7]\n"
-            + "Awaiting command:\n"
-            + "The roll is [9]\n"
-            + "Awaiting command:\n"
-            + "The roll is [12]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 1.\n")[1].split("WARNING")[0]);
-  }
-
-  @Test
-  public void d12Seeded2() {
-    int n = 12;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 2 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(2, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [5]\n"
-            + "Awaiting command:\n"
-            + "The roll is [6]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [8]\n"
-            + "Awaiting command:\n"
-            + "The roll is [4]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 2.\n")[1].split("WARNING")[0]);
-  }
-
-  @Test
   public void d20() {
     int n = 20;
 
@@ -741,94 +232,6 @@ public class DiceTest extends IOManagerControllerTest {
       out = out.trim();
       assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
     }
-  }
-
-  @Test
-  public void d20Seeded() {
-    int n = 20;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 1 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(1, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [18]\n"
-            + "Awaiting command:\n"
-            + "The roll is [4]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [20]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 1.\n")[1].split("WARNING")[0]);
-  }
-
-  @Test
-  public void d20Seeded2() {
-    int n = 20;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 2 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(2, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [19]\n"
-            + "Awaiting command:\n"
-            + "The roll is [15]\n"
-            + "Awaiting command:\n"
-            + "The roll is [11]\n"
-            + "Awaiting command:\n"
-            + "The roll is [4]\n"
-            + "Awaiting command:\n"
-            + "The roll is [12]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 2.\n")[1].split("WARNING")[0]);
   }
 
   @Test
@@ -860,91 +263,4 @@ public class DiceTest extends IOManagerControllerTest {
     }
   }
 
-  @Test
-  public void d100Seeded() {
-    int n = 100;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 1 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(1, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [97]\n"
-            + "Awaiting command:\n"
-            + "The roll is [5]\n"
-            + "Awaiting command:\n"
-            + "The roll is [21]\n"
-            + "Awaiting command:\n"
-            + "The roll is [41]\n"
-            + "Awaiting command:\n"
-            + "The roll is [77]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 1.\n")[1].split("WARNING")[0]);
-  }
-
-  @Test
-  public void d100Seeded2() {
-    int n = 100;
-
-    String rolls = "";
-    for (int i = 0; i < 5; i++) {
-      rolls = rolls.concat("d" + n + "\n");
-    }
-
-    Readable input = new StringReader("set-seed 2 use-seed y " + rolls + "quit y");
-    Appendable output = new StringBuilder();
-
-    this.model = new IOManager();
-    this.view = new IOManagerTextView(this.model, output);
-    this.controller = new IOManagerController(this.model, this.view, input);
-
-    this.controller.start();
-
-    for (int i = 0; i < 5; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 3]
-          .split("The roll is ")[1];
-      out = out.replace("[", "");
-      out = out.replace("]", "");
-      out = out.trim();
-      assertTrue(Integer.parseInt(out) > 0 && Integer.parseInt(out) <= n);
-    }
-
-    assertEquals(2, IOManagerSeedHolder.getInstance().getSeed());
-    assertTrue(IOManagerSeedHolder.getInstance().isUsingSeed());
-    assertEquals("Awaiting command:\n"
-            + "The roll is [5]\n"
-            + "Awaiting command:\n"
-            + "The roll is [37]\n"
-            + "Awaiting command:\n"
-            + "The roll is [68]\n"
-            + "Awaiting command:\n"
-            + "The roll is [1]\n"
-            + "Awaiting command:\n"
-            + "The roll is [41]\n"
-            + "Awaiting command:\n",
-        output.toString().split("The Manager is now using the seed 2.\n")[1].split("WARNING")[0]);
-  }
 }

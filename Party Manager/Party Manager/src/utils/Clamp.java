@@ -22,9 +22,11 @@ public final class Clamp {
   public static double run(double value, double lower, double upper) {
     if (value > upper) {
       return upper;
-    } else if (value < lower) {
+    }
+    else if (value < lower) {
       return lower;
-    } else {
+    }
+    else {
       return value;
     }
   }
@@ -41,9 +43,11 @@ public final class Clamp {
   public static int run(int value, int lower, int upper) {
     if (value > upper) {
       return upper;
-    } else if (value < lower) {
+    }
+    else if (value < lower) {
       return lower;
-    } else {
+    }
+    else {
       return value;
     }
   }

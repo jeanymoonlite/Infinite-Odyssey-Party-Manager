@@ -46,8 +46,11 @@ public class IOManagerTextViewTest extends IOManagerTest {
   @Test
   public void display() {
     try {
-      try { this.view.display(null); }
-      catch (IOException ignored) {}
+      try {
+        this.view.display(null);
+      }
+      catch (IOException ignored) {
+      }
       fail();
     }
     catch (IllegalArgumentException e) {

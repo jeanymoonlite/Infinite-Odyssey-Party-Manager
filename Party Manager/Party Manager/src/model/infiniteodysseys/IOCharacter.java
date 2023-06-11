@@ -21,28 +21,29 @@ public final class IOCharacter implements Character {
 
   /**
    * Constructs a new {@code IOCharacter} with the given integers.
-   * @param name character's name
-   * @param playerName the name of the character who's playing
-   * @param role the role of the character
+   *
+   * @param name              character's name
+   * @param playerName        the name of the character who's playing
+   * @param role              the role of the character
    * @param roleSpecification the specification of the character's role
-   * @param str character strength
-   * @param intel character intelligence
-   * @param cre character creativity
-   * @param cha character charisma
-   * @param ste character stealth
-   * @param intim character intimidation
-   * @throws IllegalArgumentException if any of the given integers are negative
-   *                                  OR if they add up to a value greater than 30
-   *                                  OR if any of the given Strings are null
-   *                                  OR if the name or playerName is whitespace
-   *                                  OR if the IORoles is null
+   * @param str               character strength
+   * @param intel             character intelligence
+   * @param cre               character creativity
+   * @param cha               character charisma
+   * @param ste               character stealth
+   * @param intim             character intimidation
+   * @throws IllegalArgumentException if any of the given integers are negative OR if they add up to
+   *                                  a value greater than 30 OR if any of the given Strings are
+   *                                  null OR if the name or playerName is whitespace OR if the
+   *                                  IORoles is null
    */
   public IOCharacter(String name, String playerName, IORoles role, String roleSpecification,
       int str, int intel, int cre, int cha, int ste, int intim)
       throws IllegalArgumentException {
 
     if (name == null || playerName == null || role == null || roleSpecification == null) {
-      throw new IllegalArgumentException("Character name, Player name, Role, or Role specification cannot be null.");
+      throw new IllegalArgumentException(
+          "Character name, Player name, Role, or Role specification cannot be null.");
     }
 
     if (name.isBlank() || playerName.isBlank()) {
@@ -96,7 +97,7 @@ public final class IOCharacter implements Character {
   }
 
   @Override
-  public int getValueOf(String stat) throws IllegalArgumentException{
+  public int getValueOf(String stat) throws IllegalArgumentException {
     for (Entry<String, Integer> e : this.stats.entrySet()) {
       if (e.getKey().equalsIgnoreCase(stat)) {
         return e.getValue();
@@ -218,7 +219,6 @@ public final class IOCharacter implements Character {
     String[] statsArray = new String[IOStats.getAll().length - 2];
     System.arraycopy(IOStats.getAll(), 2,
         statsArray, 0, statsArray.length);
-
 
     for (String s : statsArray) {
       stats = stats.concat(s + ": " + this.getValueOf(s));

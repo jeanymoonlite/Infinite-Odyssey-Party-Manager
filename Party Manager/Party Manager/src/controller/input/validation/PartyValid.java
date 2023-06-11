@@ -7,8 +7,8 @@ import model.Manager;
 import view.TextView;
 
 /**
- * A functional object that takes in the name of a {@code Party} and confirms whether the
- * party is valid.
+ * A functional object that takes in the name of a {@code Party} and confirms whether the party is
+ * valid.
  */
 public final class PartyValid extends ACommand implements InputValidation {
 
@@ -19,7 +19,7 @@ public final class PartyValid extends ACommand implements InputValidation {
    *
    * @param model the model to use
    * @param view  the view to use to render messages
-   * @param sc the scanner to read input from
+   * @param sc    the scanner to read input from
    */
   public PartyValid(Manager model, TextView view, Scanner sc) {
     super(model, view);
@@ -42,7 +42,8 @@ public final class PartyValid extends ACommand implements InputValidation {
       }
 
       if (!this.model.doesPartyExist(input)) {
-        this.view.display("Invalid input: The Party " + input + " doesn't exist in this Manager.\n");
+        this.view.display(
+            "Invalid input: The Party " + input + " doesn't exist in this Manager.\n");
         return false;
       }
 
