@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
+import controller.command.manager.PartyCommand;
 import java.io.StringReader;
 import java.util.NoSuchElementException;
 import model.infiniteodysseys.IOManager;
@@ -14,6 +15,22 @@ import org.junit.Test;
 import view.IOManagerTextView;
 
 public class CreatePartyTest extends IOManagerControllerTest {
+
+  @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("create-party (name characters...)",
+        new CreateParty(null, null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Creates a new party with the given name and list of characters.\n"
+            + "Each character's name must be separated by a space and \n"
+            + "they should all be on one line.",
+        new CreateParty(null, null, null).getDescription());
+  }
 
   @Test
   public void successfulCreateParty() {

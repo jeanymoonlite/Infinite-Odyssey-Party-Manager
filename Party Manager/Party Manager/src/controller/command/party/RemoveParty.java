@@ -24,6 +24,8 @@ public final class RemoveParty extends ACommand {
   public RemoveParty(Manager model, TextView view, Scanner sc) {
     super(model, view);
     this.sc = sc;
+    this.signature = "remove-party (name)";
+    this.description = "Removes a party with the given name.";
   }
 
   @Override

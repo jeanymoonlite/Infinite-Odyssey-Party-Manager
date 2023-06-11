@@ -21,17 +21,17 @@ public class HelpPartyTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("create-party (name characters...)\n"
+    assertEquals("create-party (name characters...): \n"
             + "\tCreates a new party with the given name and list of characters.\n"
-            + "\tEach character's name must be seperated by a space and they should all be on one line.\n"
-            + "\tDuplicate characters cannot be used.\n"
+            + "\tEach character's name must be separated by a space and \n"
+            + "\tthey should all be on one line.\n"
             + "\n"
-            + "edit-party (name)\n"
-            + "\tEdits a Party with the given name.\n"
-            + "\tThis will put the program into party editing mode, "
-            + "where a new set of commands will be available.\n"
+            + ": \n"
+            + "\tEdits the Party with the given name.\n"
+            + "\tThis will put the program into Party Editing mode.\n"
+            + "\tA new set of commands will become available in editing mode.\n"
             + "\n"
-            + "remove-party (name)\n"
+            + "remove-party (name): \n"
             + "\tRemoves a party with the given name.\n"
             + "\n",
         output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);

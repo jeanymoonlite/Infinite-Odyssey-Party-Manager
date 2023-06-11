@@ -1,6 +1,7 @@
 package controller.command.stats;
 
 import controller.command.ACommand;
+import controller.input.validation.CharacterValid;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -34,6 +35,13 @@ public class ChangeHp extends ACommand {
     this.sc = sc;
     this.heal = heal;
     this.all = all;
+
+    this.signature = ((this.heal) ? "heal" : "damage")
+        + ((this.all) ? "-all (amount)" : " (amount name)");
+    this.description = ((this.heal) ? "Adds" : "Subtracts")
+        + ((this.all) ? " the amount to every character's hp in the active party." :
+        " the amount to the character's hp with the given name.")
+        + "\nThis command rejects any non-integers/negative numbers.";
   }
 
   @Override
@@ -57,7 +65,7 @@ public class ChangeHp extends ACommand {
       }
       catch (InputMismatchException e) {
         this.sc.nextLine();
-        this.view.display("Invalid input: Amount cannot be a decimal.\n");
+        this.view.display("Invalid input: Amount must be an integer (whole number).\n");
       }
     }
     catch (IOException e) {
@@ -67,33 +75,20 @@ public class ChangeHp extends ACommand {
 
   private void single(int amount) {
     String name = this.sc.nextLine().trim();
-    try {
-      if (!this.model.hasCharacters()) {
-        this.view.display("The Manager doesn't have any Characters!\n");
-        this.view.display("Add Characters using the create-char command.\n");
-        return;
-      }
-
-      if (!this.model.doesCharacterExist(name)) {
-        this.view.display(
-            "Invalid input: The Character " + name + " doesn't exist in this Manager.\n");
-        return;
-      }
-
-      Character c = this.model.findCharByName(name);
-
-      this.changeHp(c, amount);
-
+    if (!new CharacterValid(this.model, this.view, this.sc).isValid(name)) {
+      return;
     }
-    catch (IOException e) {
-      throw new RuntimeException("Fatal Error: IOException occurred.");
-    }
+
+    Character c = this.model.findCharByName(name);
+
+    this.changeHp(c, amount);
+
   }
 
   private void party(int amount) {
     try {
-      if (!this.model.hasStartedACampaign()) {
-        this.view.display("Invalid state: This command is to be used during a campaign.\n");
+      if (!this.model.hasParties()) {
+        this.view.display("Invalid state: This command can only be used during a campaign.\n");
         this.view.display("Use the start command to start a campaign.\n");
         return;
       }
@@ -114,12 +109,11 @@ public class ChangeHp extends ACommand {
       if (this.heal) {
         c.setHP(c.getHP() + amount);
         this.view.display(c.getName() + " had " + amount + " hp restored.\n");
-
       }
       else {
         c.setHP(c.getHP() - Clamp.run((amount) - defense, 1, 100));
-        this.view.display(
-            c.getName() + " lost " + Clamp.run((amount) - defense, 1, 100) + " hp.\n");
+        this.view.display(c.getName() + " lost "
+            + Clamp.run((amount) - defense, 1, 100) + " hp.\n");
       }
 
       this.view.display(c.getName() + " (" + c.getPlayerName() + ") ");

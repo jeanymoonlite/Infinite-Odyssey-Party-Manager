@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
+import controller.command.manager.PartyCommand;
 import java.io.StringReader;
 import java.util.NoSuchElementException;
 import model.infiniteodysseys.IOManager;
@@ -14,6 +15,34 @@ import org.junit.Test;
 import view.IOManagerTextView;
 
 public class ChangeHpTest extends IOManagerControllerTest {
+
+  @Test
+  public void getSignature() {
+    assertEquals("heal (amount name)",
+        new ChangeHp(null, null, null, true, false).getSignature());
+    assertEquals("damage (amount name)",
+        new ChangeHp(null, null, null, false, false).getSignature());
+    assertEquals("heal-all (amount)",
+        new ChangeHp(null, null, null, true, true).getSignature());
+    assertEquals("damage-all (amount)",
+        new ChangeHp(null, null, null, false, true).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    assertEquals("Adds the amount to the character's hp with the given name."
+            + "\nThis command rejects any non-integers/negative numbers.",
+        new ChangeHp(null, null, null, true, false).getDescription());
+    assertEquals("Subtracts the amount to the character's hp with the given name."
+            + "\nThis command rejects any non-integers/negative numbers.",
+        new ChangeHp(null, null, null, false, false).getDescription());
+    assertEquals("Adds the amount to every character's hp in the active party."
+            + "\nThis command rejects any non-integers/negative numbers.",
+        new ChangeHp(null, null, null, true, true).getDescription());
+    assertEquals("Subtracts the amount to every character's hp in the active party."
+            + "\nThis command rejects any non-integers/negative numbers.",
+        new ChangeHp(null, null, null, false, true).getDescription());
+  }
 
   @Test
   public void successfulDamage() {
@@ -469,13 +498,13 @@ public class ChangeHpTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertFalse(this.model.doesCharacterExist("Onion"));
-    assertEquals("Invalid state: This command is to be used during a campaign.\n"
+    assertEquals("Invalid state: This command can only be used during a campaign.\n"
             + "Use the start command to start a campaign.\n",
         output.toString()
             .split("WARNING")[0]
             .split("Awaiting command:\n")[1]);
 
-    assertEquals("Invalid state: This command is to be used during a campaign.\n"
+    assertEquals("Invalid state: This command can only be used during a campaign.\n"
             + "Use the start command to start a campaign.\n",
         output.toString()
             .split("WARNING")[0]
@@ -545,22 +574,22 @@ public class ChangeHpTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertTrue(this.model.doesCharacterExist("Onion"));
-    assertEquals("Invalid input: Amount cannot be a decimal.\n",
+    assertEquals("Invalid input: Amount must be an integer (whole number).\n",
         output.toString()
             .split("WARNING")[0]
             .split("Awaiting command:\n")[2]);
 
-    assertEquals("Invalid input: Amount cannot be a decimal.\n",
+    assertEquals("Invalid input: Amount must be an integer (whole number).\n",
         output.toString()
             .split("WARNING")[0]
             .split("Awaiting command:\n")[3]);
 
-    assertEquals("Invalid input: Amount cannot be a decimal.\n",
+    assertEquals("Invalid input: Amount must be an integer (whole number).\n",
         output.toString()
             .split("WARNING")[0]
             .split("Awaiting command:\n")[4]);
 
-    assertEquals("Invalid input: Amount cannot be a decimal.\n",
+    assertEquals("Invalid input: Amount must be an integer (whole number).\n",
         output.toString()
             .split("WARNING")[0]
             .split("Awaiting command:\n")[5]);

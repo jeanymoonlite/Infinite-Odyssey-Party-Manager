@@ -27,7 +27,7 @@ public class HelpCharTest extends IOManagerControllerTest {
             + "\tCreates a new Character with the given information.\n"
             + "\n"
             + "edit-char (name): \n"
-            + "\tEdits a Character with the given name.\n"
+            + "\tEdits the Character with the given name.\n"
             + "\tThis will put the program into Character Editing mode.\n"
             + "\tA new set of commands will become available in editing mode.\n"
             + "\n"

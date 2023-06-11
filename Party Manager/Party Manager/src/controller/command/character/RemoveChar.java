@@ -34,7 +34,6 @@ public final class RemoveChar extends ACommand {
   @Override
   public void run() {
     try {
-
       String name = this.sc.nextLine().trim();
 
       if (!new CharacterValid(this.model, this.view, this.sc).isValid(name)) {

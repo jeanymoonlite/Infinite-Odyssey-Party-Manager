@@ -35,7 +35,7 @@ public class EditChar extends ACommand {
     this.commands = new String[]{"edit", "back", "quit", "save"};
 
     this.signature = "edit-char (name)";
-    this.description = "Edits a Character with the given name.\n"
+    this.description = "Edits the Character with the given name.\n"
         + "This will put the program into Character Editing mode.\n"
         + "A new set of commands will become available in editing mode.";
   }
