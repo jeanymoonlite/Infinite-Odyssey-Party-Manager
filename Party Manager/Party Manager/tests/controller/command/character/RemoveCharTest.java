@@ -12,6 +12,18 @@ import view.IOManagerTextView;
 public class RemoveCharTest extends IOManagerControllerTest {
 
   @Test
+  public void getSignature() {
+    assertEquals("remove-char (name)",
+        new RemoveChar(null, null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    assertEquals("Removes a Character with the given name.",
+        new RemoveChar(null, null, null).getDescription());
+  }
+
+  @Test
   public void successfulRemoveChar() {
     Readable input = new StringReader("create-char\n"
         + "Onion\n"

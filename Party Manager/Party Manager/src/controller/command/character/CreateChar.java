@@ -29,6 +29,35 @@ public final class CreateChar extends ACommand {
   public CreateChar(Manager model, TextView view, Scanner sc) {
     super(model, view);
     this.sc = sc;
+    this.initSignature();
+    this.description = "Creates a new Character with the given information.";
+  }
+
+  private void initSignature() {
+    String[] stats = new String[this.model.getStats().length - 2];
+
+    System.arraycopy(this.model.getStats(), 2, stats, 0, stats.length);
+
+    for (int i = 0; i < stats.length; i++) {
+      stats[i] = stats[i].toLowerCase();
+    }
+
+    this.signature = "create-char (name playerName class classSpecification\n";
+    String s = "             ";
+
+    for (int i = 0; i < stats.length; i++) {
+      s = s.concat(stats[i]);
+
+      if ((i != stats.length - 1) && ((i + 1) % 3 != 0)) {
+        s = s.concat(" ");
+      }
+
+      if ((i > 0) && (i != stats.length - 1) && ((i + 1) % 3 == 0)) {
+        s = s.concat("\n             ");
+      }
+    }
+
+    this.signature = this.signature.concat(s + ")");
   }
 
   @Override

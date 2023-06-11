@@ -480,8 +480,6 @@ public class IOCharacterTest {
         + "Creativity: 1\n"
         + "Charisma: 1\n"
         + "Stealth: 4\n"
-        + "Intimidation: 7\n"
-        + "Stealth: 4\n"
         + "Intimidation: 7\n", this.jake.toStringAll());
     assertEquals("Lunarose (Luna)\n"
         + "Role: Wizard (Fire Mage)\n"
@@ -490,8 +488,6 @@ public class IOCharacterTest {
         + "Intelligence: 5\n"
         + "Creativity: 10 (+5)\n"
         + "Charisma: 5\n"
-        + "Stealth: 0\n"
-        + "Intimidation: 0\n"
         + "Stealth: 0\n"
         + "Intimidation: 0\n", this.luna.toStringAll());
     assertEquals("Dre (Andre)\n"
@@ -502,8 +498,6 @@ public class IOCharacterTest {
         + "Creativity: 5\n"
         + "Charisma: 15 (+4)\n"
         + "Stealth: 3\n"
-        + "Intimidation: 0\n"
-        + "Stealth: 3\n"
         + "Intimidation: 0\n", this.dre.toStringAll());
     assertEquals("Manuel (Bryan)\n"
         + "Role: Engineer (Mechanic)\n"
@@ -512,8 +506,6 @@ public class IOCharacterTest {
         + "Intelligence: 6 (+3)\n"
         + "Creativity: 1 (+2)\n"
         + "Charisma: 3\n"
-        + "Stealth: 4\n"
-        + "Intimidation: 7\n"
         + "Stealth: 4\n"
         + "Intimidation: 7\n", this.bryan.toStringAll());
     assertEquals("Rose Walker (Day)\n"
@@ -524,8 +516,6 @@ public class IOCharacterTest {
         + "Creativity: 1\n"
         + "Charisma: 1\n"
         + "Stealth: 7 (+3)\n"
-        + "Intimidation: 4\n"
-        + "Stealth: 7 (+3)\n"
         + "Intimidation: 4\n", this.rose.toStringAll());
     assertEquals("Mazikeen (Sarah)\n"
         + "Role: Monk\n"
@@ -535,8 +525,6 @@ public class IOCharacterTest {
         + "Creativity: 3\n"
         + "Charisma: 10 (+3)\n"
         + "Stealth: 4\n"
-        + "Intimidation: 5\n"
-        + "Stealth: 4\n"
         + "Intimidation: 5\n", this.sarah.toStringAll());
     assertEquals("Onion (Steven)\n"
         + "Role: Human\n"
@@ -545,8 +533,6 @@ public class IOCharacterTest {
         + "Intelligence: 1 (+1)\n"
         + "Creativity: 1 (+1)\n"
         + "Charisma: 1 (+1)\n"
-        + "Stealth: 1 (+1)\n"
-        + "Intimidation: 1 (+1)\n"
         + "Stealth: 1 (+1)\n"
         + "Intimidation: 1 (+1)\n", this.steven.toStringAll());
   }

@@ -1,6 +1,7 @@
 package controller.command.character;
 
 import controller.command.ACommand;
+import controller.input.validation.CharacterValid;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,28 +29,17 @@ public final class RemoveChar extends ACommand {
   public RemoveChar(Manager model, TextView view, Scanner sc) {
     super(model, view);
     this.sc = sc;
+    this.signature = "remove-char (name)";
+    this.description = "Removes a Character with the given name.";
   }
 
   @Override
   public void run() {
     try {
-      if (this.model.hasStartedACampaign()) {
-        this.view.display("Invalid state: This command can't be used during a campaign.\n");
-        this.view.display("Use the quit command to end the current campaign.\n");
-        this.sc.nextLine();
-        return;
-      }
-
-      if (!this.model.hasCharacters()) {
-        this.view.display("The Manager doesn't have any Characters!\n");
-        this.view.display("Add Characters using the create-char command.\n");
-        return;
-      }
 
       String name = this.sc.nextLine().trim();
 
-      if (!this.model.doesCharacterExist(name)) {
-        this.view.display("Invalid input: The Character " + name + " doesn't exist in this Manager.\n");
+      if (!new CharacterValid(this.model, this.view, this.sc).isValid(name)) {
         return;
       }
 

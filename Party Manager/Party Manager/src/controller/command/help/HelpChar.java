@@ -1,6 +1,9 @@
 package controller.command.help;
 
 import controller.command.ACommand;
+import controller.command.character.CreateChar;
+import controller.command.character.EditChar;
+import controller.command.character.RemoveChar;
 import java.io.IOException;
 import model.Manager;
 import view.TextView;
@@ -22,39 +25,26 @@ public final class HelpChar extends ACommand {
 
   @Override
   public void run() {
-    String[] stats = new String[this.model.getStats().length - 2];
-
-    System.arraycopy(this.model.getStats(), 2, stats, 0, stats.length);
-
-    for (int i = 0; i < stats.length; i++) {
-      stats[i] = stats[i].toLowerCase();
-    }
-
     try {
-      this.view.display("create-char (name playerName role roleSpecification\n");
-      String s = "             ";
-
-      for (int i = 0; i < stats.length; i++) {
-        s = s.concat(stats[i]);
-
-        if ((i != stats.length - 1) && ((i + 1) % 3 != 0)) s = s.concat(" ");
-
-        if ((i > 0) && (i != stats.length - 1) && ((i + 1) % 3 == 0)) s = s.concat("\n             ");
-      }
-
-      this.view.display(s + ")");
+      this.view.display(new CreateChar(this.model, null, null).getSignature());
+      this.view.display("\n\t");
+      this.view.display(new CreateChar(this.model, null, null)
+          .getDescription().replace("\n", "\n\t"));
       this.view.display("\n");
-      this.view.display("\tCreates a new Character with the given information.\n");
       this.view.display("\n");
 
-      this.view.display("edit-char (name)\n");
-      this.view.display("\tEdits a Character with the given name.\n"
-          + "\tThis will put the program into Character Editing mode.\n"
-          + "\tA new set of commands will become available in editing mode.\n");
+      this.view.display(new EditChar(null, null, null).getSignature());
+      this.view.display("\n\t");
+      this.view.display(new EditChar(null, null, null)
+          .getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
       this.view.display("\n");
 
-      this.view.display("remove-char (name)\n");
-      this.view.display("\tRemoves a Character with the given name\n");
+      this.view.display(new RemoveChar(null, null, null).getSignature());
+      this.view.display("\n\t");
+      this.view.display(new RemoveChar(null, null, null)
+          .getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
       this.view.display("\n");
     }
     catch (IOException e) {

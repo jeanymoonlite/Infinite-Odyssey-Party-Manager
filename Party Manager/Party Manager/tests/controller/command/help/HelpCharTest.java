@@ -21,7 +21,7 @@ public class HelpCharTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("create-char (name playerName role roleSpecification\n"
+    assertEquals("create-char (name playerName class classSpecification\n"
             + "             strength intelligence creativity\n"
             + "             charisma stealth intimidation)\n"
             + "\tCreates a new Character with the given information.\n"
@@ -32,7 +32,7 @@ public class HelpCharTest extends IOManagerControllerTest {
             + "\tA new set of commands will become available in editing mode.\n"
             + "\n"
             + "remove-char (name)\n"
-            + "\tRemoves a Character with the given name\n"
+            + "\tRemoves a Character with the given name.\n"
             + "\n",
         output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
   }

@@ -74,7 +74,7 @@ public interface Character {
    String toString();
 
    /**
-    * Returns this {@code Character}'s name, player name, role, role specification, and
+    * Returns this {@code Character}'s name, player name, class, class specification, and
     * all of its stats, along with their values.
     * @return this character's information.
     */

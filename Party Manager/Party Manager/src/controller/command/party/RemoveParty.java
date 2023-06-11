@@ -1,6 +1,7 @@
 package controller.command.party;
 
 import controller.command.ACommand;
+import controller.input.validation.PartyValid;
 import java.io.IOException;
 import java.util.Scanner;
 import model.Manager;
@@ -28,23 +29,10 @@ public final class RemoveParty extends ACommand {
   @Override
   public void run() {
     try {
-      if (this.model.hasStartedACampaign()) {
-        this.view.display("Invalid state: This command can't be used during a campaign.\n");
-        this.view.display("Use the quit command to end the current campaign.\n");
-        this.sc.nextLine();
-        return;
-      }
-
-      if (!this.model.hasParties()) {
-        this.view.display("The Manager doesn't have any Parties!\n");
-        this.view.display("Add Parties using the create-party command.\n");
-        return;
-      }
 
       String name = this.sc.nextLine().trim();
 
-      if (!this.model.doesPartyExist(name)) {
-        this.view.display("Invalid input: The Party " + name + " doesn't exist in this Manager.\n");
+      if (!new PartyValid(this.model, this.view, this.sc).isValid(name)) {
         return;
       }
 

@@ -10,6 +10,8 @@ public abstract class ACommand implements Command {
 
   protected final Manager model;
   protected final TextView view;
+  protected String signature;
+  protected String description;
 
   /**
    * Constructs a new {@code ACommand}.
@@ -24,4 +26,14 @@ public abstract class ACommand implements Command {
 
   @Override
   public abstract void run();
+
+  @Override
+  public String getSignature() {
+    return this.signature;
+  }
+
+  @Override
+  public String getDescription() {
+    return this.description;
+  }
 }

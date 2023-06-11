@@ -1,6 +1,7 @@
 package controller.command.character;
 
 import controller.command.ACommand;
+import controller.input.validation.CharacterValid;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -34,6 +35,11 @@ public class EditChar extends ACommand {
     this.sc = sc;
     this.tryingToQuit = false;
     this.commands = new String[]{"edit", "back", "quit", "save"};
+
+    this.signature = "edit-char (name)";
+    this.description = "Edits a Character with the given name.\n"
+        + "This will put the program into Character Editing mode.\n"
+        + "A new set of commands will become available in editing mode.";
   }
 
   @Override
@@ -43,24 +49,9 @@ public class EditChar extends ACommand {
       this.tryingToQuit = false;
       this.saving = false;
 
-      if (this.model.hasStartedACampaign()) {
-        this.view.display("Invalid state: This command can't be used during a campaign.\n");
-        this.view.display("Use the quit command to end the current campaign.\n");
-        this.sc.nextLine();
-        return;
-      }
-
-      if (!this.model.hasCharacters()) {
-        this.view.display("The Manager doesn't have any Characters!\n");
-        this.view.display("Add Characters using the create-char command.\n");
-        return;
-      }
-
       String name = this.sc.nextLine().trim();
 
-      if (!this.model.doesCharacterExist(name)) {
-        this.view.display(
-            "Invalid input: The Character " + name + " doesn't exist in this Manager.\n");
+      if (!new CharacterValid(this.model, this.view, this.sc).isValid(name)) {
         return;
       }
 
@@ -68,7 +59,7 @@ public class EditChar extends ACommand {
 
       while (running) {
         if (!this.tryingToQuit) {
-          this.view.displayCharacter(this.newCharacter.getName());
+          this.view.display(this.newCharacter.toStringAll());
           this.view.display("Awaiting edit command:\n");
         }
 
@@ -84,13 +75,13 @@ public class EditChar extends ACommand {
             running = false;
 
             if (this.saving) {
-              this.view.display(name + " has been updated.\n");
+              this.view.display(name + " has been updated!\n");
               this.model.removeCharacter(name);
               this.model.addCharacter(this.newCharacter);
               this.view.displayCharacter(this.newCharacter.getName());
             }
             else {
-              this.view.display("All changes made to" + name + " have been undone.\n");
+              this.view.display("All changes made to " + name + " have been undone.\n");
             }
 
             this.view.display("Now exiting Character editing mode.\n");
@@ -145,9 +136,10 @@ public class EditChar extends ACommand {
 
   private void quitMessage() {
     try {
-      this.view.display("WARNING: Quitting will remove any changes made.\n");
-      this.view.display(
-          "Are you sure you want to exit Character editing mode? (Confirm (y or n)\n");
+      this.view.display("WARNING: Quitting will remove the following changes:\n");
+      this.view.display(this.newCharacter.toStringAll());
+      this.view.display("Are you sure you want to exit Character editing mode?");
+      this.view.display(" Confirm (y or n): \n");
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
@@ -158,8 +150,9 @@ public class EditChar extends ACommand {
 
   private void saveMessage() {
     try {
-      this.view.display("WARNING: Quitting will delete any unsaved progress. "
-          + "Confirm? (y/n)\n");
+      this.view.display("Save the following changes?\n");
+      this.view.display(this.newCharacter.toStringAll());
+      this.view.display("Confirm (y or n): \n");
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
@@ -172,15 +165,18 @@ public class EditChar extends ACommand {
     try {
       String attribute = this.sc.nextLine().trim();
 
-      String[] attributes = new String[] {"Name", "Player Name", "Role", "Role Specification"};
-      String[] stats = this.model.getStats();
-      String[] validAttribute = new String[attributes.length + (stats.length - 2)];
+      String[] attributes = new String[] {"Name", "Player Name", "Role", "Role Spec", "Role Specification"};
 
+      String[] statNames = new String[this.model.getStats().length - 2];
+      System.arraycopy(this.model.getStats(), 2, statNames, 0, statNames.length);
+
+      String[] validAttribute = new String[attributes.length + statNames.length];
       System.arraycopy(attributes, 0, validAttribute, 0, attributes.length);
-      System.arraycopy(stats, 2, validAttribute, attributes.length, (stats.length - 2));
+      System.arraycopy(statNames, 0, validAttribute, attributes.length, statNames.length);
 
       if (Arrays.stream(validAttribute).noneMatch((s) -> s.equalsIgnoreCase(attribute))) {
-        this.view.display("Invalid input: The attribute " + attribute + " does not exist for " + this.character.getName() + ".\n");
+        this.view.display("Invalid input: The attribute " + attribute + " does not exist for " + this.character.getName() + "\n"
+            + "or cannot be edited.\n");
         return;
       }
 
@@ -189,10 +185,10 @@ public class EditChar extends ACommand {
       IORoles role = IORoles.valueOf(this.newCharacter.getRole().toUpperCase());
       String roleSpec = this.newCharacter.getSpecification();
 
-      int[] statVals = new int[stats.length - 2];
+      int[] statVals = new int[statNames.length];
 
       for (int i = 0; i < statVals.length; i++) {
-        statVals[i] = this.newCharacter.getValueOf(stats[i + 2]);
+        statVals[i] = this.newCharacter.getValueOf(statNames[i]);
       }
 
       switch (attribute.toLowerCase()) {
@@ -206,14 +202,14 @@ public class EditChar extends ACommand {
           role = this.getRole();
           break;
         case "role specification":
+        case "role spec":
           roleSpec = this.getRoleSpec();
           break;
       }
 
-      for (int i = 0; i < stats.length; i++) {
-        if (attribute.equalsIgnoreCase(stats[i])) {
+      for (int i = 0; i < statNames.length; i++) {
+        if (attribute.equalsIgnoreCase(statNames[i])) {
           statVals[i] = this.getStat(i, statVals);
-          return;
         }
       }
 
@@ -303,12 +299,8 @@ public class EditChar extends ACommand {
   private String getRoleSpec() {
     try {
       this.view.display("Current Role Specification: " + this.newCharacter.getSpecification() + "\n");
-      this.view.display("Role Specification (Type n/a to leave blank): ");
+      this.view.display("New Role Specification (Type enter to leave blank): ");
       String roleSpec = this.sc.nextLine();
-
-      if (roleSpec.equalsIgnoreCase("n/a")) {
-        return "";
-      }
 
       return roleSpec;
     }
@@ -346,8 +338,14 @@ public class EditChar extends ACommand {
         }
       }
 
-      boolean lessThan30 = Arrays.stream(stats).sum() <= 30;
-      boolean noNegative = Arrays.stream(stats).anyMatch(n -> n >= 0);
+      int[] newStats = new int[stats.length];
+
+      System.arraycopy(stats, 0, newStats, 0, stats.length);
+
+      newStats[i] = result;
+
+      boolean lessThan30 = Arrays.stream(newStats).sum() <= 30;
+      boolean noNegative = Arrays.stream(newStats).anyMatch(n -> n >= 0);
 
       if (lessThan30 && noNegative) {
         return result;

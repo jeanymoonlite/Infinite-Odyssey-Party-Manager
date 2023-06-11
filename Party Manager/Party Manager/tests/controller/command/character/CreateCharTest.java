@@ -16,6 +16,22 @@ import view.IOManagerTextView;
 public class CreateCharTest extends IOManagerControllerTest {
 
   @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("create-char (name playerName class classSpecification\n"
+        + "             strength intelligence creativity\n"
+        + "             charisma stealth intimidation)",
+        new CreateChar(this.model, null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Creates a new Character with the given information.",
+        new CreateChar(this.model, null, null).getDescription());
+  }
+
+  @Test
   public void successfulCreateChar() {
     Readable input = new StringReader("create-char\n"
         + "Onion\n"

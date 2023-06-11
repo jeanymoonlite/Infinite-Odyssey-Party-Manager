@@ -215,9 +215,9 @@ public final class IOCharacter implements Character {
         "" : " (" + defenseSign + Math.abs(this.getValueOf("Defense")) + " Def)";
     String stats = "";
 
-    String[] statsArray = IOStats.getAll();
+    String[] statsArray = new String[IOStats.getAll().length - 2];
     System.arraycopy(IOStats.getAll(), 2,
-        statsArray, 0, statsArray.length - 2);
+        statsArray, 0, statsArray.length);
 
 
     for (String s : statsArray) {
