@@ -16,6 +16,7 @@ public class Dice extends ACommand {
 
   private final int upperBound;
   private final Random seeded;
+  private final Random rand;
 
   /**
    * Constructs a new {@code Dice}.
@@ -28,6 +29,7 @@ public class Dice extends ACommand {
     super(model, view);
     this.upperBound = upperBound;
     this.seeded = new Random(IOManagerSeedHolder.getInstance().getSeed());
+    this.rand = new Random();
 
     this.signature = (this.upperBound == 2)? "cf" : "d" + this.upperBound;
     this.description = (this.upperBound == 2)?
@@ -37,22 +39,18 @@ public class Dice extends ACommand {
   @Override
   public void run() {
     try {
+      int roll = Clamp.run(this.rand.nextInt(this.upperBound + 1), 1, this.upperBound);
       if (this.upperBound == 2) {
-        int roll = Clamp.run(new Random().nextInt(this.upperBound + 1), 1, this.upperBound);
         String[] coin = new String[] {"Heads", "Tails"};
         this.view.display("The coin landed on " + coin[roll - 1] + ".\n");
-        return;
       }
-
-      if (IOManagerSeedHolder.getInstance().isUsingSeed()) {
-        int roll = Clamp.run(this.seeded.nextInt(this.upperBound + 1), 1, this.upperBound);
-        this.view.display("The roll is [" + roll + "]\n");
-      }
-
       else {
-        int roll = Clamp.run(new Random().nextInt(this.upperBound + 1), 1, this.upperBound);
         this.view.display("The roll is [" + roll + "]\n");
       }
+//      if (IOManagerSeedHolder.getInstance().isUsingSeed()) {
+//        int roll = Clamp.run(this.seeded.nextInt(this.upperBound + 1), 1, this.upperBound);
+//        this.view.display("The roll is [" + roll + "]\n");
+//      }
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");

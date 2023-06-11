@@ -123,7 +123,15 @@ public class HelpAllTest extends IOManagerControllerTest {
             + "\n"
             + "d100: Rolls a random number between 1 and 100.\n"
             + "\n"
-            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n",
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            + "Misc Commands:\n"
+            + "start (playerName): \n"
+            + "\tStarts a campaign with the party that has the given name.\n"
+            + "\n"
+            + "clear: \n"
+            + "\tClears the screen.\n"
+            + "\n"
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
         output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
   }
 

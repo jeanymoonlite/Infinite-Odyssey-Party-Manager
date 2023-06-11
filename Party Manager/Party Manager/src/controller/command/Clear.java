@@ -16,6 +16,7 @@ public final class Clear extends ACommand {
    *
    * @param model the model to use
    * @param view  the view to use to render messages
+   * @param amount the amount of newlines to make
    */
   public Clear(Manager model, TextView view, int amount) {
     super(model, view);
@@ -24,6 +25,8 @@ public final class Clear extends ACommand {
       throw new IllegalArgumentException("Amount must be greater than 0.");
     }
     this.amount = amount;
+    this.signature = "clear";
+    this.description = "Clears the screen.";
   }
 
   @Override

@@ -1,6 +1,9 @@
 package controller.command.help;
 
 import controller.command.ACommand;
+import controller.command.Clear;
+import controller.command.Start;
+import controller.command.character.CreateChar;
 import java.io.IOException;
 import model.Manager;
 import view.TextView;
@@ -43,6 +46,21 @@ public final class HelpAll extends ACommand {
 
       this.view.display("Dice Related Commands:\n");
       new HelpDice(this.model, this.view).run();
+      this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+      this.view.display("Misc Commands:\n");
+      this.view.display(new Start(null, null, null).getSignature() + ": ");
+      this.view.display("\n\t");
+      this.view.display(new Start(null, null, null)
+          .getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
+      this.view.display("\n");
+      this.view.display(new Clear(null, null, 100).getSignature() + ": ");
+      this.view.display("\n\t");
+      this.view.display(new Clear(null, null, 100)
+          .getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
+      this.view.display("\n");
       this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
     catch (IOException e) {

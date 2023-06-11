@@ -4,6 +4,7 @@ package controller;
  * An interface that just contains the seed set by the {@code SetSeed} command. The
  * {@code IOManagerController} uses this seed for the dice related commands.
  */
+@Deprecated
 public final class IOManagerSeedHolder {
 
   private int seed = 0;

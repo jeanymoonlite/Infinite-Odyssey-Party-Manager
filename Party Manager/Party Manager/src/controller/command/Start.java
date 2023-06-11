@@ -19,6 +19,8 @@ public class Start extends ACommand {
   public Start(Manager model, TextView view, Scanner sc) {
     super(model, view);
     this.sc = sc;
+    this.signature = "start (partyName)";
+    this.description = "Starts a campaign with the party that has the given name.";
   }
 
   @Override
