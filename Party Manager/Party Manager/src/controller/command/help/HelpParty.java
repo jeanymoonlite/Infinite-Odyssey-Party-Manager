@@ -22,6 +22,8 @@ public final class HelpParty extends ACommand {
    */
   public HelpParty(Manager model, TextView view) {
     super(model, view);
+    this.signature = "help-party";
+    this.description = "Displays every party-related command.";
   }
 
   @Override

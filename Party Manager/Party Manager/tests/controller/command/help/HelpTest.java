@@ -12,6 +12,21 @@ import view.IOManagerTextView;
 public class HelpTest extends IOManagerControllerTest {
 
   @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("help",
+        new Help(null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Displays the various help commands.\n"
+        + "When in Character or Party editing mode, this command displays the edit specific commands.",
+        new Help(null, null).getDescription());
+  }
+
+  @Test
   public void help() {
     Readable input = new StringReader("help quit y");
     Appendable output = new StringBuilder();
@@ -22,7 +37,8 @@ public class HelpTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertEquals("All Help Commands:\n"
-            + "help\n"
+            + "help: \n"
+            + "\tDisplays the various help commands.\n"
             + "\tWhen in Character or Party editing mode, this command displays the edit specific commands.\n"
             + "\n"
             + "help-all\n"

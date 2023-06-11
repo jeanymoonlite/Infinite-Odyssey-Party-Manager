@@ -12,6 +12,20 @@ import view.IOManagerTextView;
 public class HelpManagerTest extends IOManagerControllerTest {
 
   @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("help-manager",
+        new HelpManager(null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Displays commands for viewing characters and parties.",
+        new HelpManager(null, null).getDescription());
+  }
+
+  @Test
   public void helpManager() {
     Readable input = new StringReader("help-manager quit y");
     Appendable output = new StringBuilder();

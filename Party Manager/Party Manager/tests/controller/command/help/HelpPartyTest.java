@@ -12,6 +12,20 @@ import view.IOManagerTextView;
 public class HelpPartyTest extends IOManagerControllerTest {
 
   @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("help-party",
+        new HelpParty(null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Displays every party-related command.",
+        new HelpParty(null, null).getDescription());
+  }
+
+  @Test
   public void helpParty() {
     Readable input = new StringReader("help-party quit y");
     Appendable output = new StringBuilder();

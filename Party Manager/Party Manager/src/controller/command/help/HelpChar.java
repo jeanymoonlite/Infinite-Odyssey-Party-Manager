@@ -21,6 +21,8 @@ public final class HelpChar extends ACommand {
    */
   public HelpChar(Manager model, TextView view) {
     super(model, view);
+    this.signature = "help-char";
+    this.description = "Displays every character-related command.";
   }
 
   @Override

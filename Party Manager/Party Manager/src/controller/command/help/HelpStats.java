@@ -18,6 +18,8 @@ public final class HelpStats extends ACommand {
    */
   public HelpStats(Manager model, TextView view) {
     super(model, view);
+    this.signature = "help-stats";
+    this.description = "Displays every command for healing and damaging characters.";
   }
 
   @Override

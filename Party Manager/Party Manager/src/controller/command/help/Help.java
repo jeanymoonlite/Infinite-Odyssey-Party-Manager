@@ -1,6 +1,7 @@
 package controller.command.help;
 
 import controller.command.ACommand;
+import controller.command.party.CreateParty;
 import java.io.IOException;
 import model.Manager;
 import view.TextView;
@@ -18,6 +19,9 @@ public final class Help extends ACommand {
    */
   public Help(Manager model, TextView view) {
     super(model, view);
+    this.signature = "help";
+    this.description = "Displays the various help commands.\n"
+        + "When in Character or Party editing mode, this command displays the edit specific commands.";
   }
 
   @Override
@@ -25,9 +29,11 @@ public final class Help extends ACommand {
     try {
       this.view.display("All Help Commands:\n");
 
-      this.view.display("help\n");
-      this.view.display(
-          "\tWhen in Character or Party editing mode, this command displays the edit specific commands.\n");
+      this.view.display(this.getSignature());
+      this.view.display(": ");
+      this.view.display("\n\t");
+      this.view.display(this.getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
       this.view.display("\n");
 
       this.view.display("help-all\n");

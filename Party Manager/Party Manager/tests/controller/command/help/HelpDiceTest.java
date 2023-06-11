@@ -16,23 +16,15 @@ public class HelpDiceTest extends IOManagerControllerTest {
   @Test
   public void getSignature() {
     this.model = new IOManager();
-    assertEquals("cf",
-        new Dice(this.model, null, 2).getSignature());
-    assertEquals("d20",
-        new Dice(this.model, null, 20).getSignature());
-    assertEquals("d50",
-        new Dice(this.model, null, 50).getSignature());
+    assertEquals("help-dice",
+        new HelpDice(null, null).getSignature());
   }
 
   @Test
   public void getDescription() {
     this.model = new IOManager();
-    assertEquals("Flips a coin.",
-        new Dice(this.model, null, 2).getDescription());
-    assertEquals("Rolls a random number between 1 and 20.",
-        new Dice(this.model, null, 20).getDescription());
-    assertEquals("Rolls a random number between 1 and 50.",
-        new Dice(this.model, null, 50).getDescription());
+    assertEquals("Displays every dice-related command.",
+        new HelpDice(null, null).getDescription());
   }
 
   @Test

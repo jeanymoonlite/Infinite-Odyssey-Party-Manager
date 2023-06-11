@@ -24,6 +24,8 @@ public final class HelpManager extends ACommand {
    */
   public HelpManager(Manager model, TextView view) {
     super(model, view);
+    this.signature = "help-manager";
+    this.description = "Displays commands for viewing characters and parties.";
   }
 
   @Override

@@ -12,6 +12,20 @@ import view.IOManagerTextView;
 public class HelpStatsTest extends IOManagerControllerTest {
 
   @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("help-stats",
+        new HelpStats(null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Displays every command for healing and damaging characters.",
+        new HelpStats(null, null).getDescription());
+  }
+
+  @Test
   public void helpStats() {
     Readable input = new StringReader("help-stats quit y");
     Appendable output = new StringBuilder();

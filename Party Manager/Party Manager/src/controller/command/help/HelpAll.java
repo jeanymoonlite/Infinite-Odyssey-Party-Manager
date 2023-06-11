@@ -18,6 +18,8 @@ public final class HelpAll extends ACommand {
    */
   public HelpAll(Manager model, TextView view) {
     super(model, view);
+    this.signature = "help-all";
+    this.description = "Displays every command in the program organized by categories.";
   }
 
   @Override

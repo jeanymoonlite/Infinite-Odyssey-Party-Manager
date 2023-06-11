@@ -21,6 +21,8 @@ public final class HelpDice extends ACommand {
    */
   public HelpDice(Manager model, TextView view) {
     super(model, view);
+    this.signature = "help-dice";
+    this.description = "Displays every dice-related command.";
   }
 
   @Override

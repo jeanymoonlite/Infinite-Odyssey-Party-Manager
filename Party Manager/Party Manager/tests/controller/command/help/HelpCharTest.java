@@ -12,6 +12,20 @@ import view.IOManagerTextView;
 public class HelpCharTest extends IOManagerControllerTest {
 
   @Test
+  public void getSignature() {
+    this.model = new IOManager();
+    assertEquals("help-char",
+        new HelpChar(null, null).getSignature());
+  }
+
+  @Test
+  public void getDescription() {
+    this.model = new IOManager();
+    assertEquals("Displays every character-related command.",
+        new HelpChar(null, null).getDescription());
+  }
+
+  @Test
   public void helpChar() {
     Readable input = new StringReader("help-char quit y");
     Appendable output = new StringBuilder();
