@@ -21,21 +21,23 @@ public class HelpManagerTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("party\n"
+    assertEquals("party: \n"
             + "\tDisplays the active party if there is one.\n"
             + "\n"
-            + "Note: The following 4 commands are disabled when a campaign is started.\n\n"
-            + "show-all-chars\n"
+            + "show-all-chars: \n"
             + "\tDisplays a list of every character with their name and player name.\n"
             + "\n"
-            + "show-all-parties\n"
-            + "\tDisplays a list of every party with their name, followed by the characters within them.\n"
+            + "show-all-parties: \n"
+            + "\tDisplays a list of every party with their name, followed \n"
+            + "\tby the characters within them.\n"
             + "\n"
-            + "show-char (name)\n"
-            + "\tDisplays the name, role, role specification, and stats of the specified character.\n"
+            + "show-char (name): \n"
+            + "\tDisplays the name, class, class specification, and stats \n"
+            + "\tof the specified character.\n"
             + "\n"
-            + "show-party (name)\n"
-            + "\tDisplays the name, role, role specification, and stats of the every character in the specified party.\n"
+            + "show-party (name): \n"
+            + "\tDisplays the name, class, class specification, and stats of \n"
+            + "\tthe every character in the specified party.\n"
             + "\n",
         output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
   }
