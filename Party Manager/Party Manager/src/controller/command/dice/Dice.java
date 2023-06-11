@@ -39,18 +39,15 @@ public class Dice extends ACommand {
   @Override
   public void run() {
     try {
-      int roll = Clamp.run(this.rand.nextInt(this.upperBound + 1), 1, this.upperBound);
       if (this.upperBound == 2) {
+        int roll = Clamp.run(this.rand.nextInt(100), 1, 100);
         String[] coin = new String[] {"Heads", "Tails"};
-        this.view.display("The coin landed on " + coin[roll - 1] + ".\n");
+        this.view.display("The coin landed on " + coin[(roll > 50)? 1 : 0] + ".\n");
       }
       else {
+        int roll = Clamp.run(this.rand.nextInt(this.upperBound + 1), 1, this.upperBound);
         this.view.display("The roll is [" + roll + "]\n");
       }
-//      if (IOManagerSeedHolder.getInstance().isUsingSeed()) {
-//        int roll = Clamp.run(this.seeded.nextInt(this.upperBound + 1), 1, this.upperBound);
-//        this.view.display("The roll is [" + roll + "]\n");
-//      }
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");

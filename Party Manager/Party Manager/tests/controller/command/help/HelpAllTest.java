@@ -131,7 +131,7 @@ public class HelpAllTest extends IOManagerControllerTest {
             + "clear: \n"
             + "\tClears the screen.\n"
             + "\n"
-            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~",
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n",
         output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
   }
 
