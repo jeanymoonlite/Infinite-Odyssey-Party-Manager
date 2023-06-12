@@ -21,7 +21,7 @@ public class EditCharTest extends IOManagerControllerTest {
 
   @Test
   public void getDescription() {
-    assertEquals("Edits a Character with the given name.\n"
+    assertEquals("Edits the Character with the given name.\n"
             + "This will put the program into Character Editing mode.\n"
             + "A new set of commands will become available in editing mode.",
         new EditChar(null, null, null).getDescription());

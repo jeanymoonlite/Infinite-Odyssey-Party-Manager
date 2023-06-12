@@ -61,7 +61,6 @@ public final class HelpAll extends ACommand {
           .getDescription().replace("\n", "\n\t"));
       this.view.display("\n");
       this.view.display("\n");
-      this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");

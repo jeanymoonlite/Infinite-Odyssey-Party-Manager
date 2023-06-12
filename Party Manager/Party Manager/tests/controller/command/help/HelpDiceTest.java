@@ -2,6 +2,7 @@ package controller.command.help;
 
 import static org.junit.Assert.assertEquals;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import controller.command.dice.Dice;
@@ -37,7 +38,7 @@ public class HelpDiceTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("roll (upperBound): \n"
+    assertEquals("Awaiting command: roll (upperBound): \n"
             + "\tReturns a random number between 1 and the given upper bound.\n"
             + "\tThe upper bound cannot be less than 2.\n"
             + "\n"
@@ -57,7 +58,7 @@ public class HelpDiceTest extends IOManagerControllerTest {
             + "\n"
             + "d100: Rolls a random number between 1 and 100.\n"
             + "\n",
-        output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[1]);
   }
 
 }

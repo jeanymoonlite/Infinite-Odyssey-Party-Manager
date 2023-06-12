@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import controller.command.manager.PartyCommand;
@@ -110,29 +111,21 @@ public class ChangeHpTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Steven Universe"));
     assertTrue(this.model.doesCharacterExist("Jake Walker"));
     assertTrue(this.model.doesCharacterExist("Randy"));
-    assertEquals("Onion lost 5 hp.\n"
+    assertEquals("Awaiting command: Onion lost 5 hp.\n"
             + "Onion (Steven) Hp: 95/100\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[5]);
+        output.toString().split(Controller.separator)[5]);
 
-    assertEquals("Steven Universe lost 4 hp.\n"
+    assertEquals("Awaiting command: Steven Universe lost 4 hp.\n"
             + "Steven Universe (Steven) Hp: 96/100\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[6]);
+        output.toString().split(Controller.separator)[6]);
 
-    assertEquals("Jake Walker lost 1 hp.\n"
+    assertEquals("Awaiting command: Jake Walker lost 1 hp.\n"
             + "Jake Walker (Jake) Hp: 99/100\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[7]);
+        output.toString().split(Controller.separator)[7]);
 
-    assertEquals("Randy lost 10 hp.\n"
+    assertEquals("Awaiting command: Randy lost 10 hp.\n"
             + "Randy (Randy) Hp: 90/100\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[8]);
+        output.toString().split(Controller.separator)[8]);
   }
 
   @Test
@@ -205,29 +198,21 @@ public class ChangeHpTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Steven Universe"));
     assertTrue(this.model.doesCharacterExist("Jake Walker"));
     assertTrue(this.model.doesCharacterExist("Randy"));
-    assertEquals("Onion had 10 hp restored.\n"
+    assertEquals("Awaiting command: Onion had 10 hp restored.\n"
             + "Onion (Steven) Hp: 90/100\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[9]);
+        output.toString().split(Controller.separator)[9]);
 
-    assertEquals("Steven Universe had 10 hp restored.\n"
+    assertEquals("Awaiting command: Steven Universe had 10 hp restored.\n"
             + "Steven Universe (Steven) Hp: 91/100\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[10]);
+        output.toString().split(Controller.separator)[10]);
 
-    assertEquals("Jake Walker had 5 hp restored.\n"
+    assertEquals("Awaiting command: Jake Walker had 5 hp restored.\n"
             + "Jake Walker (Jake) Hp: 90/100\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[11]);
+        output.toString().split(Controller.separator)[11]);
 
-    assertEquals("Randy had 15 hp restored.\n"
+    assertEquals("Awaiting command: Randy had 15 hp restored.\n"
             + "Randy (Randy) Hp: 90/100\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[12]);
+        output.toString().split(Controller.separator)[12]);
   }
 
   @Test
@@ -308,7 +293,7 @@ public class ChangeHpTest extends IOManagerControllerTest {
       assertTrue(this.model.doesCharacterExist("Randy"));
       assertTrue(this.model.doesPartyExist("The Boys"));
 
-      assertEquals("Onion had 100 hp restored.\n"
+      assertEquals("Awaiting command: Onion had 100 hp restored.\n"
               + "Onion (Steven) Hp: 100/100\n"
               + "Steven Universe had 100 hp restored.\n"
               + "Steven Universe (Steven) Hp: 100/100\n"
@@ -316,9 +301,7 @@ public class ChangeHpTest extends IOManagerControllerTest {
               + "Jake Walker (Jake) Hp: 100/100\n"
               + "Randy had 100 hp restored.\n"
               + "Randy (Randy) Hp: 100/100\n",
-          output.toString()
-              .split("WARNING")[0]
-              .split("Awaiting command:\n")[11]);
+          output.toString().split(Controller.separator)[11]);
     }
   }
 
@@ -397,7 +380,7 @@ public class ChangeHpTest extends IOManagerControllerTest {
       assertTrue(this.model.doesCharacterExist("Randy"));
       assertTrue(this.model.doesPartyExist("The Boys"));
 
-      assertEquals("Onion lost 100 hp.\n"
+      assertEquals("Awaiting command: Onion lost 100 hp.\n"
               + "Onion (Steven) Hp: 0/100\n"
               + "Steven Universe lost 99 hp.\n"
               + "Steven Universe (Steven) Hp: 1/100\n"
@@ -405,9 +388,7 @@ public class ChangeHpTest extends IOManagerControllerTest {
               + "Jake Walker (Jake) Hp: 5/100\n"
               + "Randy lost 100 hp.\n"
               + "Randy (Randy) Hp: 0/100\n",
-          output.toString()
-              .split("WARNING")[0]
-              .split("Awaiting command:\n")[7]);
+          output.toString().split(Controller.separator)[7]);
     }
   }
 
@@ -438,25 +419,17 @@ public class ChangeHpTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertTrue(this.model.doesCharacterExist("Onion"));
-    assertEquals("Invalid input: Amount cannot be less than 1.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[2]);
+    assertEquals("Awaiting command: Invalid input: Amount cannot be less than 1.\n",
+        output.toString().split(Controller.separator)[2]);
 
-    assertEquals("Invalid input: Amount cannot be less than 1.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[3]);
+    assertEquals("Awaiting command: Invalid input: Amount cannot be less than 1.\n",
+        output.toString().split(Controller.separator)[3]);
 
-    assertEquals("Invalid input: Amount cannot be less than 1.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[4]);
+    assertEquals("Awaiting command: Invalid input: Amount cannot be less than 1.\n",
+        output.toString().split(Controller.separator)[4]);
 
-    assertEquals("Invalid input: Amount cannot be less than 1.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[5]);
+    assertEquals("Awaiting command: Invalid input: Amount cannot be less than 1.\n",
+        output.toString().split(Controller.separator)[5]);
   }
 
   @Test
@@ -472,17 +445,13 @@ public class ChangeHpTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertFalse(this.model.doesCharacterExist("Onion"));
-    assertEquals("The Manager doesn't have any Characters!\n"
+    assertEquals("Awaiting command: \nInvalid state: The Manager doesn't have any Characters!\n"
             + "Add Characters using the create-char command.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[1]);
+        output.toString().split(Controller.separator)[1]);
 
-    assertEquals("The Manager doesn't have any Characters!\n"
+    assertEquals("Awaiting command: \nInvalid state: The Manager doesn't have any Characters!\n"
             + "Add Characters using the create-char command.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[2]);
+        output.toString().split(Controller.separator)[2]);
   }
 
   @Test
@@ -498,17 +467,13 @@ public class ChangeHpTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertFalse(this.model.doesCharacterExist("Onion"));
-    assertEquals("Invalid state: This command can only be used during a campaign.\n"
+    assertEquals("Awaiting command: Invalid state: This command can only be used during a campaign.\n"
             + "Use the start command to start a campaign.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[1]);
+        output.toString().split(Controller.separator)[1]);
 
-    assertEquals("Invalid state: This command can only be used during a campaign.\n"
+    assertEquals("Awaiting command: Invalid state: This command can only be used during a campaign.\n"
             + "Use the start command to start a campaign.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[2]);
+        output.toString().split(Controller.separator)[2]);
   }
 
   @Test
@@ -536,15 +501,11 @@ public class ChangeHpTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertTrue(this.model.doesCharacterExist("Onion"));
-    assertEquals("Invalid input: The Character Luna doesn't exist in this Manager.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[2]);
+    assertEquals("Awaiting command: \nInvalid input: The Character Luna doesn't exist in this Manager.\n",
+        output.toString().split(Controller.separator)[2]);
 
-    assertEquals("Invalid input: The Character Luna doesn't exist in this Manager.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[3]);
+    assertEquals("Awaiting command: \nInvalid input: The Character Luna doesn't exist in this Manager.\n",
+        output.toString().split(Controller.separator)[3]);
   }
 
   @Test
@@ -574,24 +535,16 @@ public class ChangeHpTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertTrue(this.model.doesCharacterExist("Onion"));
-    assertEquals("Invalid input: Amount must be an integer (whole number).\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[2]);
+    assertEquals("Awaiting command: Invalid input: Amount must be an integer (whole number).\n",
+        output.toString().split(Controller.separator)[2]);
 
-    assertEquals("Invalid input: Amount must be an integer (whole number).\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[3]);
+    assertEquals("Awaiting command: Invalid input: Amount must be an integer (whole number).\n",
+        output.toString().split(Controller.separator)[3]);
 
-    assertEquals("Invalid input: Amount must be an integer (whole number).\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[4]);
+    assertEquals("Awaiting command: Invalid input: Amount must be an integer (whole number).\n",
+        output.toString().split(Controller.separator)[4]);
 
-    assertEquals("Invalid input: Amount must be an integer (whole number).\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[5]);
+    assertEquals("Awaiting command: Invalid input: Amount must be an integer (whole number).\n",
+        output.toString().split(Controller.separator)[5]);
   }
 }

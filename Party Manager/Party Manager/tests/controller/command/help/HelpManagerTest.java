@@ -2,6 +2,7 @@ package controller.command.help;
 
 import static org.junit.Assert.assertEquals;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
@@ -35,7 +36,7 @@ public class HelpManagerTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("party: \n"
+    assertEquals("Awaiting command: party: \n"
             + "\tDisplays the active party if there is one.\n"
             + "\n"
             + "show-all-chars: \n"
@@ -53,7 +54,7 @@ public class HelpManagerTest extends IOManagerControllerTest {
             + "\tDisplays the name, class, class specification, and stats of \n"
             + "\tthe every character in the specified party.\n"
             + "\n",
-        output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[1]);
   }
 
 }

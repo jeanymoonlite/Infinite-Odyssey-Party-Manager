@@ -3,6 +3,7 @@ package controller.command.dice;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import controller.command.character.CreateChar;
@@ -46,8 +47,7 @@ public class RollTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");
@@ -75,8 +75,7 @@ public class RollTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");
@@ -104,8 +103,7 @@ public class RollTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");
@@ -133,8 +131,7 @@ public class RollTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");
@@ -162,8 +159,7 @@ public class RollTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");
@@ -191,8 +187,7 @@ public class RollTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");

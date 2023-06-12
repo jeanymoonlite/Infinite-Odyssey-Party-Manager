@@ -2,6 +2,7 @@ package controller.command.help;
 
 import static org.junit.Assert.assertEquals;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
@@ -36,7 +37,7 @@ public class HelpTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("All Help Commands:\n"
+    assertEquals("Awaiting command: All Help Commands:\n"
             + "help: \n"
             + "\tDisplays the various help commands.\n"
             + "\tWhen in Character or Party editing mode, this command displays the edit specific commands.\n"
@@ -59,7 +60,7 @@ public class HelpTest extends IOManagerControllerTest {
             + "help-dice\n"
             + "\tDisplays every dice-related command.\n"
             + "\n",
-        output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[1]);
   }
 
 }

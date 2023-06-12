@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
@@ -69,7 +70,8 @@ public class ShowPartyTest extends IOManagerControllerTest {
 
     assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
     assertTrue(this.model.doesCharacterExist("Ninja Brian"));
-    assertEquals("Danny Sexbang (Dan)\n"
+    assertEquals("Awaiting command: "
+            + "Danny Sexbang (Dan)\n"
             + "Class: Bard (Lover)\n"
             + "Hp: 100/100 (+1 Def)\n"
             + "Strength: 1\n"
@@ -88,9 +90,7 @@ public class ShowPartyTest extends IOManagerControllerTest {
             + "Charisma: 1\n"
             + "Stealth: 1 (+3)\n"
             + "Intimidation: 1\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[4]);
+        output.toString().split(Controller.separator)[4]);
   }
 
   @Test
@@ -131,11 +131,9 @@ public class ShowPartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
     assertTrue(this.model.doesCharacterExist("Ninja Brian"));
     assertFalse(this.model.doesPartyExist("Ninja Sex Party"));
-    assertEquals("The Manager doesn't have any Parties!\n"
+    assertEquals("Awaiting command: \nInvalid state: The Manager doesn't have any Parties!\n"
             + "Add Parties using the create-party command.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[3]);
+        output.toString().split(Controller.separator)[3]);
   }
 
   @Test
@@ -181,9 +179,8 @@ public class ShowPartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
     assertTrue(this.model.doesCharacterExist("Ninja Brian"));
     assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
-    assertEquals("Invalid input: The Party The Boys doesn't exist in this Manager.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[4]);
+    assertEquals("Awaiting command: \n"
+            + "Invalid input: The Party The Boys doesn't exist in this Manager.\n",
+        output.toString().split(Controller.separator)[4]);
   }
 }

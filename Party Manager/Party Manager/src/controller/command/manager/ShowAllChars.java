@@ -26,7 +26,7 @@ public final class ShowAllChars extends ACommand {
   public void run() {
     try {
       if (!this.model.hasCharacters()) {
-        this.view.display("The Manager doesn't have any Characters!\n");
+        this.view.display("Invalid state: The Manager doesn't have any Characters!\n");
         this.view.display("Add Characters using the create-char command.\n");
         return;
       }

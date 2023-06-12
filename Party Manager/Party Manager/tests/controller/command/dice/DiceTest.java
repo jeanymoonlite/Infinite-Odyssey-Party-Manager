@@ -3,6 +3,7 @@ package controller.command.dice;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import controller.IOManagerSeedHolder;
@@ -52,8 +53,7 @@ public class DiceTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The coin landed on ")[1];
       assertTrue(out.equalsIgnoreCase("Heads.\n")
           || out.equalsIgnoreCase("Tails.\n"));
@@ -79,8 +79,7 @@ public class DiceTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");
@@ -108,8 +107,7 @@ public class DiceTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");
@@ -137,8 +135,7 @@ public class DiceTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");
@@ -166,8 +163,7 @@ public class DiceTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");
@@ -195,8 +191,7 @@ public class DiceTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");
@@ -224,8 +219,7 @@ public class DiceTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");
@@ -253,8 +247,7 @@ public class DiceTest extends IOManagerControllerTest {
     this.controller.start();
 
     for (int i = 0; i < 1000; i++) {
-      String out = output.toString()
-          .split("Awaiting command:\n")[i + 1]
+      String out = output.toString().split(Controller.separator)[i + 1]
           .split("The roll is ")[1];
       out = out.replace("[", "");
       out = out.replace("]", "");

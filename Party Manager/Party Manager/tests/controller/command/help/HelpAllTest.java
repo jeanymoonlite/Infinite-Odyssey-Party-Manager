@@ -2,6 +2,7 @@ package controller.command.help;
 
 import static org.junit.Assert.assertEquals;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import controller.command.dice.Dice;
@@ -36,7 +37,9 @@ public class HelpAllTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("Character Related Commands:\n"
+    String beforeStart = output.toString().split(Controller.separator)[0] + Controller.separator;
+
+    assertEquals("Awaiting command: Character Related Commands:\n"
             + "create-char (name playerName class classSpecification\n"
             + "             strength intelligence creativity\n"
             + "             charisma stealth intimidation): \n"
@@ -131,8 +134,10 @@ public class HelpAllTest extends IOManagerControllerTest {
             + "clear: \n"
             + "\tClears the screen.\n"
             + "\n"
+            + "\n"
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            + "Awaiting command: \n"
             + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n",
-        output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
+        output.toString().replace(beforeStart, "").split("WARNING")[0]);
   }
-
 }

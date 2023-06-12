@@ -3,6 +3,7 @@ package controller.command.manager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
@@ -64,7 +65,7 @@ public class ShowCharTest extends IOManagerControllerTest {
 
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertTrue(this.model.doesCharacterExist("Lunarose"));
-    assertEquals("Onion (Steven)\n"
+    assertEquals("Awaiting command: Onion (Steven)\n"
             + "Class: Human\n"
             + "Hp: 100/100\n"
             + "Strength: 1 (+1)\n"
@@ -73,9 +74,7 @@ public class ShowCharTest extends IOManagerControllerTest {
             + "Charisma: 1 (+1)\n"
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[3]);
+        output.toString().split(Controller.separator)[3]);
   }
 
   @Test
@@ -89,11 +88,10 @@ public class ShowCharTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("The Manager doesn't have any Characters!\n"
+    assertEquals("Awaiting command: \n"
+            + "Invalid state: The Manager doesn't have any Characters!\n"
             + "Add Characters using the create-char command.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[1]);
+        output.toString().split(Controller.separator)[1]);
   }
 
   @Test
@@ -120,9 +118,7 @@ public class ShowCharTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertTrue(this.model.doesCharacterExist("Lunarose"));
-    assertEquals("Invalid input: The Character Onion doesn't exist in this Manager.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[2]);
+    assertEquals("Awaiting command: \nInvalid input: The Character Onion doesn't exist in this Manager.\n",
+        output.toString().split(Controller.separator)[2]);
   }
 }

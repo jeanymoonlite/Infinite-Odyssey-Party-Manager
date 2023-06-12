@@ -2,6 +2,7 @@ package controller.command.help;
 
 import static org.junit.Assert.assertEquals;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
@@ -35,7 +36,7 @@ public class HelpStatsTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("heal (amount name)\n"
+    assertEquals("Awaiting command: heal (amount name)\n"
             + "\tAdds the amount to the character's hp with the given name.\n"
             + "\tThis command rejects any non-integers/negative numbers.\n"
             + "\n"
@@ -49,7 +50,7 @@ public class HelpStatsTest extends IOManagerControllerTest {
             + "damage-all (amount)\n"
             + "\tSubtracts the amount to every character in the active party\n"
             + "\n",
-        output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[1]);
   }
 
 }

@@ -3,6 +3,7 @@ package controller.command.manager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import controller.command.dice.Dice;
@@ -68,7 +69,7 @@ public class PartyCommandTest extends IOManagerControllerTest {
     assertTrue(this.model.doesPartyExist("Game Grumps"));
     assertEquals("Game Grumps", this.model.getActiveParty().getName());
 
-    assertEquals("Awaiting command:\n"
+    assertEquals("Awaiting command: "
             + "Active Party: Game Grumps\n\n"
             + "Danny Sexbang (Dan)\n"
             + "Class: Bard (Lover)\n"
@@ -88,9 +89,8 @@ public class PartyCommandTest extends IOManagerControllerTest {
             + "Creativity: 1\n"
             + "Charisma: 1\n"
             + "Stealth: 1\n"
-            + "Intimidation: 1\n"
-            + "Awaiting command:\n",
-        output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
+            + "Intimidation: 1\n",
+        output.toString().split(Controller.separator)[1]);
   }
 
   @Test
@@ -105,11 +105,10 @@ public class PartyCommandTest extends IOManagerControllerTest {
 
     this.controller.start();
 
-    assertEquals("Awaiting command:\n"
+    assertEquals("Awaiting command: "
             + "The Manager doesn't have any Parties!\n"
-            + "Add Parties using the create-party command.\n"
-            + "Awaiting command:\n",
-        output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
+            + "Add Parties using the create-party command.\n",
+        output.toString().split(Controller.separator)[1]);
   }
 
   @Test
@@ -126,10 +125,9 @@ public class PartyCommandTest extends IOManagerControllerTest {
 
     this.controller.start();
 
-    assertEquals("Awaiting command:\n"
+    assertEquals("Awaiting command: "
             + "Invalid state: This command can only be used during a campaign.\n"
-            + "Use the start command to start a campaign.\n"
-            + "Awaiting command:\n",
-        output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
+            + "Use the start command to start a campaign.\n",
+        output.toString().split(Controller.separator)[1]);
   }
 }

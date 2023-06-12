@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
@@ -62,7 +63,7 @@ public class RemovePartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesPartyExist("Boys"));
     assertFalse(this.model.doesPartyExist("Luna"));
 
-    assertEquals("Lunarose (Luna)\n"
+    assertEquals("Awaiting command: Lunarose (Luna)\n"
             + "Class: Wizard (Mage)\n"
             + "Hp: 100/100\n"
             + "Strength: 1\n"
@@ -71,10 +72,10 @@ public class RemovePartyTest extends IOManagerControllerTest {
             + "Charisma: 1\n"
             + "Stealth: 1\n"
             + "Intimidation: 1\n",
-        output.toString().split("Awaiting command:\n")[5].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[5]);
 
-    assertEquals("The following action cannot be undone.\n"
-            + "Remove the following Party? (Confirm y or n): \n"
+    assertEquals("Awaiting command: The following action cannot be undone.\n"
+            + "Remove the following Party?\n"
             + "Lunarose (Luna)\n"
             + "Class: Wizard (Mage)\n"
             + "Hp: 100/100\n"
@@ -84,8 +85,9 @@ public class RemovePartyTest extends IOManagerControllerTest {
             + "Charisma: 1\n"
             + "Stealth: 1\n"
             + "Intimidation: 1\n"
+            + "Confirm (y or n): "
             + "The Party Luna was removed from the Manager.\n",
-        output.toString().split("Awaiting command:\n")[6].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[6]);
   }
 
   @Test
@@ -138,7 +140,7 @@ public class RemovePartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesPartyExist("Boys"));
     assertTrue(this.model.doesPartyExist("Luna"));
 
-    assertEquals("Lunarose (Luna)\n"
+    assertEquals("Awaiting command: Lunarose (Luna)\n"
             + "Class: Wizard (Mage)\n"
             + "Hp: 100/100\n"
             + "Strength: 1\n"
@@ -147,10 +149,10 @@ public class RemovePartyTest extends IOManagerControllerTest {
             + "Charisma: 1\n"
             + "Stealth: 1\n"
             + "Intimidation: 1\n",
-        output.toString().split("Awaiting command:\n")[5].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[5]);
 
-    assertEquals("The following action cannot be undone.\n"
-            + "Remove the following Party? (Confirm y or n): \n"
+    assertEquals("Awaiting command: The following action cannot be undone.\n"
+            + "Remove the following Party?\n"
             + "Lunarose (Luna)\n"
             + "Class: Wizard (Mage)\n"
             + "Hp: 100/100\n"
@@ -160,8 +162,9 @@ public class RemovePartyTest extends IOManagerControllerTest {
             + "Charisma: 1\n"
             + "Stealth: 1\n"
             + "Intimidation: 1\n"
+            + "Confirm (y or n): "
             + "The Party Luna will not be removed.\n",
-        output.toString().split("Awaiting command:\n")[6].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[6]);
   }
 
   @Test
@@ -214,8 +217,8 @@ public class RemovePartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesPartyExist("Boys"));
     assertTrue(this.model.doesPartyExist("Luna"));
 
-    assertEquals("Invalid input: The Party The Boys doesn't exist in this Manager.\n",
-        output.toString().split("Awaiting command:\n")[6].split("WARNING")[0]);
+    assertEquals("Awaiting command: \nInvalid input: The Party The Boys doesn't exist in this Manager.\n",
+        output.toString().split(Controller.separator)[6]);
   }
 
   @Test
@@ -235,9 +238,9 @@ public class RemovePartyTest extends IOManagerControllerTest {
     assertFalse(this.model.doesPartyExist("Boys"));
     assertFalse(this.model.doesPartyExist("Luna"));
 
-    assertEquals("The Manager doesn't have any Parties!\n"
+    assertEquals("Awaiting command: \nInvalid state: The Manager doesn't have any Parties!\n"
             + "Add Parties using the create-party command.\n",
-        output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[1]);
   }
 
   @Test
@@ -284,9 +287,9 @@ public class RemovePartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertTrue(this.model.doesCharacterExist("Lunarose"));
 
-    assertEquals("Invalid state: This command can't be used during a campaign.\n"
+    assertEquals("Awaiting command: \nInvalid state: This command can't be used during a campaign.\n"
             + "Use the quit command to end the current campaign.\n",
-        output.toString().split("Awaiting command:\n")[5].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[5]);
   }
 
   @Test
@@ -342,7 +345,7 @@ public class RemovePartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesPartyExist("Boys"));
     assertTrue(this.model.doesPartyExist("Luna"));
 
-    assertEquals("Lunarose (Luna)\n"
+    assertEquals("Awaiting command: Lunarose (Luna)\n"
             + "Class: Wizard (Mage)\n"
             + "Hp: 100/100\n"
             + "Strength: 1\n"
@@ -351,10 +354,10 @@ public class RemovePartyTest extends IOManagerControllerTest {
             + "Charisma: 1\n"
             + "Stealth: 1\n"
             + "Intimidation: 1\n",
-        output.toString().split("Awaiting command:\n")[5].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[5]);
 
-    assertEquals("The following action cannot be undone.\n"
-            + "Remove the following Party? (Confirm y or n): \n"
+    assertEquals("Awaiting command: The following action cannot be undone.\n"
+            + "Remove the following Party?\n"
             + "Lunarose (Luna)\n"
             + "Class: Wizard (Mage)\n"
             + "Hp: 100/100\n"
@@ -364,9 +367,10 @@ public class RemovePartyTest extends IOManagerControllerTest {
             + "Charisma: 1\n"
             + "Stealth: 1\n"
             + "Intimidation: 1\n"
+            + "Confirm (y or n): "
             + "Invalid input.\n"
             + "The following action cannot be undone.\n"
-            + "Remove the following Party? (Confirm y or n): \n"
+            + "Remove the following Party?\n"
             + "Lunarose (Luna)\n"
             + "Class: Wizard (Mage)\n"
             + "Hp: 100/100\n"
@@ -376,9 +380,10 @@ public class RemovePartyTest extends IOManagerControllerTest {
             + "Charisma: 1\n"
             + "Stealth: 1\n"
             + "Intimidation: 1\n"
+            + "Confirm (y or n): "
             + "Invalid input.\n"
             + "The following action cannot be undone.\n"
-            + "Remove the following Party? (Confirm y or n): \n"
+            + "Remove the following Party?\n"
             + "Lunarose (Luna)\n"
             + "Class: Wizard (Mage)\n"
             + "Hp: 100/100\n"
@@ -388,9 +393,10 @@ public class RemovePartyTest extends IOManagerControllerTest {
             + "Charisma: 1\n"
             + "Stealth: 1\n"
             + "Intimidation: 1\n"
+            + "Confirm (y or n): "
             + "Invalid input.\n"
             + "The following action cannot be undone.\n"
-            + "Remove the following Party? (Confirm y or n): \n"
+            + "Remove the following Party?\n"
             + "Lunarose (Luna)\n"
             + "Class: Wizard (Mage)\n"
             + "Hp: 100/100\n"
@@ -400,7 +406,8 @@ public class RemovePartyTest extends IOManagerControllerTest {
             + "Charisma: 1\n"
             + "Stealth: 1\n"
             + "Intimidation: 1\n"
+            + "Confirm (y or n): "
             + "The Party Luna will not be removed.\n",
-        output.toString().split("Awaiting command:\n")[6].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[6]);
   }
 }

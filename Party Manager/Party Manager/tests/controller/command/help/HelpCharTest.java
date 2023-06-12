@@ -2,6 +2,7 @@ package controller.command.help;
 
 import static org.junit.Assert.assertEquals;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
@@ -35,7 +36,7 @@ public class HelpCharTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("create-char (name playerName class classSpecification\n"
+    assertEquals("Awaiting command: create-char (name playerName class classSpecification\n"
             + "             strength intelligence creativity\n"
             + "             charisma stealth intimidation): \n"
             + "\tCreates a new Character with the given information.\n"
@@ -48,7 +49,7 @@ public class HelpCharTest extends IOManagerControllerTest {
             + "remove-char (name): \n"
             + "\tRemoves a Character with the given name.\n"
             + "\n",
-        output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[1]);
   }
 
 }

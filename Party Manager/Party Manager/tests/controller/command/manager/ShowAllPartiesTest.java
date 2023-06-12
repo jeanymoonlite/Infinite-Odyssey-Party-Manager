@@ -3,6 +3,7 @@ package controller.command.manager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
@@ -87,68 +88,11 @@ public class ShowAllPartiesTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Egoraptor"));
     assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
     assertTrue(this.model.doesPartyExist("Game Grumps"));
-    assertEquals("Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Danny Sexbang (Dan)\n"
-            + "Class: Bard (Lover)\n"
-            + "Hp: 100/100 (+1 Def)\n"
-            + "Strength: 1\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1 (+4)\n"
-            + "Stealth: 1\n"
-            + "Intimidation: 1\n"
-            + "Danny Sexbang (Dan) was added to the Manager.\n"
-            + "Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Ninja Brian (Brian)\n"
-            + "Class: Rogue (Ninja)\n"
-            + "Hp: 100/100 (-5 Def)\n"
-            + "Strength: 1 (+2)\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1\n"
-            + "Stealth: 1 (+3)\n"
-            + "Intimidation: 1\n"
-            + "Ninja Brian (Brian) was added to the Manager.\n"
-            + "Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Egoraptor (Arin)\n"
-            + "Class: Warrior (Knight)\n"
-            + "Hp: 100/100 (+5 Def)\n"
-            + "Strength: 1\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1\n"
-            + "Stealth: 1\n"
-            + "Intimidation: 1\n"
-            + "Egoraptor (Arin) was added to the Manager.\n"
-            + "Awaiting command:\n"
-            + "Party name: "
-            + "Characters (Each by a comma): "
-            + "\nCreate the following Party? (Confirm y or n): \n"
-            + "Party name: Ninja Sex Party\n"
-            + "Party members: Danny Sexbang, Ninja Brian\n"
-            + "The Party Ninja Sex Party was added to the Manager.\n"
-            + "Awaiting command:\n"
-            + "Party name: "
-            + "Characters (Each by a comma): "
-            + "\nCreate the following Party? (Confirm y or n): \n"
-            + "Party name: Game Grumps\n"
-            + "Party members: Danny Sexbang, Egoraptor\n"
-            + "The Party Game Grumps was added to the Manager.\n"
-            + "Awaiting command:\n"
+    assertEquals("Awaiting command: "
             + "Ninja Sex Party: Danny Sexbang (Dan), Ninja Brian (Brian)\n"
             + "Game Grumps: Danny Sexbang (Dan), Egoraptor (Arin)\n"
-            + "Total Parties: 2\n"
-            + "Awaiting command:\n",
-        output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
+            + "Total Parties: 2\n",
+        output.toString().split(Controller.separator)[6]);
   }
 
   @Test
@@ -162,10 +106,8 @@ public class ShowAllPartiesTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("The Manager doesn't have any Parties!\n"
+    assertEquals("Awaiting command: Invalid state: The Manager doesn't have any Parties!\n"
             + "Add Parties using the create-party command.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[1]);
+        output.toString().split(Controller.separator)[1]);
   }
 }

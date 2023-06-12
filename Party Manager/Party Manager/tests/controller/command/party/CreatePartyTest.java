@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import controller.command.manager.PartyCommand;
@@ -73,43 +74,15 @@ public class CreatePartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
     assertTrue(this.model.doesCharacterExist("Ninja Brian"));
     assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
-    assertEquals("Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Danny Sexbang (Dan)\n"
-            + "Class: Bard (Lover)\n"
-            + "Hp: 100/100 (+1 Def)\n"
-            + "Strength: 1\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1 (+4)\n"
-            + "Stealth: 1\n"
-            + "Intimidation: 1\n"
-            + "Danny Sexbang (Dan) was added to the Manager.\n"
-            + "Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Ninja Brian (Brian)\n"
-            + "Class: Rogue (Ninja)\n"
-            + "Hp: 100/100 (-5 Def)\n"
-            + "Strength: 1 (+2)\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1\n"
-            + "Stealth: 1 (+3)\n"
-            + "Intimidation: 1\n"
-            + "Ninja Brian (Brian) was added to the Manager.\n"
-            + "Awaiting command:\n"
+    assertEquals("Awaiting command: "
             + "Party name: "
-            + "Characters (Each by a comma): "
-            + "\nCreate the following Party? (Confirm y or n): \n"
+            + "Characters (Each by a comma): \n"
+            + "Create the following Party?\n"
             + "Party name: Ninja Sex Party\n"
             + "Party members: Danny Sexbang, Ninja Brian\n"
-            + "The Party Ninja Sex Party was added to the Manager.\n"
-            + "Awaiting command:\n",
-        output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
+            + "Confirm (y or n): "
+            + "The Party Ninja Sex Party was added to the Manager.\n",
+        output.toString().split(Controller.separator)[3]);
   }
 
   @Test
@@ -153,43 +126,15 @@ public class CreatePartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
     assertTrue(this.model.doesCharacterExist("Ninja Brian"));
     assertFalse(this.model.doesPartyExist("Ninja Sex Party"));
-    assertEquals("Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Danny Sexbang (Dan)\n"
-            + "Class: Bard (Lover)\n"
-            + "Hp: 100/100 (+1 Def)\n"
-            + "Strength: 1\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1 (+4)\n"
-            + "Stealth: 1\n"
-            + "Intimidation: 1\n"
-            + "Danny Sexbang (Dan) was added to the Manager.\n"
-            + "Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Ninja Brian (Brian)\n"
-            + "Class: Rogue (Ninja)\n"
-            + "Hp: 100/100 (-5 Def)\n"
-            + "Strength: 1 (+2)\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1\n"
-            + "Stealth: 1 (+3)\n"
-            + "Intimidation: 1\n"
-            + "Ninja Brian (Brian) was added to the Manager.\n"
-            + "Awaiting command:\n"
+    assertEquals("Awaiting command: "
             + "Party name: "
             + "Characters (Each by a comma): \n"
-            + "Create the following Party? (Confirm y or n): \n"
+            + "Create the following Party?\n"
             + "Party name: Ninja Sex Party\n"
             + "Party members: Danny Sexbang, Ninja Brian\n"
-            + "The Party Ninja Sex Party will not be created.\n"
-            + "Awaiting command:\n",
-        output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
+            + "Confirm (y or n): "
+            + "The Party Ninja Sex Party will not be created.\n",
+        output.toString().split(Controller.separator)[3]);
   }
 
   @Test
@@ -236,55 +181,30 @@ public class CreatePartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
     assertTrue(this.model.doesCharacterExist("Ninja Brian"));
     assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
-    assertEquals("Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Danny Sexbang (Dan)\n"
-            + "Class: Bard (Lover)\n"
-            + "Hp: 100/100 (+1 Def)\n"
-            + "Strength: 1\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1 (+4)\n"
-            + "Stealth: 1\n"
-            + "Intimidation: 1\n"
-            + "Danny Sexbang (Dan) was added to the Manager.\n"
-            + "Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Ninja Brian (Brian)\n"
-            + "Class: Rogue (Ninja)\n"
-            + "Hp: 100/100 (-5 Def)\n"
-            + "Strength: 1 (+2)\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1\n"
-            + "Stealth: 1 (+3)\n"
-            + "Intimidation: 1\n"
-            + "Ninja Brian (Brian) was added to the Manager.\n"
-            + "Awaiting command:\n"
+    assertEquals("Awaiting command: "
             + "Party name: "
             + "Characters (Each by a comma): \n"
-            + "Create the following Party? (Confirm y or n): \n"
+            + "Create the following Party?\n"
             + "Party name: Ninja Sex Party\n"
             + "Party members: Danny Sexbang, Ninja Brian\n"
+            + "Confirm (y or n): "
             + "Invalid input.\n"
-            + "Create the following Party? (Confirm y or n): \n"
+            + "Create the following Party?\n"
             + "Party name: Ninja Sex Party\n"
             + "Party members: Danny Sexbang, Ninja Brian\n"
+            + "Confirm (y or n): "
             + "Invalid input.\n"
-            + "Create the following Party? (Confirm y or n): \n"
+            + "Create the following Party?\n"
             + "Party name: Ninja Sex Party\n"
             + "Party members: Danny Sexbang, Ninja Brian\n"
+            + "Confirm (y or n): "
             + "Invalid input.\n"
-            + "Create the following Party? (Confirm y or n): \n"
+            + "Create the following Party?\n"
             + "Party name: Ninja Sex Party\n"
             + "Party members: Danny Sexbang, Ninja Brian\n"
-            + "The Party Ninja Sex Party was added to the Manager.\n"
-            + "Awaiting command:\n",
-        output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
+            + "Confirm (y or n): "
+            + "The Party Ninja Sex Party was added to the Manager.\n",
+        output.toString().split(Controller.separator)[3]);
   }
 
   @Test
@@ -330,44 +250,16 @@ public class CreatePartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
     this.model.setActiveParty("Ninja Sex Party");
     assertEquals(1, this.model.getActiveParty().size());
-    assertEquals("Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Danny Sexbang (Dan)\n"
-            + "Class: Bard (Lover)\n"
-            + "Hp: 100/100 (+1 Def)\n"
-            + "Strength: 1\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1 (+4)\n"
-            + "Stealth: 1\n"
-            + "Intimidation: 1\n"
-            + "Danny Sexbang (Dan) was added to the Manager.\n"
-            + "Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Ninja Brian (Brian)\n"
-            + "Class: Rogue (Ninja)\n"
-            + "Hp: 100/100 (-5 Def)\n"
-            + "Strength: 1 (+2)\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1\n"
-            + "Stealth: 1 (+3)\n"
-            + "Intimidation: 1\n"
-            + "Ninja Brian (Brian) was added to the Manager.\n"
-            + "Awaiting command:\n"
+    assertEquals("Awaiting command: "
             + "Party name: "
             + "Characters (Each by a comma): \n"
             + "Ninja Gaiden is not a Character in this Manager, therefore they won't be added.\n"
-            + "Create the following Party? (Confirm y or n): \n"
+            + "Create the following Party?\n"
             + "Party name: Ninja Sex Party\n"
             + "Party members: Danny Sexbang\n"
-            + "The Party Ninja Sex Party was added to the Manager.\n"
-            + "Awaiting command:\n",
-        output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
+            + "Confirm (y or n): "
+            + "The Party Ninja Sex Party was added to the Manager.\n",
+        output.toString().split(Controller.separator)[3]);
   }
 
   @Test
@@ -402,7 +294,6 @@ public class CreatePartyTest extends IOManagerControllerTest {
         + "y\n"
         + "create-party\n"
         + "Ninja Sex Party\n"
-        + "create-party\n"
         + "Ninja\n"
         + "Ninja Brian\n"
         + "y\n"
@@ -419,55 +310,28 @@ public class CreatePartyTest extends IOManagerControllerTest {
     assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
     this.model.setActiveParty("Ninja Sex Party");
     assertEquals(1, this.model.getActiveParty().size());
-    assertEquals("Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Danny Sexbang (Dan)\n"
-            + "Class: Bard (Lover)\n"
-            + "Hp: 100/100 (+1 Def)\n"
-            + "Strength: 1\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1 (+4)\n"
-            + "Stealth: 1\n"
-            + "Intimidation: 1\n"
-            + "Danny Sexbang (Dan) was added to the Manager.\n"
-            + "Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-            + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-            + "Create the following Character? (Confirm y or n): \n"
-            + "Ninja Brian (Brian)\n"
-            + "Class: Rogue (Ninja)\n"
-            + "Hp: 100/100 (-5 Def)\n"
-            + "Strength: 1 (+2)\n"
-            + "Intelligence: 1\n"
-            + "Creativity: 1\n"
-            + "Charisma: 1\n"
-            + "Stealth: 1 (+3)\n"
-            + "Intimidation: 1\n"
-            + "Ninja Brian (Brian) was added to the Manager.\n"
-            + "Awaiting command:\n"
+    assertEquals("Awaiting command: "
             + "Party name: "
             + "Characters (Each by a comma): \n"
-            + "Create the following Party? (Confirm y or n): \n"
+            + "Create the following Party?\n"
             + "Party name: Ninja Sex Party\n"
             + "Party members: Danny Sexbang\n"
-            + "The Party Ninja Sex Party was added to the Manager.\n"
-            + "Awaiting command:\n"
+            + "Confirm (y or n): "
+            + "The Party Ninja Sex Party was added to the Manager.\n",
+        output.toString().split(Controller.separator)[3]);
+
+    assertEquals("Awaiting command: "
             + "Party name: \n"
             + "Invalid input: There is already a Party named Ninja Sex Party.\n"
             + "Please input a different name.\n"
             + "Party name: "
             + "Characters (Each by a comma): \n"
-            + "Invalid input: A Party needs at least one Character.\n"
-            + "Ninja is not a Character in this Manager, therefore they won't be added.\n"
-            + "\nCreate the following Party? (Confirm y or n): \n"
-            + "Party name: create-party\n"
+            + "Create the following Party?\n"
+            + "Party name: Ninja\n"
             + "Party members: Ninja Brian\n"
-            + "The Party create-party was added to the Manager.\n"
-            + "Awaiting command:\n",
-        output.toString().split("\tvii. Human\n")[1].split("WARNING")[0]);
+            + "Confirm (y or n): "
+            + "The Party Ninja was added to the Manager.\n",
+        output.toString().split(Controller.separator)[4]);
   }
 
   @Test
@@ -511,39 +375,11 @@ public class CreatePartyTest extends IOManagerControllerTest {
     catch (NoSuchElementException e) {
       assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
       assertTrue(this.model.doesCharacterExist("Ninja Brian"));
-      assertEquals("Awaiting command:\n"
-              + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-              + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-              + "Create the following Character? (Confirm y or n): \n"
-              + "Danny Sexbang (Dan)\n"
-              + "Class: Bard (Lover)\n"
-              + "Hp: 100/100 (+1 Def)\n"
-              + "Strength: 1\n"
-              + "Intelligence: 1\n"
-              + "Creativity: 1\n"
-              + "Charisma: 1 (+4)\n"
-              + "Stealth: 1\n"
-              + "Intimidation: 1\n"
-              + "Danny Sexbang (Dan) was added to the Manager.\n"
-              + "Awaiting command:\n"
-              + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
-              + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
-              + "Create the following Character? (Confirm y or n): \n"
-              + "Ninja Brian (Brian)\n"
-              + "Class: Rogue (Ninja)\n"
-              + "Hp: 100/100 (-5 Def)\n"
-              + "Strength: 1 (+2)\n"
-              + "Intelligence: 1\n"
-              + "Creativity: 1\n"
-              + "Charisma: 1\n"
-              + "Stealth: 1 (+3)\n"
-              + "Intimidation: 1\n"
-              + "Ninja Brian (Brian) was added to the Manager.\n"
-              + "Awaiting command:\n"
+      assertEquals("Awaiting command: "
               + "Party name: "
-              + "Characters (Each by a comma): "
-              + "\nInvalid input: A Party needs at least one Character.\n",
-          output.toString().split("\tvii. Human\n")[1]);
+              + "Characters (Each by a comma): \n"
+              + "Invalid input: A Party needs at least one Character.\n",
+          output.toString().split(Controller.separator)[3]);
     }
   }
 
@@ -560,11 +396,10 @@ public class CreatePartyTest extends IOManagerControllerTest {
       fail();
     }
     catch (NoSuchElementException | IllegalStateException e) {
-      assertEquals("Awaiting command:\n"
-              + "The Manager doesn't have any Characters!\n"
-              + "Add Characters using the create-char command.\n"
-              + "Awaiting command:\n",
-          output.toString().split("\tvii. Human\n")[1]);
+      assertEquals("Awaiting command: "
+              + "Invalid state: The Manager doesn't have any Characters!\n"
+              + "Add Characters using the create-char command.\n",
+          output.toString().split(Controller.separator)[1]);
     }
   }
 }

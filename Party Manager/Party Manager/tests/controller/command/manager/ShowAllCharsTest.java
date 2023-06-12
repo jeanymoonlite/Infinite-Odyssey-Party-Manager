@@ -3,6 +3,7 @@ package controller.command.manager;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
@@ -62,12 +63,10 @@ public class ShowAllCharsTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertTrue(this.model.doesCharacterExist("Onion"));
-    assertEquals("Onion (Steven)\n"
+    assertEquals("Awaiting command: Onion (Steven)\n"
             + "Lunarose (Luna)\n"
             + "Total Characters: 2\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[3]);
+        output.toString().split(Controller.separator)[3]);
   }
 
   @Test
@@ -81,11 +80,9 @@ public class ShowAllCharsTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("The Manager doesn't have any Characters!\n"
+    assertEquals("Awaiting command: Invalid state: The Manager doesn't have any Characters!\n"
             + "Add Characters using the create-char command.\n",
-        output.toString()
-            .split("WARNING")[0]
-            .split("Awaiting command:\n")[1]);
+        output.toString().split(Controller.separator)[1]);
   }
 
 }
