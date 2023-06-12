@@ -158,27 +158,29 @@ public class IOManagerController implements Controller {
 
         String currCommand = this.sc.next();
 
-        if (this.tryingToQuit) {
+        while (this.tryingToQuit) {
           if (currCommand.equalsIgnoreCase("y")) {
             this.running = false;
-            this.view.display("Bye Bye!");
+            this.view.display("\nThank you for using the Infinite Odysseys Party Manager.");
             break;
           }
           else if (currCommand.equalsIgnoreCase("n")) {
             tryingToQuit = false;
-            continue;
+            currCommand = this.sc.next();
+            break;
           }
           else {
-            this.view.display("Invalid command\n");
+            this.view.display("\nInvalid input.\n");
             this.quitMessage();
-            continue;
+            currCommand = this.sc.next();
           }
         }
 
-        //quitting
-        if (currCommand.equalsIgnoreCase("quit")
-            || (currCommand.equalsIgnoreCase("q"))) {
+        if (this.tryingToQuit) break;
 
+        //quitting
+        if (currCommand.equalsIgnoreCase("quit")) {
+          this.view.display(Controller.separator);
           this.quitMessage();
           continue;
         }
@@ -186,8 +188,9 @@ public class IOManagerController implements Controller {
         if (this.commands.containsKey(currCommand)) {
           this.commands.get(currCommand).run();
         }
+
         else {
-          this.view.display("Invalid command\n");
+          this.view.display("\nInvalid command.\n");
         }
       }
       catch (IOException io) {
@@ -199,7 +202,7 @@ public class IOManagerController implements Controller {
 
   private void startMessage() {
     try {
-      this.view.display("Welcome to the Infinite Odyssey's Party Manager.\n\n");
+      this.view.display("Welcome to the Infinite Odysseys Party Manager.\n\n");
       this.view.displayManagerRules();
     }
     catch (IOException io) {
@@ -209,8 +212,8 @@ public class IOManagerController implements Controller {
 
   private void quitMessage() {
     try {
-      this.view.display("WARNING: Quitting will delete any unsaved progress. "
-          + "Confirm? (y/n)\n");
+      this.view.display("WARNING: Quitting will delete any unsaved data.\n");
+      this.view.display("Confirm (y or n): ");
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
