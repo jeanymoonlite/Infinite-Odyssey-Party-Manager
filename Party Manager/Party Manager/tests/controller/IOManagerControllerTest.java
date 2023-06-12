@@ -95,10 +95,13 @@ public class IOManagerControllerTest {
             + "Confirm (y or n): ",
         output.toString().split(Controller.separator)[2]);
 
+    assertEquals("Awaiting command: ",
+        output.toString().split(Controller.separator)[3]);
+
     assertEquals("WARNING: Quitting will delete any unsaved data.\n"
             + "Confirm (y or n): \n"
             + "Thank you for using the Infinite Odysseys Party Manager.",
-        output.toString().split(Controller.separator)[3]);
+        output.toString().split(Controller.separator)[4]);
   }
 
   @Test
@@ -162,6 +165,72 @@ public class IOManagerControllerTest {
             + "Confirm (y or n): "
             + "\nThank you for using the Infinite Odysseys Party Manager.",
         output.toString().split(Controller.separator)[2]);
+  }
+
+  @Test
+  public void unavailableCommandsDuringCampaign() {
+    Readable input = new StringReader("create-char\n"
+        + "Danny Sexbang\n"
+        + "Dan\n"
+        + "Bard\n"
+        + "Lover\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Ninja Brian\n"
+        + "Brian\n"
+        + "Rogue\n"
+        + "Ninja\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-party\n"
+        + "Ninja Sex Party\n"
+        + "Danny Sexbang, Ninja Brian\n"
+        + "y\n"
+        + "start Ninja Sex Party\n"
+        + "y\n"
+        + "create-party\n"
+        + "create-char\n"
+        + "remove-char\n"
+        + "remove-party\n"
+        + "start\n"
+        + "quit y quit y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+    this.controller.start();
+
+    assertEquals("Awaiting command: \n"
+            + "Invalid state: This command can't be used during a campaign.\n"
+            + "Use the quit command to end the current campaign.\n",
+        output.toString().split(Controller.separator)[5]);
+
+    assertEquals("Awaiting command: \n"
+            + "Invalid state: This command can't be used during a campaign.\n"
+            + "Use the quit command to end the current campaign.\n",
+        output.toString().split(Controller.separator)[6]);
+
+    assertEquals("Awaiting command: \n"
+            + "Invalid state: This command can't be used during a campaign.\n"
+            + "Use the quit command to end the current campaign.\n",
+        output.toString().split(Controller.separator)[8]);
+
+    assertEquals("Awaiting command: \n"
+            + "Invalid state: This command can't be used during a campaign.\n"
+            + "Use the quit command to end the current campaign.\n",
+        output.toString().split(Controller.separator)[9]);
   }
 
 }

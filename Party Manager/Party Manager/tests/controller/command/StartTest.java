@@ -298,4 +298,245 @@ public class StartTest extends IOManagerControllerTest {
           output.toString().split(Controller.separator)[3]);
     }
   }
+
+  @Test
+  public void startThenQuitY() {
+    Readable input = new StringReader("create-char\n"
+        + "Danny Sexbang\n"
+        + "Dan\n"
+        + "Bard\n"
+        + "Lover\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Ninja Brian\n"
+        + "Brian\n"
+        + "Rogue\n"
+        + "Ninja\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-party\n"
+        + "Ninja Sex Party\n"
+        + "Danny Sexbang, Ninja Brian\n"
+        + "y\n"
+        + "start Ninja Sex Party\n"
+        + "y quit y quit y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+
+    this.controller.start();
+    assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
+    assertTrue(this.model.doesCharacterExist("Ninja Brian"));
+    assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
+    assertEquals("Awaiting command: \n"
+            + "Start a Campaign with the Ninja Sex Party Party?\n"
+            + "Confirm (y or n): "
+            + "A Campaign has been started with Ninja Sex Party:\n\n"
+            + "Active Party: Ninja Sex Party\n\n"
+            + "Danny Sexbang (Dan)\n"
+            + "Class: Bard (Lover)\n"
+            + "Hp: 100/100 (+1 Def)\n"
+            + "Strength: 1\n"
+            + "Intelligence: 1\n"
+            + "Creativity: 1\n"
+            + "Charisma: 1 (+4)\n"
+            + "Stealth: 1\n"
+            + "Intimidation: 1\n"
+            + "\n"
+            + "Ninja Brian (Brian)\n"
+            + "Class: Rogue (Ninja)\n"
+            + "Hp: 100/100 (-5 Def)\n"
+            + "Strength: 1 (+2)\n"
+            + "Intelligence: 1\n"
+            + "Creativity: 1\n"
+            + "Charisma: 1\n"
+            + "Stealth: 1 (+3)\n"
+            + "Intimidation: 1\n",
+        output.toString().split(Controller.separator)[4]);
+
+    assertEquals("Awaiting command: "
+            + "Are you sure you want to end the current campaign?\n"
+            + "Confirm (y or n): "
+            + "\nThe campaign with Ninja Sex Party has ended.\n",
+        output.toString().split(Controller.separator)[5]);
+  }
+
+  @Test
+  public void startThenQuitN() {
+    Readable input = new StringReader("create-char\n"
+        + "Danny Sexbang\n"
+        + "Dan\n"
+        + "Bard\n"
+        + "Lover\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Ninja Brian\n"
+        + "Brian\n"
+        + "Rogue\n"
+        + "Ninja\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-party\n"
+        + "Ninja Sex Party\n"
+        + "Danny Sexbang, Ninja Brian\n"
+        + "y\n"
+        + "start Ninja Sex Party\n"
+        + "y quit n quit y quit y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+
+    this.controller.start();
+    assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
+    assertTrue(this.model.doesCharacterExist("Ninja Brian"));
+    assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
+    assertEquals("Awaiting command: \n"
+            + "Start a Campaign with the Ninja Sex Party Party?\n"
+            + "Confirm (y or n): "
+            + "A Campaign has been started with Ninja Sex Party:\n\n"
+            + "Active Party: Ninja Sex Party\n\n"
+            + "Danny Sexbang (Dan)\n"
+            + "Class: Bard (Lover)\n"
+            + "Hp: 100/100 (+1 Def)\n"
+            + "Strength: 1\n"
+            + "Intelligence: 1\n"
+            + "Creativity: 1\n"
+            + "Charisma: 1 (+4)\n"
+            + "Stealth: 1\n"
+            + "Intimidation: 1\n"
+            + "\n"
+            + "Ninja Brian (Brian)\n"
+            + "Class: Rogue (Ninja)\n"
+            + "Hp: 100/100 (-5 Def)\n"
+            + "Strength: 1 (+2)\n"
+            + "Intelligence: 1\n"
+            + "Creativity: 1\n"
+            + "Charisma: 1\n"
+            + "Stealth: 1 (+3)\n"
+            + "Intimidation: 1\n",
+        output.toString().split(Controller.separator)[4]);
+
+    assertEquals("Awaiting command: "
+            + "Are you sure you want to end the current campaign?\n"
+            + "Confirm (y or n): ",
+        output.toString().split(Controller.separator)[5]);
+
+    assertEquals("Awaiting command: "
+            + "Are you sure you want to end the current campaign?\n"
+            + "Confirm (y or n): "
+            + "\nThe campaign with Ninja Sex Party has ended.\n",
+        output.toString().split(Controller.separator)[6]);
+  }
+
+  @Test
+  public void startThenQuitBadInput() {
+    Readable input = new StringReader("create-char\n"
+        + "Danny Sexbang\n"
+        + "Dan\n"
+        + "Bard\n"
+        + "Lover\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Ninja Brian\n"
+        + "Brian\n"
+        + "Rogue\n"
+        + "Ninja\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-party\n"
+        + "Ninja Sex Party\n"
+        + "Danny Sexbang, Ninja Brian\n"
+        + "y\n"
+        + "start Ninja Sex Party\n"
+        + "y quit ggg sn a b y quit y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+
+    this.controller.start();
+    assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
+    assertTrue(this.model.doesCharacterExist("Ninja Brian"));
+    assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
+    assertEquals("Awaiting command: \n"
+            + "Start a Campaign with the Ninja Sex Party Party?\n"
+            + "Confirm (y or n): "
+            + "A Campaign has been started with Ninja Sex Party:\n\n"
+            + "Active Party: Ninja Sex Party\n\n"
+            + "Danny Sexbang (Dan)\n"
+            + "Class: Bard (Lover)\n"
+            + "Hp: 100/100 (+1 Def)\n"
+            + "Strength: 1\n"
+            + "Intelligence: 1\n"
+            + "Creativity: 1\n"
+            + "Charisma: 1 (+4)\n"
+            + "Stealth: 1\n"
+            + "Intimidation: 1\n"
+            + "\n"
+            + "Ninja Brian (Brian)\n"
+            + "Class: Rogue (Ninja)\n"
+            + "Hp: 100/100 (-5 Def)\n"
+            + "Strength: 1 (+2)\n"
+            + "Intelligence: 1\n"
+            + "Creativity: 1\n"
+            + "Charisma: 1\n"
+            + "Stealth: 1 (+3)\n"
+            + "Intimidation: 1\n",
+        output.toString().split(Controller.separator)[4]);
+
+    assertEquals("Awaiting command: Are you sure you want to end the current campaign?\n"
+            + "Confirm (y or n): \n"
+            + "Invalid input.\n"
+            + "Are you sure you want to end the current campaign?\n"
+            + "Confirm (y or n): \n"
+            + "Invalid input.\n"
+            + "Are you sure you want to end the current campaign?\n"
+            + "Confirm (y or n): \n"
+            + "Invalid input.\n"
+            + "Are you sure you want to end the current campaign?\n"
+            + "Confirm (y or n): \n"
+            + "Invalid input.\n"
+            + "Are you sure you want to end the current campaign?\n"
+            + "Confirm (y or n): \n"
+            + "The campaign with Ninja Sex Party has ended.\n",
+        output.toString().split(Controller.separator)[5]);
+  }
 }

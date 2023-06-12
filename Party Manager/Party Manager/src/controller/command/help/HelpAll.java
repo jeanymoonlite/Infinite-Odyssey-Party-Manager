@@ -1,9 +1,8 @@
 package controller.command.help;
 
 import controller.command.ACommand;
-import controller.command.Clear;
-import controller.command.Start;
-import controller.command.character.CreateChar;
+import controller.command.misc.Clear;
+import controller.command.misc.Start;
 import java.io.IOException;
 import model.Manager;
 import view.TextView;

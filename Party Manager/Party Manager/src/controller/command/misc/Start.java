@@ -1,5 +1,6 @@
-package controller.command;
+package controller.command.misc;
 
+import controller.command.ACommand;
 import controller.input.validation.PartyValid;
 import java.io.IOException;
 import java.util.Scanner;

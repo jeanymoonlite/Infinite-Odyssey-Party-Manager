@@ -113,7 +113,7 @@ public final class CreateParty extends ACommand {
       String characters;
       String[] characterList;
 
-      while (charsAdd.size() == 0) {
+      while (true) {
         characters = this.sc.nextLine();
         characterList = characters.split(",\\s*");
         charsAdd = new ArrayList<String>();

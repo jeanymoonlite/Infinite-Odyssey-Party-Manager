@@ -57,6 +57,40 @@ public class RollTest extends IOManagerControllerTest {
   }
 
   @Test
+  public void roll1() {
+    Readable input = new StringReader("roll 1 "
+        + "quit y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+
+    this.controller.start();
+
+    assertEquals("Awaiting command: "
+            + "Invalid input: The upper bound must be greater than 1.\n",
+        output.toString().split(Controller.separator)[1]);
+  }
+
+  @Test
+  public void roll20point5() {
+    Readable input = new StringReader("roll 20.5 "
+        + "quit y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+
+    this.controller.start();
+
+    assertEquals("Awaiting command: "
+            + "Invalid input: The upper bound for the roll cannot be a decimal.\n",
+        output.toString().split(Controller.separator)[1]);
+  }
+
+  @Test
   public void roll2() {
     int n = 2;
 

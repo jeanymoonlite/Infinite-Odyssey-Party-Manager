@@ -1,9 +1,11 @@
 package controller.command.character;
 
 import controller.command.ACommand;
+import controller.command.character.subcommands.EditAttribute;
 import controller.input.validation.CharacterValid;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import model.Character;
@@ -15,11 +17,12 @@ import view.TextView;
 public class EditChar extends ACommand {
 
   private final Scanner sc;
+  private boolean running;
   private boolean tryingToQuit;
   private boolean saving;
   private Character character;
   private Character newCharacter;
-  private final String[] commands;
+  private HashMap<String, ACommand> commands;
 
   /**
    * Constructs a new {@code PartyCommand}.
@@ -32,7 +35,6 @@ public class EditChar extends ACommand {
     super(model, view);
     this.sc = sc;
     this.tryingToQuit = false;
-    this.commands = new String[]{"edit", "back", "quit", "save"};
 
     this.signature = "edit-char (name)";
     this.description = "Edits the Character with the given name.\n"
@@ -40,90 +42,67 @@ public class EditChar extends ACommand {
         + "A new set of commands will become available in editing mode.";
   }
 
+  private void init() {
+    this.commands = new HashMap<String, ACommand>();
+
+    this.commands.put("edit", new EditAttribute(this.model, this.view, this.sc,
+        this.character, this.newCharacter));
+
+//    this.commands.put("quit", new EditAttribute(this.model, this.view, this.sc));
+//    this.commands.put("back", new EditAttribute(this.model, this.view, this.sc));
+
+    this.tryingToQuit = false;
+    this.saving = false;
+  }
+
   @Override
   public void run() {
-    try {
-      boolean running = true;
-      this.tryingToQuit = false;
-      this.saving = false;
+    String name = this.sc.nextLine().trim();
 
-      String name = this.sc.nextLine().trim();
+    if (!new CharacterValid(this.model, this.view, this.sc).isValid(name)) {
+      return;
+    }
 
-      if (!new CharacterValid(this.model, this.view, this.sc).isValid(name)) {
-        return;
-      }
+    this.character = this.model.findCharByName(name);
+    this.newCharacter = this.model.findCharByName(name);
+    this.init();
+    this.startMessage();
 
-      this.startMessage(name);
+    while (this.running) {
+      try {
+        this.isTryingToQuit();
 
-      while (running) {
-        if (!this.tryingToQuit) {
-          this.view.display(this.newCharacter.toStringAll());
-          this.view.display("Awaiting edit command:\n");
-        }
+        if (this.tryingToQuit) break;
 
-        // Make sure there is input to read
-        if (!this.sc.hasNext()) {
-          throw new IllegalStateException("No input detected.");
-        }
+        this.view.display(this.newCharacter.toStringAll());
+        this.view.display("Awaiting edit command:\n");
 
         String currCommand = this.sc.next();
 
-        if (this.tryingToQuit) {
-          if (currCommand.equalsIgnoreCase("y")) {
-            running = false;
-
-            if (this.saving) {
-              this.view.display(name + " has been updated!\n");
-              this.model.removeCharacter(name);
-              this.model.addCharacter(this.newCharacter);
-              this.view.displayCharacter(this.newCharacter.getName());
-            }
-            else {
-              this.view.display("All changes made to " + name + " have been undone.\n");
-            }
-
-            this.view.display("Now exiting Character editing mode.\n");
-            break;
-          }
-          else if (currCommand.equalsIgnoreCase("n")) {
-            this.tryingToQuit = false;
-            this.saving = false;
-            continue;
-          }
-          else {
-            this.view.display("Invalid command\n");
-            this.quitMessage();
-            continue;
-          }
+        if (currCommand.equalsIgnoreCase("quit")) {
+          this.quitMessage();
         }
 
-        switch (currCommand) {
-          case "back":
-          case "quit":
-            this.quitMessage();
-            break;
-          case "save":
-            this.saveMessage();
-            break;
-          case "edit":
-            this.edit();
-            break;
-          default:
-            this.view.display("Invalid command\n");
-            break;
+        else if (currCommand.equalsIgnoreCase("save")) {
+          this.saveMessage();
+        }
+
+        else if (this.commands.containsKey(currCommand.toLowerCase())) {
+          this.commands.get(currCommand).run();
+        }
+        else {
+          this.view.display("\nInvalid edit command.\n");
         }
       }
-    }
-    catch (IOException e) {
-      throw new RuntimeException("Fatal Error: IOException occurred.");
+      catch (IOException e) {
+        throw new RuntimeException("Fatal Error: IOException occurred.");
+      }
     }
   }
 
-  private void startMessage(String name) {
+  private void startMessage() {
     try {
       this.view.display("You are now in character editing mode.\n");
-      this.character = this.model.findCharByName(name);
-      this.newCharacter = this.model.findCharByName(name);
       this.view.display("Editing: " + this.character.getName() +
           " (" + this.character.getPlayerName() + ")" + "\n");
     }
@@ -159,92 +138,63 @@ public class EditChar extends ACommand {
     this.saving = true;
   }
 
-  private void edit() {
+  private void isTryingToQuit() {
+    if (this.saving) {
+      this.isTryingToSave();
+    }
+    else {
+      this.isTryingToQuitUnsaved();
+    }
+  }
+
+  private void isTryingToQuitUnsaved() {
     try {
-      String attribute = this.sc.nextLine().trim();
-
-      String[] attributes = new String[]{"Name", "Player Name", "Role", "Role Spec",
-          "Role Specification"};
-
-      String[] statNames = new String[this.model.getStats().length - 2];
-      System.arraycopy(this.model.getStats(), 2, statNames, 0, statNames.length);
-
-      String[] validAttribute = new String[attributes.length + statNames.length];
-      System.arraycopy(attributes, 0, validAttribute, 0, attributes.length);
-      System.arraycopy(statNames, 0, validAttribute, attributes.length, statNames.length);
-
-      if (Arrays.stream(validAttribute).noneMatch((s) -> s.equalsIgnoreCase(attribute))) {
-        this.view.display("Invalid input: The attribute " + attribute + " does not exist for "
-            + this.character.getName() + "\n"
-            + "or cannot be edited.\n");
-        return;
-      }
-
-      String name = this.newCharacter.getName();
-      String playerName = this.newCharacter.getPlayerName();
-      IORoles role = IORoles.valueOf(this.newCharacter.getRole().toUpperCase());
-      String roleSpec = this.newCharacter.getSpecification();
-
-      int[] statVals = new int[statNames.length];
-
-      for (int i = 0; i < statVals.length; i++) {
-        statVals[i] = this.newCharacter.getValueOf(statNames[i]);
-      }
-
-      switch (attribute.toLowerCase()) {
-        case "name":
-          name = this.getName();
+      while (this.tryingToQuit) {
+        String answer = this.sc.next();
+        if (answer.equalsIgnoreCase("y")) {
+          this.running = false;
+          this.view.display("All changes made to " + this.character.getName() + " have been undone.\n");
+          this.view.display("Now exiting Character editing mode.\n");
           break;
-        case "player name":
-          playerName = this.getPlayerName();
+        }
+        else if (answer.equalsIgnoreCase("n")) {
+          tryingToQuit = false;
           break;
-        case "role":
-          role = this.getRole();
-          break;
-        case "role specification":
-        case "role spec":
-          roleSpec = this.getRoleSpec();
-          break;
-      }
-
-      for (int i = 0; i < statNames.length; i++) {
-        if (attribute.equalsIgnoreCase(statNames[i])) {
-          statVals[i] = this.getStat(i, statVals);
+        }
+        else {
+          this.view.display("\nInvalid input.\n");
+          this.quitMessage();
         }
       }
-
-      this.newCharacter = new IOCharacter(name, playerName, role, roleSpec,
-          statVals[0], statVals[1],
-          statVals[2], statVals[3],
-          statVals[4], statVals[5]);
-      this.view.display("\n");
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
     }
   }
 
-  private String getName() {
+  private void isTryingToSave() {
     try {
-      this.view.display("Current Character name: " + this.newCharacter.getName() + "\n");
-      this.view.display("New Character name: ");
-
-      String name = this.sc.nextLine();
-
-      if (name.isEmpty() || name.isBlank()) {
-        this.view.display("\nInvalid input: Character name cannot be whitespace. ");
-        this.view.display("Please try again.\n");
-        return this.getName();
+      while (this.tryingToQuit) {
+        String answer = this.sc.next();
+        if (answer.equalsIgnoreCase("y")) {
+          this.running = false;
+          this.view.display(this.character.getName() + " has been updated!\n");
+          this.model.removeCharacter(this.character.getName());
+          this.model.addCharacter(this.newCharacter);
+          this.view.displayCharacter(this.newCharacter.getName());
+          this.view.display("Now exiting Character editing mode.\n");
+          break;
+        }
+        else if (answer.equalsIgnoreCase("n")) {
+          this.tryingToQuit = false;
+          this.saving = false;
+          break;
+        }
+        else {
+          this.view.display("\nInvalid input.\n");
+          this.saveMessage();
+        }
       }
-
-      if ((!this.character.getName().equalsIgnoreCase(this.newCharacter.getName()))
-          && (this.model.doesCharacterExist(name))) {
-        this.view.display("\nInvalid input: There is already a Character named " + name + ".\n");
-        this.view.display("Please input a different name.\n");
-        return this.getName();
-      }
-
-      return name;
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");

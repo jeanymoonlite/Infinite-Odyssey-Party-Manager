@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
@@ -78,7 +79,7 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n"
             + "Awaiting edit command:\n",
-        output.toString().split("Awaiting command:\n")[2].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[1]);
   }
 
   @Test
@@ -206,7 +207,7 @@ public class EditCharTest extends IOManagerControllerTest {
         + "1\n"
         + "y\n"
         + "edit-char Onion\n"
-        + "edit role spec\n"
+        + "edit class spec\n"
         + "Salvadorian\n"
         + "save\n"
         + "y quit y");
@@ -605,14 +606,13 @@ public class EditCharTest extends IOManagerControllerTest {
 
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertEquals(1, this.model.findCharByName("Onion").getValueOf("Intimidation"));
-    assertEquals("WARNING: Quitting will remove any changes made.\n"
+    assertEquals("Awaiting command: WARNING: Quitting will remove any changes made.\n"
             + "Are you sure you want to exit Character editing mode?"
-            + " Confirm (y or n): \n"
+            + "Confirm (y or n): \n"
             + "All changes made to Onion have been undone.\n"
             + "Now exiting Character editing mode.\n"
             + "Awaiting command:\n",
-        output.toString().split("Awaiting edit command:\n")[2]
-            .split("WARNING: Quitting will delete")[0]);
+        output.toString().split(Controller.separator)[2]);
   }
 
   @Test
@@ -747,9 +747,10 @@ public class EditCharTest extends IOManagerControllerTest {
     this.controller.start();
 
     assertFalse(this.model.hasCharacters());
-    assertEquals("The Manager doesn't have any Characters!\n"
+    assertEquals("Awaiting command: \n"
+            + "Invalid state: The Manager doesn't have any Characters!\n"
             + "Add Characters using the create-char command.\n",
-        output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[1]);
   }
 
   @Test
@@ -777,7 +778,7 @@ public class EditCharTest extends IOManagerControllerTest {
 
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertEquals("Invalid input: The Character Steve doesn't exist in this Manager.\n",
-        output.toString().split("Awaiting command:\n")[2].split("WARNING")[0]);
+        output.toString().split(Controller.separator)[2]);
   }
 
 }

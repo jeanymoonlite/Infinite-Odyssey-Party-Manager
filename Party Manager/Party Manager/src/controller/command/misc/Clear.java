@@ -1,5 +1,6 @@
-package controller.command;
+package controller.command.misc;
 
+import controller.command.ACommand;
 import java.io.IOException;
 import model.Manager;
 import view.TextView;

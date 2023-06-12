@@ -6,6 +6,7 @@ import static org.junit.Assert.fail;
 import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
+import controller.command.misc.Clear;
 import java.io.StringReader;
 import model.infiniteodysseys.IOManager;
 import org.junit.Test;

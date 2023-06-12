@@ -384,6 +384,58 @@ public class CreatePartyTest extends IOManagerControllerTest {
   }
 
   @Test
+  public void noValidCharsCreateParty() {
+    Readable input = new StringReader("create-char\n"
+        + "Danny Sexbang\n"
+        + "Dan\n"
+        + "Bard\n"
+        + "Lover\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-char\n"
+        + "Ninja Brian\n"
+        + "Brian\n"
+        + "Rogue\n"
+        + "Ninja\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "create-party\n"
+        + "Ninja Sex Party\n"
+        + "Dan, Brian, Arin\n");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+    try {
+      this.controller.start();
+      fail();
+    }
+    catch (NoSuchElementException e) {
+      assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
+      assertTrue(this.model.doesCharacterExist("Ninja Brian"));
+      assertEquals("Awaiting command: "
+              + "Party name: "
+              + "Characters (Each by a comma): \n"
+              + "Invalid input: A Party needs at least one Character.\n"
+              + "Dan is not a Character in this Manager, therefore they won't be added.\n"
+              + "Brian is not a Character in this Manager, therefore they won't be added.\n"
+              + "Arin is not a Character in this Manager, therefore they won't be added.\n",
+          output.toString().split(Controller.separator)[3]);
+    }
+  }
+
+  @Test
   public void noCharsCreateParty() {
     Readable input = new StringReader("create-party\n");
     Appendable output = new StringBuilder();

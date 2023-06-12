@@ -1,15 +1,11 @@
 package controller;
 
 import controller.command.ACommand;
-import controller.command.Clear;
-import controller.command.Start;
 import controller.command.character.CreateChar;
 import controller.command.character.EditChar;
 import controller.command.character.RemoveChar;
 import controller.command.dice.Dice;
 import controller.command.dice.Roll;
-import controller.command.dice.SetSeed;
-import controller.command.dice.UseSeed;
 import controller.command.help.Help;
 import controller.command.help.HelpAll;
 import controller.command.help.HelpChar;
@@ -22,6 +18,8 @@ import controller.command.manager.ShowAllChars;
 import controller.command.manager.ShowAllParties;
 import controller.command.manager.ShowChar;
 import controller.command.manager.ShowParty;
+import controller.command.misc.Clear;
+import controller.command.misc.Start;
 import controller.command.party.CreateParty;
 import controller.command.party.RemoveParty;
 import controller.command.stats.ChangeHp;
@@ -43,6 +41,7 @@ public class IOManagerController implements Controller {
   private final TextView view;
   private final Scanner sc;
   private HashMap<String, ACommand> commands;
+  private HashMap<String, ACommand> campaignCommands;
 
   /**
    * Constructs a new {@code IOManagerController}.
@@ -66,12 +65,12 @@ public class IOManagerController implements Controller {
       throw new IllegalArgumentException("The Readable for the Controller cannot be null.");
     }
 
-    IOManagerSeedHolder.getInstance().reset();
     this.model = model;
     this.view = view;
     this.sc = new Scanner(input);
     this.tryingToQuit = false;
     this.initCommands();
+    this.initCampaignCommands();
 
   }
 
@@ -137,6 +136,41 @@ public class IOManagerController implements Controller {
     this.commands.put("d100", new Dice(this.model, this.view, 100));
   }
 
+  private void initCampaignCommands() {
+    this.campaignCommands = new HashMap<String, ACommand>();
+
+    this.campaignCommands.put("clear", new Clear(this.model, this.view, 100));
+
+    //Help
+    this.campaignCommands.put("help", new Help(this.model, this.view));
+
+    //Stat
+    this.campaignCommands.put("heal", new ChangeHp(this.model, this.view, this.sc, true, false));
+    this.campaignCommands.put("damage", new ChangeHp(this.model, this.view, this.sc, false, false));
+
+    this.campaignCommands.put("heal-all", new ChangeHp(this.model, this.view, this.sc, true, true));
+    this.campaignCommands.put("damage-all", new ChangeHp(this.model, this.view, this.sc, false, true));
+
+    //Manager
+    this.campaignCommands.put("party", new PartyCommand(this.model, this.view, this.sc));
+
+    this.campaignCommands.put("show-char", new ShowChar(this.model, this.view, this.sc));
+    this.campaignCommands.put("show-party", new ShowParty(this.model, this.view, this.sc));
+
+    //Dice
+    this.campaignCommands.put("roll", new Roll(this.model, this.view, this.sc));
+
+    this.campaignCommands.put("cf", new Dice(this.model, this.view, 2));
+
+    this.campaignCommands.put("d4", new Dice(this.model, this.view, 4));
+    this.campaignCommands.put("d6", new Dice(this.model, this.view, 6));
+    this.campaignCommands.put("d8", new Dice(this.model, this.view, 8));
+    this.campaignCommands.put("d10", new Dice(this.model, this.view, 10));
+    this.campaignCommands.put("d12", new Dice(this.model, this.view, 12));
+    this.campaignCommands.put("d20", new Dice(this.model, this.view, 20));
+    this.campaignCommands.put("d100", new Dice(this.model, this.view, 100));
+  }
+
   @Override
   public void start() throws IllegalStateException {
 
@@ -146,51 +180,24 @@ public class IOManagerController implements Controller {
     // begin command input loop
     while (this.running) {
       try {
-        if (!this.tryingToQuit) {
-          this.view.display(Controller.separator);
-          this.view.display("Awaiting command: ");
-        }
-
         // Make sure there is input to read
 //        if (!this.sc.hasNext()) {
 //          throw new IllegalStateException("No input detected.");
 //        }
-
-        String currCommand = this.sc.next();
-
-        while (this.tryingToQuit) {
-          if (currCommand.equalsIgnoreCase("y")) {
-            this.running = false;
-            this.view.display("\nThank you for using the Infinite Odysseys Party Manager.");
-            break;
-          }
-          else if (currCommand.equalsIgnoreCase("n")) {
-            tryingToQuit = false;
-            currCommand = this.sc.next();
-            break;
-          }
-          else {
-            this.view.display("\nInvalid input.\n");
-            this.quitMessage();
-            currCommand = this.sc.next();
-          }
-        }
+        this.isTryingToQuit();
 
         if (this.tryingToQuit) break;
 
-        //quitting
-        if (currCommand.equalsIgnoreCase("quit")) {
-          this.view.display(Controller.separator);
-          this.quitMessage();
-          continue;
-        }
+        this.view.display(Controller.separator);
+        this.view.display("Awaiting command: ");
 
-        if (this.commands.containsKey(currCommand)) {
-          this.commands.get(currCommand).run();
-        }
+        String currCommand = this.sc.next();
 
+        if (this.model.hasStartedACampaign()) {
+          this.campaignController(currCommand);
+        }
         else {
-          this.view.display("\nInvalid command.\n");
+          this.regularController(currCommand);
         }
       }
       catch (IOException io) {
@@ -221,4 +228,118 @@ public class IOManagerController implements Controller {
     this.tryingToQuit = true;
   }
 
+  private void quitCampaignMessage() {
+    try {
+      this.view.display("Are you sure you want to end the current campaign?\n");
+      this.view.display("Confirm (y or n): ");
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+    this.tryingToQuit = true;
+  }
+
+  private void isTryingToQuit() {
+    if (this.model.hasStartedACampaign()) {
+      this.isTryingToQuitCampaign();
+    }
+    else {
+      this.isTryingToQuitProgram();
+    }
+  }
+
+  private void isTryingToQuitProgram() {
+    try {
+      while (this.tryingToQuit) {
+        String answer = this.sc.next();
+        if (answer.equalsIgnoreCase("y")) {
+          this.running = false;
+          this.view.display("\nThank you for using the Infinite Odysseys Party Manager.");
+          break;
+        }
+        else if (answer.equalsIgnoreCase("n")) {
+          tryingToQuit = false;
+          break;
+        }
+        else {
+          this.view.display("\nInvalid input.\n");
+          this.quitMessage();
+        }
+      }
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+  }
+
+  private void isTryingToQuitCampaign() {
+    try {
+      while (this.tryingToQuit) {
+        String answer = this.sc.next();
+        if (answer.equalsIgnoreCase("y")) {
+          this.running = false;
+          this.view.display("\nThe campaign with " + this.model.getActiveParty().getName()
+              + " has ended.\n");
+          this.model.startCampaign(false);
+          tryingToQuit = false;
+          break;
+        }
+        else if (answer.equalsIgnoreCase("n")) {
+          tryingToQuit = false;
+          break;
+        }
+        else {
+          this.view.display("\nInvalid input.\n");
+          this.quitCampaignMessage();
+        }
+      }
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+  }
+
+  private void regularController(String currCommand) {
+    try {
+      if (currCommand.equalsIgnoreCase("quit")) {
+        this.view.display(Controller.separator);
+        this.quitMessage();
+      }
+
+      else if (this.commands.containsKey(currCommand)) {
+        this.commands.get(currCommand).run();
+      }
+
+      else {
+        this.view.display("\nInvalid command.\n");
+      }
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+  }
+
+  private void campaignController(String currCommand) {
+    try {
+      if (currCommand.equalsIgnoreCase("quit")) {
+        this.quitCampaignMessage();
+      }
+
+      else if (this.campaignCommands.containsKey(currCommand)) {
+        this.campaignCommands.get(currCommand).run();
+      }
+
+      else if (this.commands.containsKey(currCommand)) {
+        this.view.display("\nInvalid state: This command can't be used during a campaign.\n");
+        this.view.display("Use the quit command to end the current campaign.\n");
+      }
+
+      else {
+        this.view.display("\nInvalid command.\n");
+      }
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+  }
 }

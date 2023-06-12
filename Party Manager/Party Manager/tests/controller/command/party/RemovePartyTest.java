@@ -276,7 +276,7 @@ public class RemovePartyTest extends IOManagerControllerTest {
         + "start Boys\n"
         + "y\n"
         + "remove-party Luna\n"
-        + "n quit y");
+        + "n quit y quit y");
     Appendable output = new StringBuilder();
 
     this.model = new IOManager();

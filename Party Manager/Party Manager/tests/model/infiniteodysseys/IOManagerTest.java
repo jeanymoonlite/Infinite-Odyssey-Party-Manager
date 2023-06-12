@@ -160,7 +160,7 @@ public class IOManagerTest extends IOPartyTest {
     this.m.startCampaign(true);
 
     try {
-      this.m.setActiveParty("Le Boys");
+      this.m.getAllParties();
       fail();
     }
     catch (IllegalStateException e) {
@@ -190,7 +190,7 @@ public class IOManagerTest extends IOPartyTest {
     this.m.startCampaign(true);
 
     try {
-      this.m.setActiveParty("Le Boys");
+      this.m.getAllCharacters();
       fail();
     }
     catch (IllegalStateException e) {
@@ -377,7 +377,7 @@ public class IOManagerTest extends IOPartyTest {
     this.m.startCampaign(true);
 
     try {
-      this.m.setActiveParty("Le Boys");
+      this.m.addCharacter(null);
       fail();
     }
     catch (IllegalStateException e) {
@@ -495,7 +495,7 @@ public class IOManagerTest extends IOPartyTest {
     this.m.startCampaign(true);
 
     try {
-      this.m.setActiveParty("Le Boys");
+      this.m.addParty("Le Boys");
       fail();
     }
     catch (IllegalStateException e) {
@@ -569,7 +569,7 @@ public class IOManagerTest extends IOPartyTest {
     this.m.startCampaign(true);
 
     try {
-      this.m.setActiveParty("Le Boys");
+      this.m.removeCharacter("Le Boys");
       fail();
     }
     catch (IllegalStateException e) {
@@ -626,7 +626,7 @@ public class IOManagerTest extends IOPartyTest {
     this.m.startCampaign(true);
 
     try {
-      this.m.setActiveParty("Le Boys");
+      this.m.removeParty("Le Boys");
       fail();
     }
     catch (IllegalStateException e) {

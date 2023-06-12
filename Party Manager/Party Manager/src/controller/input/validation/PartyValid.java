@@ -29,12 +29,6 @@ public final class PartyValid extends ACommand implements InputValidation {
   @Override
   public boolean isValid(String input) {
     try {
-      if (this.model.hasStartedACampaign()) {
-        this.view.display("\nInvalid state: This command can't be used during a campaign.\n");
-        this.view.display("Use the quit command to end the current campaign.\n");
-        return false;
-      }
-
       if (!this.model.hasParties()) {
         this.view.display("\nInvalid state: The Manager doesn't have any Parties!\n");
         this.view.display("Add Parties using the create-party command.\n");

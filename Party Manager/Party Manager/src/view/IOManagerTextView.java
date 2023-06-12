@@ -32,17 +32,6 @@ public class IOManagerTextView implements TextView {
     this.output = output;
   }
 
-  /**
-   * Constructs a new {@code GamePhase1View} with the given {@code Manager} and sets the output to
-   * be {@code System.out}.
-   *
-   * @param model the manager to view
-   * @throws IllegalArgumentException if either arguments are null
-   */
-  public IOManagerTextView(Manager model) throws IllegalArgumentException {
-    this(model, System.out);
-  }
-
   @Override
   public void display(String message) throws IOException, IllegalArgumentException {
     if (message == null) {

@@ -264,7 +264,7 @@ public class RemoveCharTest extends IOManagerControllerTest {
         + "start Boys\n"
         + "y\n"
         + "remove-char Luna\n"
-        + "n quit y");
+        + "n quit y quit y");
     Appendable output = new StringBuilder();
 
     this.model = new IOManager();
