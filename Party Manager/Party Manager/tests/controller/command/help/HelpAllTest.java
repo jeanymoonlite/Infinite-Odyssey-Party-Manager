@@ -125,7 +125,7 @@ public class HelpAllTest extends IOManagerControllerTest {
             + "\n"
             + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
             + "Misc Commands:\n"
-            + "start (playerName): \n"
+            + "start (partyName): \n"
             + "\tStarts a campaign with the party that has the given name.\n"
             + "\n"
             + "clear: \n"

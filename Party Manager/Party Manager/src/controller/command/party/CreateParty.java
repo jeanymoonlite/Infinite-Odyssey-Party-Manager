@@ -48,7 +48,7 @@ public final class CreateParty extends ACommand {
       this.model.addParty(name, c);
 
       while (true) {
-        this.view.display("Create the following Party? (Confirm y or n): \n");
+        this.view.display("Create the following Party?\n");
         this.view.display("Party name: " + name + "\n");
         this.view.display("Party members: ");
 
@@ -61,6 +61,7 @@ public final class CreateParty extends ACommand {
         }
 
         this.view.display("\n");
+        this.view.display("Confirm (y or n): ");
         String answer = this.sc.next();
 
         if (answer.equalsIgnoreCase("y")) {

@@ -80,8 +80,9 @@ public final class CreateChar extends ACommand {
       this.view.display("\n");
 
       while (true) {
-        this.view.display("Create the following Character? (Confirm y or n): \n");
+        this.view.display("Create the following Character?\n");
         this.view.displayCharacter(name);
+        this.view.display("Confirm (y or n): ");
 
         String answer = this.sc.next();
 
@@ -177,7 +178,7 @@ public final class CreateChar extends ACommand {
 
   private String getRoleSpec() {
     try {
-      this.view.display("Class Specification (Type n/a to leave blank): ");
+      this.view.display("Class Specification (Type enter to leave blank): ");
       String roleSpec = this.sc.nextLine();
 
       if (roleSpec.equalsIgnoreCase("n/a")) {

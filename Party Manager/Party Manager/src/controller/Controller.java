@@ -15,4 +15,5 @@ public interface Controller {
    */
   void initCommands();
 
+  public String separator = "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
 }

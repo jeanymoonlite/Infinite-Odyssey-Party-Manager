@@ -40,8 +40,9 @@ public final class RemoveParty extends ACommand {
 
       while (true) {
         this.view.display("The following action cannot be undone.\n");
-        this.view.display("Remove the following Party? (Confirm y or n): \n");
+        this.view.display("Remove the following Party?\n");
         this.view.displayParty(name);
+        this.view.display("Confirm (y or n): ");
 
         String answer = this.sc.next();
 

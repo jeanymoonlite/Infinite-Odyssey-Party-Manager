@@ -88,7 +88,7 @@ public class ShowAllPartiesTest extends IOManagerControllerTest {
     assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
     assertTrue(this.model.doesPartyExist("Game Grumps"));
     assertEquals("Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type n/a to leave blank): "
+            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
             + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
             + "Create the following Character? (Confirm y or n): \n"
             + "Danny Sexbang (Dan)\n"
@@ -102,7 +102,7 @@ public class ShowAllPartiesTest extends IOManagerControllerTest {
             + "Intimidation: 1\n"
             + "Danny Sexbang (Dan) was added to the Manager.\n"
             + "Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type n/a to leave blank): "
+            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
             + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
             + "Create the following Character? (Confirm y or n): \n"
             + "Ninja Brian (Brian)\n"
@@ -116,7 +116,7 @@ public class ShowAllPartiesTest extends IOManagerControllerTest {
             + "Intimidation: 1\n"
             + "Ninja Brian (Brian) was added to the Manager.\n"
             + "Awaiting command:\n"
-            + "Character name: Player name: Class: Class Specification (Type n/a to leave blank): "
+            + "Character name: Player name: Class: Class Specification (Type enter to leave blank): "
             + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
             + "Create the following Character? (Confirm y or n): \n"
             + "Egoraptor (Arin)\n"

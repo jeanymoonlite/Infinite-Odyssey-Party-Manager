@@ -147,13 +147,14 @@ public class IOManagerController implements Controller {
     while (this.running) {
       try {
         if (!this.tryingToQuit) {
-          this.view.display("Awaiting command:\n");
+          this.view.display(Controller.separator);
+          this.view.display("Awaiting command: ");
         }
 
         // Make sure there is input to read
-        if (!this.sc.hasNext()) {
-          throw new IllegalStateException("No input detected.");
-        }
+//        if (!this.sc.hasNext()) {
+//          throw new IllegalStateException("No input detected.");
+//        }
 
         String currCommand = this.sc.next();
 

@@ -53,8 +53,9 @@ public final class RemoveChar extends ACommand {
 
       while (true) {
         this.view.display("The following action cannot be undone.\n");
-        this.view.display("Remove the following Character? (Confirm y or n): \n");
+        this.view.display("Remove the following Character?\n");
         this.view.displayCharacter(name);
+        this.view.display("Confirm (y or n): ");
 
         String answer = this.sc.next();
 

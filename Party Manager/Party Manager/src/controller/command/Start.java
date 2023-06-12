@@ -40,7 +40,8 @@ public class Start extends ACommand {
       }
 
       while (true) {
-        this.view.display("Start a Campaign with the " + name + " Party? (Confirm y or n): \n");
+        this.view.display("Start a Campaign with the " + name + " Party?\n");
+        this.view.display("Confirm (y or n): ");
 
         String answer = this.sc.next();
 

@@ -74,11 +74,11 @@ public class IOManagerTextViewTest extends IOManagerTest {
     try {
       this.view.displayManagerRules();
       assertEquals("This Manager is made to be used for Infinite Odysseys.\n"
-              + "This means that the Manager has the following rules when it\n"
-              + "comes to creating Characters:\n"
+              + "This means that the Manager has the following rules when\n"
+              + "it comes to creating Characters:\n"
               + "1. All Characters have the following stats:\n"
               + "\ti. Hp (integer between 0-100)\n"
-              + "\tii. Defense (which is dictated by Role)\n"
+              + "\tii. Defense (which is dictated by Class)\n"
               + "\tiii. Strength\n"
               + "\tiv. Intelligence\n"
               + "\tv. Creativity\n"
@@ -87,7 +87,7 @@ public class IOManagerTextViewTest extends IOManagerTest {
               + "\tviii. Intimidation\n"
               + "\n2. The sum of every stat's value must NOT exceed 30.\n"
               + "\n3. No stat can have a value less than 0.\n"
-              + "\n4. All Characters must have one of the Roles listed below.\n"
+              + "\n4. All Characters must have one of the Classes listed below.\n"
               + "\ti. Warrior\n"
               + "\tii. Wizard\n"
               + "\tiii. Bard\n"

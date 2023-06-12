@@ -63,7 +63,7 @@ public class RemoveCharTest extends IOManagerControllerTest {
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertFalse(this.model.doesCharacterExist("Lunarose"));
     assertEquals("Character name: "
-            + "Player name: Class: Class Specification (Type n/a to leave blank): "
+            + "Player name: Class: Class Specification (Type enter to leave blank): "
             + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
             + "Create the following Character? (Confirm y or n): \n"
             + "Onion (Steven)\n"
@@ -79,7 +79,7 @@ public class RemoveCharTest extends IOManagerControllerTest {
         output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
 
     assertEquals("Character name: "
-            + "Player name: Class: Class Specification (Type n/a to leave blank): "
+            + "Player name: Class: Class Specification (Type enter to leave blank): "
             + "Strength: Intelligence: Creativity: Charisma: Stealth: Intimidation: \n"
             + "Create the following Character? (Confirm y or n): \n"
             + "Lunarose (Luna)\n"
