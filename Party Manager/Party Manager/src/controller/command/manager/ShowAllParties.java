@@ -27,7 +27,7 @@ public final class ShowAllParties extends ACommand {
   public void run() {
     try {
       if (!this.model.hasParties()) {
-        this.view.display("The Manager doesn't have any Parties!\n");
+        this.view.display("Invalid state: The Manager doesn't have any Parties!\n");
         this.view.display("Add Parties using the create-party command.\n");
         return;
       }
