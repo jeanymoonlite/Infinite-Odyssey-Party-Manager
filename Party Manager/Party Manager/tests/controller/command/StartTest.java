@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
@@ -59,7 +60,9 @@ public class StartTest extends IOManagerControllerTest {
       assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
       assertTrue(this.model.doesCharacterExist("Ninja Brian"));
       assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
-      assertEquals("Start a Campaign with the Ninja Sex Party Party? (Confirm y or n): \n"
+      assertEquals("Awaiting command: \n"
+              + "Start a Campaign with the Ninja Sex Party Party?\n"
+              + "Confirm (y or n): "
               + "A Campaign has been started with Ninja Sex Party:\n\n"
               + "Active Party: Ninja Sex Party\n\n"
               + "Danny Sexbang (Dan)\n"
@@ -81,9 +84,7 @@ public class StartTest extends IOManagerControllerTest {
               + "Charisma: 1\n"
               + "Stealth: 1 (+3)\n"
               + "Intimidation: 1\n",
-          output.toString()
-              .split("WARNING")[0]
-              .split("Awaiting command:\n")[4]);
+          output.toString().split(Controller.separator)[4]);
     }
   }
 
@@ -132,10 +133,10 @@ public class StartTest extends IOManagerControllerTest {
       assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
       assertTrue(this.model.doesCharacterExist("Ninja Brian"));
       assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
-      assertEquals("Start a Campaign with the Ninja Sex Party Party? (Confirm y or n): \n",
-          output.toString()
-              .split("WARNING")[0]
-              .split("Awaiting command:\n")[4]);
+      assertEquals("Awaiting command: \n"
+              + "Start a Campaign with the Ninja Sex Party Party?\n"
+              + "Confirm (y or n): ",
+          output.toString().split(Controller.separator)[4]);
     }
   }
 
@@ -186,14 +187,16 @@ public class StartTest extends IOManagerControllerTest {
       assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
       assertTrue(this.model.doesCharacterExist("Ninja Brian"));
       assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
-      assertEquals("Start a Campaign with the Ninja Sex Party Party? (Confirm y or n): \n"
-              + "Invalid input.\n"
-              + "Start a Campaign with the Ninja Sex Party Party? (Confirm y or n): \n"
-              + "Invalid input.\n"
-              + "Start a Campaign with the Ninja Sex Party Party? (Confirm y or n): \n",
-          output.toString()
-              .split("WARNING")[0]
-              .split("Awaiting command:\n")[4]);
+      assertEquals("Awaiting command: \n"
+              + "Start a Campaign with the Ninja Sex Party Party?\n"
+              + "Confirm (y or n): "
+              + "\nInvalid input.\n"
+              + "Start a Campaign with the Ninja Sex Party Party?\n"
+              + "Confirm (y or n): "
+              + "\nInvalid input.\n"
+              + "Start a Campaign with the Ninja Sex Party Party?\n"
+              + "Confirm (y or n): ",
+          output.toString().split(Controller.separator)[4]);
     }
   }
 
@@ -242,10 +245,9 @@ public class StartTest extends IOManagerControllerTest {
       assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
       assertTrue(this.model.doesCharacterExist("Ninja Brian"));
       assertTrue(this.model.doesPartyExist("Ninja Sex Party"));
-      assertEquals("The Party Ninja Party doesn't exist in this Manager.\n",
-          output.toString()
-              .split("WARNING")[0]
-              .split("Awaiting command:\n")[4]);
+      assertEquals("Awaiting command: \n"
+              + "Invalid input: The Party Ninja Party doesn't exist in this Manager.\n",
+          output.toString().split(Controller.separator)[4]);
     }
   }
 
@@ -290,11 +292,10 @@ public class StartTest extends IOManagerControllerTest {
       assertTrue(this.model.doesCharacterExist("Danny Sexbang"));
       assertTrue(this.model.doesCharacterExist("Ninja Brian"));
       assertFalse(this.model.doesPartyExist("Ninja Sex Party"));
-      assertEquals("The Manager doesn't have any Parties!\n"
+      assertEquals("Awaiting command: \n"
+              + "Invalid state: The Manager doesn't have any Parties!\n"
               + "Add Parties using the create-party command.\n",
-          output.toString()
-              .split("WARNING")[0]
-              .split("Awaiting command:\n")[3]);
+          output.toString().split(Controller.separator)[3]);
     }
   }
 }

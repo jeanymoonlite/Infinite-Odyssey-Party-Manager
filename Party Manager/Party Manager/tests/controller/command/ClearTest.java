@@ -3,6 +3,7 @@ package controller.command;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
 import java.io.StringReader;
@@ -41,7 +42,7 @@ public class ClearTest extends IOManagerControllerTest {
       newlines = newlines.concat("\n");
     }
 
-    assertEquals(newlines,
-        output.toString().split("Awaiting command:\n")[1].split("WARNING")[0]);
+    assertEquals("Awaiting command: " + newlines,
+        output.toString().split(Controller.separator)[1]);
   }
 }

@@ -30,20 +30,20 @@ public final class PartyValid extends ACommand implements InputValidation {
   public boolean isValid(String input) {
     try {
       if (this.model.hasStartedACampaign()) {
-        this.view.display("Invalid state: This command can't be used during a campaign.\n");
+        this.view.display("\nInvalid state: This command can't be used during a campaign.\n");
         this.view.display("Use the quit command to end the current campaign.\n");
         return false;
       }
 
       if (!this.model.hasParties()) {
-        this.view.display("The Manager doesn't have any Parties!\n");
+        this.view.display("\nInvalid state: The Manager doesn't have any Parties!\n");
         this.view.display("Add Parties using the create-party command.\n");
         return false;
       }
 
       if (!this.model.doesPartyExist(input)) {
         this.view.display(
-            "Invalid input: The Party " + input + " doesn't exist in this Manager.\n");
+            "\nInvalid input: The Party " + input + " doesn't exist in this Manager.\n");
         return false;
       }
 

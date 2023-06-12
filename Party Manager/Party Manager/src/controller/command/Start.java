@@ -1,5 +1,6 @@
 package controller.command;
 
+import controller.input.validation.PartyValid;
 import java.io.IOException;
 import java.util.Scanner;
 import model.Manager;
@@ -28,19 +29,12 @@ public class Start extends ACommand {
     try {
       String name = this.sc.nextLine().trim();
 
-      if (!this.model.hasParties()) {
-        this.view.display("The Manager doesn't have any Parties!\n");
-        this.view.display("Add Parties using the create-party command.\n");
-        return;
-      }
-
-      if (!this.model.doesPartyExist(name)) {
-        this.view.display("The Party " + name + " doesn't exist in this Manager.\n");
+      if (!new PartyValid(this.model, this.view, this.sc).isValid(name)) {
         return;
       }
 
       while (true) {
-        this.view.display("Start a Campaign with the " + name + " Party?\n");
+        this.view.display("\nStart a Campaign with the " + name + " Party?\n");
         this.view.display("Confirm (y or n): ");
 
         String answer = this.sc.next();
@@ -58,7 +52,7 @@ public class Start extends ACommand {
         }
 
         else {
-          this.view.display("Invalid input.\n");
+          this.view.display("\nInvalid input.");
         }
       }
     }
