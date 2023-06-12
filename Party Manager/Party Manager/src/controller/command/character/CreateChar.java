@@ -87,18 +87,20 @@ public final class CreateChar extends ACommand {
         String answer = this.sc.next();
 
         if (answer.equalsIgnoreCase("y")) {
+          this.view.display("\n");
           this.view.display(name + " (" + playerName + ") was added to the Manager.\n");
           break;
         }
 
         else if (answer.equalsIgnoreCase("n")) {
+          this.view.display("\n");
           this.view.display(name + " (" + playerName + ") will not be created.\n");
           this.model.removeCharacter(name);
           break;
         }
 
         else {
-          this.view.display("Invalid input.\n");
+          this.view.display("\nInvalid input.\n");
         }
       }
     }
