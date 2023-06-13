@@ -32,21 +32,23 @@ final class EditAttribute extends ACommand {
     this.newCharacter = newCharacter;
 
     this.signature = "edit (attribute)";
-    this.description = "";
+    this.description = "Change the value of one of the following attributes:\n"
+        + "\ti. Name\n"
+        + "\tii. Player Name\n"
+        + "\tiii. Class\n"
+        + "\tiv. Class Spec/Class Specification\n"
+        + "\tv. Strength\n"
+        + "\tvi. Intelligence\n"
+        + "\tvii. Creativity\n"
+        + "\tviii. Charisma\n"
+        + "\tix. Stealth\n"
+        + "\tx. Intimidation";
   }
 
   @Override
   public void run() {
     try {
       String attribute = this.sc.nextLine().trim();
-      String[] validAttributes = this.validAttributes();
-
-      if (Arrays.stream(validAttributes).noneMatch((s) -> s.equalsIgnoreCase(attribute))) {
-        this.view.display("Invalid input: The attribute " + attribute + " does not exist for "
-            + this.character.getName() + "\n"
-            + "or cannot be edited.\n");
-        return;
-      }
 
       String name = this.newCharacter.getName();
       String playerName = this.newCharacter.getPlayerName();
@@ -73,6 +75,21 @@ final class EditAttribute extends ACommand {
         case "class spec":
           roleSpec = this.getRoleSpec();
           break;
+        default:
+          boolean validStat = false;
+          for (int i = 2; i < this.model.getStats().length; i++) {
+            if (attribute.equalsIgnoreCase(this.model.getStats()[i])) {
+              validStat = true;
+              break;
+            }
+          }
+
+          if (validStat) break;
+
+          this.view.display("Invalid input: The attribute " + attribute + " does not exist for "
+              + this.character.getName() + "\n"
+              + "or cannot be edited.\n");
+          return;
       }
 
       for (int i = 0; i < statVals.length; i++) {
@@ -93,19 +110,6 @@ final class EditAttribute extends ACommand {
 
   public Character getUpdatedCharacter() {
     return this.newCharacter;
-  }
-
-  private String[] validAttributes() {
-    String[] attributes = new String[]{"name", "player name", "class", "class spec",
-        "class specification"};
-
-    String[] statNames = new String[this.model.getStats().length - 2];
-    System.arraycopy(this.model.getStats(), 2, statNames, 0, statNames.length);
-
-    String[] validAttributes = new String[attributes.length + statNames.length];
-    System.arraycopy(attributes, 0, validAttributes, 0, attributes.length);
-    System.arraycopy(statNames, 0, validAttributes, attributes.length, statNames.length);
-    return validAttributes;
   }
 
   private String getName() {

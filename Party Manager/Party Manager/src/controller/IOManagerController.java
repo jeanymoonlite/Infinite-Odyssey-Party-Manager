@@ -21,6 +21,7 @@ import controller.command.manager.ShowParty;
 import controller.command.misc.Clear;
 import controller.command.misc.Start;
 import controller.command.party.CreateParty;
+import controller.command.party.EditParty;
 import controller.command.party.RemoveParty;
 import controller.command.stats.ChangeHp;
 import java.io.IOException;
@@ -102,6 +103,7 @@ public class IOManagerController implements Controller {
     //Party
     this.commands.put("create-party", new CreateParty(this.model, this.view, this.sc));
     this.commands.put("remove-party", new RemoveParty(this.model, this.view, this.sc));
+    this.commands.put("edit-party", new EditParty(this.model, this.view, this.sc));
 
     //Stat
     this.commands.put("heal", new ChangeHp(this.model, this.view, this.sc, true, false));

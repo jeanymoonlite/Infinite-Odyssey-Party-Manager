@@ -82,7 +82,98 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Charisma: 1 (+1)\n"
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n\n"
-            + "Awaiting edit command: ",
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Esteban (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
+        output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
+  }
+
+  @Test
+  public void helpEditChar() {
+    Readable input = new StringReader("create-char\n"
+        + "Onion\n"
+        + "Steven\n"
+        + "Human\n"
+        + "New Yorker\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "1\n"
+        + "y\n"
+        + "edit-char Onion\n"
+        + "help\n"
+        + "save\n"
+        + "y quit y");
+    Appendable output = new StringBuilder();
+
+    this.model = new IOManager();
+    this.view = new IOManagerTextView(this.model, output);
+    this.controller = new IOManagerController(this.model, this.view, input);
+    this.controller.start();
+
+    assertTrue(this.model.doesCharacterExist("Onion"));
+    assertEquals("Awaiting command: You are now in character editing mode.\n"
+            + "Editing: Onion (Steven)\n",
+        output.toString().split(Controller.separator)[2].split(EditChar.separator)[0]);
+
+    assertEquals("edit (attribute):\n"
+            + "\tChange the value of one of the following attributes:\n"
+            + "\t\ti. Name\n"
+            + "\t\tii. Player Name\n"
+            + "\t\tiii. Class\n"
+            + "\t\tiv. Class Spec/Class Specification\n"
+            + "\t\tv. Strength\n"
+            + "\t\tvi. Intelligence\n"
+            + "\t\tvii. Creativity\n"
+            + "\t\tviii. Charisma\n"
+            + "\t\tix. Stealth\n"
+            + "\t\tx. Intimidation\n"
+            + "\n"
+            + "save:\n"
+            + "\tSaves the changes made to the Character being edited.\n"
+            + "\n"
+            + "quit:\n"
+            + "\tRemoves any changes made to the Character being edited.\n"
+            + "\n",
+        output.toString().split(Controller.separator)[2].split(EditChar.separator)[1].split(
+            "Awaiting edit command: ")[1]);
+
+    assertEquals("Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n\n"
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
         output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
@@ -140,7 +231,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Charisma: 1 (+1)\n"
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n\n"
-            + "Awaiting edit command: ",
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
         output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
@@ -203,7 +307,7 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Invalid input: There is already a Character named Lunarose.\n"
             + "Please input a different name.\n"
             + "Current Character name: Onion\n"
-            + "New Character name: " ,
+            + "New Character name: ",
         output.toString().split(Controller.separator)[3].split(EditChar.separator)[1]);
 
     assertEquals("Onion (Steven)\n"
@@ -215,7 +319,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Charisma: 1 (+1)\n"
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n\n"
-            + "Awaiting edit command: ",
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
         output.toString().split(Controller.separator)[3].split(EditChar.separator)[2]);
   }
 
@@ -273,7 +390,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Charisma: 1 (+1)\n"
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n\n"
-            + "Awaiting edit command: ",
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Onion (Esteban)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
         output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
@@ -331,7 +461,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Charisma: 1 (+1)\n"
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n\n"
-            + "Awaiting edit command: ",
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
         output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
@@ -389,7 +532,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Charisma: 1\n"
             + "Stealth: 1 (+3)\n"
             + "Intimidation: 1\n\n"
-            + "Awaiting edit command: ",
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Onion (Steven)\n"
+            + "Class: Rogue (New Yorker)\n"
+            + "Hp: 100/100 (-5 Def)\n"
+            + "Strength: 1 (+2)\n"
+            + "Intelligence: 1\n"
+            + "Creativity: 1\n"
+            + "Charisma: 1\n"
+            + "Stealth: 1 (+3)\n"
+            + "Intimidation: 1\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
         output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
@@ -452,7 +608,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Charisma: 1 (+1)\n"
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n\n"
-            + "Awaiting edit command: ",
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
         output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
@@ -510,7 +679,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Charisma: 1 (+1)\n"
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n\n"
-            + "Awaiting edit command: ",
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
         output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
@@ -568,7 +750,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Charisma: 1 (+1)\n"
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n\n"
-            + "Awaiting edit command: ",
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Onion (Steven)\n"
+            + "Class: Human (Salvadorian)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
         output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
@@ -626,7 +821,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Charisma: 1 (+1)\n"
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n\n"
-            + "Awaiting edit command: ",
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
         output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
@@ -951,7 +1159,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Charisma: 1 (+1)\n"
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n\n"
-            + "Awaiting edit command: ",
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 23 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
         output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
@@ -1001,7 +1222,7 @@ public class EditCharTest extends IOManagerControllerTest {
             + "New Strength: \n"
             + "Invalid input: A stat's value cannot be negative.\n"
             + "Current Strength: 1\n"
-            + "New Strength: " ,
+            + "New Strength: ",
         output.toString().split(Controller.separator)[2].split(EditChar.separator)[1]);
 
     assertEquals("Onion (Steven)\n"
@@ -1013,7 +1234,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Charisma: 1 (+1)\n"
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 1 (+1)\n\n"
-            + "Awaiting edit command: ",
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
+            + "Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 5 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 1 (+1)\n"
+            + "Confirm (y or n): \n"
+            + "Onion has been updated!\n"
+            + "Now exiting Character editing mode.\n",
         output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
@@ -1045,7 +1279,18 @@ public class EditCharTest extends IOManagerControllerTest {
 
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertEquals(1, this.model.findCharByName("Onion").getValueOf("Intimidation"));
-    assertEquals("WARNING: Quitting will remove the following changes:\n"
+    assertEquals("Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 25 (+1)\n"
+            + "\n"
+            + "Awaiting edit command: "
+            + "WARNING: Quitting will remove the following changes:\n"
             + "Onion (Steven)\n"
             + "Class: Human (New Yorker)\n"
             + "Hp: 100/100\n"
@@ -1059,7 +1304,7 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Confirm (y or n): \n"
             + "All changes made to Onion have been undone.\n"
             + "Now exiting Character editing mode.\n",
-        output.toString().split(Controller.separator)[2].split(EditChar.separator)[3]);
+        output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
   @Test
@@ -1091,7 +1336,18 @@ public class EditCharTest extends IOManagerControllerTest {
 
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertEquals(25, this.model.findCharByName("Onion").getValueOf("Intimidation"));
-    assertEquals("WARNING: Quitting will remove the following changes:\n"
+    assertEquals("Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 25 (+1)\n"
+            + "\n"
+            + "Awaiting edit command: "
+            + "WARNING: Quitting will remove the following changes:\n"
             + "Onion (Steven)\n"
             + "Class: Human (New Yorker)\n"
             + "Hp: 100/100\n"
@@ -1103,9 +1359,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Intimidation: 25 (+1)\n"
             + "Are you sure you want to exit Character editing mode?\n"
             + "Confirm (y or n): ",
-        output.toString().split(Controller.separator)[2].split(EditChar.separator)[3]);
+        output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
 
-    assertEquals("Save the following changes?\n"
+    assertEquals("Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 25 (+1)\n"
+            + "\n"
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
             + "Onion (Steven)\n"
             + "Class: Human (New Yorker)\n"
             + "Hp: 100/100\n"
@@ -1118,7 +1385,7 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Confirm (y or n): \n"
             + "Onion has been updated!\n"
             + "Now exiting Character editing mode.\n",
-        output.toString().split(Controller.separator)[2].split(EditChar.separator)[5]);
+        output.toString().split(Controller.separator)[2].split(EditChar.separator)[3]);
   }
 
   @Test
@@ -1150,7 +1417,17 @@ public class EditCharTest extends IOManagerControllerTest {
 
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertEquals(1, this.model.findCharByName("Onion").getValueOf("Intimidation"));
-    assertEquals("Save the following changes?\n"
+    assertEquals("Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 25 (+1)\n"
+            + "\n"
+            + "Awaiting edit command: Save the following changes?\n"
             + "Onion (Steven)\n"
             + "Class: Human (New Yorker)\n"
             + "Hp: 100/100\n"
@@ -1161,9 +1438,19 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Stealth: 1 (+1)\n"
             + "Intimidation: 25 (+1)\n"
             + "Confirm (y or n): ",
-        output.toString().split(Controller.separator)[2].split(EditChar.separator)[3]);
+        output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
 
-    assertEquals("WARNING: Quitting will remove the following changes:\n"
+    assertEquals("Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 25 (+1)\n"
+            + "\n"
+            + "Awaiting edit command: WARNING: Quitting will remove the following changes:\n"
             + "Onion (Steven)\n"
             + "Class: Human (New Yorker)\n"
             + "Hp: 100/100\n"
@@ -1177,7 +1464,7 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Confirm (y or n): \n"
             + "All changes made to Onion have been undone.\n"
             + "Now exiting Character editing mode.\n",
-        output.toString().split(Controller.separator)[2].split(EditChar.separator)[5]);
+        output.toString().split(Controller.separator)[2].split(EditChar.separator)[3]);
   }
 
   @Test
@@ -1209,7 +1496,18 @@ public class EditCharTest extends IOManagerControllerTest {
 
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertEquals(25, this.model.findCharByName("Onion").getValueOf("Intimidation"));
-    assertEquals("WARNING: Quitting will remove the following changes:\n"
+    assertEquals("Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 25 (+1)\n"
+            + "\n"
+            + "Awaiting edit command: "
+            + "WARNING: Quitting will remove the following changes:\n"
             + "Onion (Steven)\n"
             + "Class: Human (New Yorker)\n"
             + "Hp: 100/100\n"
@@ -1260,9 +1558,20 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Intimidation: 25 (+1)\n"
             + "Are you sure you want to exit Character editing mode?\n"
             + "Confirm (y or n): ",
-        output.toString().split(Controller.separator)[2].split(EditChar.separator)[3]);
+        output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
 
-    assertEquals("Save the following changes?\n"
+    assertEquals("Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 25 (+1)\n"
+            + "\n"
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
             + "Onion (Steven)\n"
             + "Class: Human (New Yorker)\n"
             + "Hp: 100/100\n"
@@ -1275,7 +1584,7 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Confirm (y or n): \n"
             + "Onion has been updated!\n"
             + "Now exiting Character editing mode.\n",
-        output.toString().split(Controller.separator)[2].split(EditChar.separator)[5]);
+        output.toString().split(Controller.separator)[2].split(EditChar.separator)[3]);
   }
 
   @Test
@@ -1306,7 +1615,18 @@ public class EditCharTest extends IOManagerControllerTest {
 
     assertTrue(this.model.doesCharacterExist("Onion"));
     assertEquals(25, this.model.findCharByName("Onion").getValueOf("Intimidation"));
-    assertEquals("Save the following changes?\n"
+    assertEquals("Onion (Steven)\n"
+            + "Class: Human (New Yorker)\n"
+            + "Hp: 100/100\n"
+            + "Strength: 1 (+1)\n"
+            + "Intelligence: 1 (+1)\n"
+            + "Creativity: 1 (+1)\n"
+            + "Charisma: 1 (+1)\n"
+            + "Stealth: 1 (+1)\n"
+            + "Intimidation: 25 (+1)\n"
+            + "\n"
+            + "Awaiting edit command: "
+            + "Save the following changes?\n"
             + "Onion (Steven)\n"
             + "Class: Human (New Yorker)\n"
             + "Hp: 100/100\n"
@@ -1331,7 +1651,7 @@ public class EditCharTest extends IOManagerControllerTest {
             + "Confirm (y or n): \n"
             + "Onion has been updated!\n"
             + "Now exiting Character editing mode.\n",
-        output.toString().split(Controller.separator)[2].split(EditChar.separator)[3]);
+        output.toString().split(Controller.separator)[2].split(EditChar.separator)[2]);
   }
 
   @Test

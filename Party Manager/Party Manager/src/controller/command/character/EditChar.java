@@ -4,7 +4,6 @@ import controller.Controller;
 import controller.command.ACommand;
 import controller.input.validation.CharacterValid;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Scanner;
 import model.Character;
 import model.Manager;
@@ -18,6 +17,7 @@ public class EditChar extends ACommand {
   private boolean saving;
   private Character character;
   private Character newCharacter;
+  private EditAttribute edit;
   public static final String separator = Controller.separator.replace("~", "-");
 
   /**
@@ -52,12 +52,16 @@ public class EditChar extends ACommand {
     this.running = true;
     this.tryingToQuit = false;
     this.saving = false;
+    this.edit = new EditAttribute(this.model, this.view, this.sc, this.character,
+        this.newCharacter);
 
     while (this.running) {
       try {
         this.isTryingToQuit();
 
-        if (this.tryingToQuit) break;
+        if (this.tryingToQuit) {
+          break;
+        }
 
         this.view.display(EditChar.separator);
         this.view.display(this.newCharacter.toStringAll() + "\n");
@@ -67,18 +71,19 @@ public class EditChar extends ACommand {
 
         switch (currCommand.toLowerCase()) {
           case "quit":
-          case "back":
-            this.view.display(EditChar.separator);
             this.quitMessage();
             break;
           case "save":
-            this.view.display(EditChar.separator);
             this.saveMessage();
             break;
+          case "help":
+            this.helpMessage();
+            break;
           case "edit":
-            EditAttribute edit = new EditAttribute(this.model, this.view, this.sc, this.character, this.newCharacter);
-            edit.run();
-            this.newCharacter = edit.getUpdatedCharacter();
+            this.edit = new EditAttribute(this.model, this.view, this.sc, this.character,
+                this.newCharacter);
+            this.edit.run();
+            this.newCharacter = this.edit.getUpdatedCharacter();
             break;
           default:
             this.view.display("\nInvalid edit command.\n");
@@ -95,6 +100,26 @@ public class EditChar extends ACommand {
       this.view.display("You are now in character editing mode.\n");
       this.view.display("Editing: " + this.character.getName() +
           " (" + this.character.getPlayerName() + ")" + "\n");
+    }
+    catch (IOException io) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+  }
+
+  private void helpMessage() {
+    try {
+      this.view.display(this.edit.getSignature() + ":\n");
+      this.view.display("\t" + this.edit.getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
+      this.view.display("\n");
+
+      this.view.display("save:\n");
+      this.view.display("\tSaves the changes made to the Character being edited.\n");
+      this.view.display("\n");
+
+      this.view.display("quit:\n");
+      this.view.display("\tRemoves any changes made to the Character being edited.\n");
+      this.view.display("\n");
     }
     catch (IOException io) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
@@ -143,7 +168,8 @@ public class EditChar extends ACommand {
         String answer = this.sc.next();
         if (answer.equalsIgnoreCase("y")) {
           this.running = false;
-          this.view.display("\nAll changes made to " + this.character.getName() + " have been undone.\n");
+          this.view.display(
+              "\nAll changes made to " + this.character.getName() + " have been undone.\n");
           this.view.display("Now exiting Character editing mode.\n");
           break;
         }

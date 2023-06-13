@@ -36,18 +36,18 @@ public class HelpStatsTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("Awaiting command: heal (amount name)\n"
+    assertEquals("Awaiting command: heal (amount name):\n"
             + "\tAdds the amount to the character's hp with the given name.\n"
             + "\tThis command rejects any non-integers/negative numbers.\n"
             + "\n"
-            + "damage (amount name)\n"
+            + "damage (amount name):\n"
             + "\tSubtracts the amount to the character's hp with the given name.\n"
             + "\tThis command rejects any non-integers/negative numbers.\n"
             + "\n"
-            + "heal-all (amount)\n"
+            + "heal-all (amount):\n"
             + "\tAdds the amount to every character in the active party.\n"
             + "\n"
-            + "damage-all (amount)\n"
+            + "damage-all (amount):\n"
             + "\tSubtracts the amount to every character in the active party\n"
             + "\n",
         output.toString().split(Controller.separator)[1]);

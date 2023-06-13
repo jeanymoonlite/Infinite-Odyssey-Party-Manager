@@ -287,11 +287,11 @@ public class IOManager implements Manager {
       throw new IllegalArgumentException("None of a Party's Characters can be null.");
     }
 
-    for (Character character : c) {
-      if (!this.doesCharacterExist(character.getName())) {
-        this.addCharacter(character);
-      }
-    }
+//    for (Character character : c) {
+//      if (!this.doesCharacterExist(character.getName())) {
+//        this.addCharacter(character);
+//      }
+//    }
 
     this.parties.add(new IOParty(name, c));
   }
