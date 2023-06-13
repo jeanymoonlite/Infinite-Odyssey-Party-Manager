@@ -1,17 +1,13 @@
 package controller.command.character;
 
+import controller.Controller;
 import controller.command.ACommand;
-import controller.command.character.subcommands.EditAttribute;
 import controller.input.validation.CharacterValid;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import model.Character;
 import model.Manager;
-import model.infiniteodysseys.IOCharacter;
-import model.infiniteodysseys.IORoles;
 import view.TextView;
 
 public class EditChar extends ACommand {
@@ -22,7 +18,7 @@ public class EditChar extends ACommand {
   private boolean saving;
   private Character character;
   private Character newCharacter;
-  private HashMap<String, ACommand> commands;
+  public static final String separator = Controller.separator.replace("~", "-");
 
   /**
    * Constructs a new {@code PartyCommand}.
@@ -42,19 +38,6 @@ public class EditChar extends ACommand {
         + "A new set of commands will become available in editing mode.";
   }
 
-  private void init() {
-    this.commands = new HashMap<String, ACommand>();
-
-    this.commands.put("edit", new EditAttribute(this.model, this.view, this.sc,
-        this.character, this.newCharacter));
-
-//    this.commands.put("quit", new EditAttribute(this.model, this.view, this.sc));
-//    this.commands.put("back", new EditAttribute(this.model, this.view, this.sc));
-
-    this.tryingToQuit = false;
-    this.saving = false;
-  }
-
   @Override
   public void run() {
     String name = this.sc.nextLine().trim();
@@ -65,8 +48,10 @@ public class EditChar extends ACommand {
 
     this.character = this.model.findCharByName(name);
     this.newCharacter = this.model.findCharByName(name);
-    this.init();
     this.startMessage();
+    this.running = true;
+    this.tryingToQuit = false;
+    this.saving = false;
 
     while (this.running) {
       try {
@@ -74,24 +59,29 @@ public class EditChar extends ACommand {
 
         if (this.tryingToQuit) break;
 
-        this.view.display(this.newCharacter.toStringAll());
-        this.view.display("Awaiting edit command:\n");
+        this.view.display(EditChar.separator);
+        this.view.display(this.newCharacter.toStringAll() + "\n");
+        this.view.display("Awaiting edit command: ");
 
         String currCommand = this.sc.next();
 
-        if (currCommand.equalsIgnoreCase("quit")) {
-          this.quitMessage();
-        }
-
-        else if (currCommand.equalsIgnoreCase("save")) {
-          this.saveMessage();
-        }
-
-        else if (this.commands.containsKey(currCommand.toLowerCase())) {
-          this.commands.get(currCommand).run();
-        }
-        else {
-          this.view.display("\nInvalid edit command.\n");
+        switch (currCommand.toLowerCase()) {
+          case "quit":
+          case "back":
+            this.view.display(EditChar.separator);
+            this.quitMessage();
+            break;
+          case "save":
+            this.view.display(EditChar.separator);
+            this.saveMessage();
+            break;
+          case "edit":
+            EditAttribute edit = new EditAttribute(this.model, this.view, this.sc, this.character, this.newCharacter);
+            edit.run();
+            this.newCharacter = edit.getUpdatedCharacter();
+            break;
+          default:
+            this.view.display("\nInvalid edit command.\n");
         }
       }
       catch (IOException e) {
@@ -115,8 +105,8 @@ public class EditChar extends ACommand {
     try {
       this.view.display("WARNING: Quitting will remove the following changes:\n");
       this.view.display(this.newCharacter.toStringAll());
-      this.view.display("Are you sure you want to exit Character editing mode?");
-      this.view.display(" Confirm (y or n): \n");
+      this.view.display("Are you sure you want to exit Character editing mode?\n");
+      this.view.display("Confirm (y or n): ");
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
@@ -129,7 +119,7 @@ public class EditChar extends ACommand {
     try {
       this.view.display("Save the following changes?\n");
       this.view.display(this.newCharacter.toStringAll());
-      this.view.display("Confirm (y or n): \n");
+      this.view.display("Confirm (y or n): ");
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");
@@ -153,7 +143,7 @@ public class EditChar extends ACommand {
         String answer = this.sc.next();
         if (answer.equalsIgnoreCase("y")) {
           this.running = false;
-          this.view.display("All changes made to " + this.character.getName() + " have been undone.\n");
+          this.view.display("\nAll changes made to " + this.character.getName() + " have been undone.\n");
           this.view.display("Now exiting Character editing mode.\n");
           break;
         }
@@ -178,10 +168,10 @@ public class EditChar extends ACommand {
         String answer = this.sc.next();
         if (answer.equalsIgnoreCase("y")) {
           this.running = false;
-          this.view.display(this.character.getName() + " has been updated!\n");
+          this.view.display("\n" + this.character.getName() + " has been updated!\n");
           this.model.removeCharacter(this.character.getName());
           this.model.addCharacter(this.newCharacter);
-          this.view.displayCharacter(this.newCharacter.getName());
+//          this.view.displayCharacter(this.newCharacter.getName());
           this.view.display("Now exiting Character editing mode.\n");
           break;
         }
@@ -194,118 +184,6 @@ public class EditChar extends ACommand {
           this.view.display("\nInvalid input.\n");
           this.saveMessage();
         }
-      }
-    }
-    catch (IOException e) {
-      throw new RuntimeException("Fatal Error: IOException occurred.");
-    }
-  }
-
-  private String getPlayerName() {
-    try {
-      this.view.display("Current Player name: " + this.newCharacter.getPlayerName() + "\n");
-      this.view.display("New Player name: ");
-      String name = this.sc.nextLine();
-
-      if (name.isEmpty() || name.isBlank()) {
-        this.view.display("\nInvalid input: Player name cannot be whitespace. Please try again.\n");
-        return this.getPlayerName();
-      }
-
-      return name;
-    }
-    catch (IOException e) {
-      throw new RuntimeException("Fatal Error: IOException occurred.");
-    }
-  }
-
-  private IORoles getRole() {
-    try {
-      this.view.display("Current Role: " + this.newCharacter.getRole() + "\n");
-      this.view.display("New Role: ");
-
-      IORoles validRole = null;
-      String role = this.sc.nextLine();
-
-      for (IORoles r : IORoles.values()) {
-        if (r.toString().equalsIgnoreCase(role)) {
-          validRole = r;
-          break;
-        }
-      }
-
-      if (validRole == null) {
-        this.view.display("\nInvalid input: " + role + " is not a valid role."
-            + " Please try again.\n");
-        return this.getRole();
-      }
-
-      return validRole;
-    }
-    catch (IOException e) {
-      throw new RuntimeException("Fatal Error: IOException occurred.");
-    }
-  }
-
-  private String getRoleSpec() {
-    try {
-      this.view.display(
-          "Current Role Specification: " + this.newCharacter.getSpecification() + "\n");
-      this.view.display("New Role Specification (Type enter to leave blank): ");
-      String roleSpec = this.sc.nextLine();
-
-      return roleSpec;
-    }
-    catch (IOException e) {
-      throw new RuntimeException("Fatal Error: IOException occurred.");
-    }
-  }
-
-  private int getStat(int i, int[] stats) {
-    int result = 0;
-
-    try {
-      boolean isValid = false;
-
-      while (!isValid) {
-        this.view.display("Current " + this.model.getStats()[2 + i]);
-        this.view.display(": " + this.newCharacter.getValueOf(this.model.getStats()[2 + i]) + "\n");
-        this.view.display("New " + this.model.getStats()[2 + i] + ": ");
-
-        try {
-          int input = this.sc.nextInt();
-
-          if (input < 0) {
-            this.view.display("\nInvalid input: A stat's value cannot be negative.\n");
-          }
-
-          else {
-            result = input;
-            isValid = true;
-          }
-        }
-        catch (InputMismatchException e) {
-          this.view.display("\nInvalid input: A stat's value cannot be a decimal.\n");
-          this.sc.next(); // Clear the input buffer
-        }
-      }
-
-      int[] newStats = new int[stats.length];
-
-      System.arraycopy(stats, 0, newStats, 0, stats.length);
-
-      newStats[i] = result;
-
-      boolean lessThan30 = Arrays.stream(newStats).sum() <= 30;
-      boolean noNegative = Arrays.stream(newStats).anyMatch(n -> n >= 0);
-
-      if (lessThan30 && noNegative) {
-        return result;
-      }
-      else {
-        this.view.display("\nInvalid input: The sum of all the stats exceeds 30.\n");
-        this.view.display("Please try again.\n");
-        return this.getStat(i, stats);
       }
     }
     catch (IOException e) {

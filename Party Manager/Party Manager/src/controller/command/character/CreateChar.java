@@ -216,7 +216,7 @@ public final class CreateChar extends ACommand {
           }
 
           catch (InputMismatchException e) {
-            this.view.display("\nInvalid input: A stat's value cannot be a decimal.\n");
+            this.view.display("\nInvalid input: A stat's value must be a non-negative integer.\n");
             this.sc.next(); // Clear the input buffer
           }
         }

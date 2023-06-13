@@ -332,7 +332,7 @@ public class CreateCharTest extends IOManagerControllerTest {
               + "Strength: "
               + "\nInvalid input: A stat's value cannot be negative.\n"
               + "Strength: "
-              + "\nInvalid input: A stat's value cannot be a decimal.\n"
+              + "\nInvalid input: A stat's value must be a non-negative integer.\n"
               + "Strength: ",
           output.toString().split(Controller.separator)[1]);
     }
