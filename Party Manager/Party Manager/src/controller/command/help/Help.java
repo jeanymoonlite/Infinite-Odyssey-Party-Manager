@@ -1,6 +1,10 @@
 package controller.command.help;
 
 import controller.command.ACommand;
+import controller.command.character.CreateChar;
+import controller.command.manager.PartyCommand;
+import controller.command.misc.Clear;
+import controller.command.misc.Start;
 import java.io.IOException;
 import model.Manager;
 import view.TextView;
@@ -26,37 +30,95 @@ public final class Help extends ACommand {
   @Override
   public void run() {
     try {
+      if (this.model.hasStartedACampaign()) {
+        this.campaignHelp();
+        return;
+      }
+
       this.view.display("All Help Commands:\n");
 
-      this.view.display(this.getSignature());
-      this.view.display(": ");
+      this.view.display(this.getSignature() + ": ");
       this.view.display("\n\t");
       this.view.display(this.getDescription().replace("\n", "\n\t"));
       this.view.display("\n");
       this.view.display("\n");
 
-      this.view.display("help-all\n");
-      this.view.display("\tDisplays every command in the program organized by categories.\n");
+      this.view.display(new HelpAll(null, null).getSignature() + ": ");
+      this.view.display("\n\t");
+      this.view.display(new HelpAll(null, null)
+          .getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
       this.view.display("\n");
 
-      this.view.display("help-char\n");
-      this.view.display("\tDisplays every character-related command.\n");
+      this.view.display(new HelpChar(null, null).getSignature() + ": ");
+      this.view.display("\n\t");
+      this.view.display(new HelpChar(null, null)
+          .getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
       this.view.display("\n");
 
-      this.view.display("help-party\n");
-      this.view.display("\tDisplays every party-related command.\n");
+      this.view.display(new HelpParty(null, null).getSignature() + ": ");
+      this.view.display("\n\t");
+      this.view.display(new HelpParty(null, null)
+          .getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
       this.view.display("\n");
 
-      this.view.display("help-manager\n");
-      this.view.display("\tDisplays commands for viewing characters and parties.\n");
+      this.view.display(new HelpManager(null, null).getSignature() + ": ");
+      this.view.display("\n\t");
+      this.view.display(new HelpManager(null, null)
+          .getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
       this.view.display("\n");
 
-      this.view.display("help-stats\n");
-      this.view.display("\tDisplays every command for healing and damaging characters.\n");
+      this.view.display(new HelpStats(null, null).getSignature() + ": ");
+      this.view.display("\n\t");
+      this.view.display(new HelpStats(null, null)
+          .getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
       this.view.display("\n");
 
-      this.view.display("help-dice\n");
-      this.view.display("\tDisplays every dice-related command.\n");
+      this.view.display(new HelpDice(null, null).getSignature() + ": ");
+      this.view.display("\n\t");
+      this.view.display(new HelpDice(null, null)
+          .getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
+      this.view.display("\n");
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+  }
+
+  private void campaignHelp() {
+    try {
+      this.view.display("All Campaign Commands:\n");
+
+      this.view.display(this.getSignature() + ": ");
+      this.view.display("\n\t");
+      this.view.display(this.getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
+      this.view.display("\n");
+
+      this.view.display(new PartyCommand(null, null, null).getSignature());
+      this.view.display(": ");
+      this.view.display("\n\t");
+      this.view.display(new PartyCommand(null, null, null)
+          .getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
+      this.view.display("\n");
+
+      new HelpStats(this.model, this.view).run();
+      new HelpDice(this.model, this.view).run();
+
+      this.view.display("quit:");
+      this.view.display("\n\tEnds the current campaign.\n");
+      this.view.display("\n");
+
+      this.view.display(new Clear(null, null, 100).getSignature() + ": ");
+      this.view.display("\n\t");
+      this.view.display(new Clear(null, null, 100)
+          .getDescription().replace("\n", "\n\t"));
       this.view.display("\n");
 
     }

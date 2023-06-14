@@ -158,9 +158,6 @@ public class IOManagerController implements Controller {
     //Manager
     this.campaignCommands.put("party", new PartyCommand(this.model, this.view, this.sc));
 
-    this.campaignCommands.put("show-char", new ShowChar(this.model, this.view, this.sc));
-    this.campaignCommands.put("show-party", new ShowParty(this.model, this.view, this.sc));
-
     //Dice
     this.campaignCommands.put("roll", new Roll(this.model, this.view, this.sc));
 

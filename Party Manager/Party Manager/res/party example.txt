@@ -38,3 +38,4 @@ create-party
 Star Bomb
 Danny Sexbang, Egoraptor, Ninja Brian
 y
+save-file starBomb

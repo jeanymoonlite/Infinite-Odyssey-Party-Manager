@@ -54,11 +54,15 @@ public final class HelpAll extends ACommand {
           .getDescription().replace("\n", "\n\t"));
       this.view.display("\n");
       this.view.display("\n");
+
+      this.view.display("quit:");
+      this.view.display("\n\tExits the program.\n");
+      this.view.display("\n");
+
       this.view.display(new Clear(null, null, 100).getSignature() + ": ");
       this.view.display("\n\t");
       this.view.display(new Clear(null, null, 100)
           .getDescription().replace("\n", "\n\t"));
-      this.view.display("\n");
       this.view.display("\n");
     }
     catch (IOException e) {
