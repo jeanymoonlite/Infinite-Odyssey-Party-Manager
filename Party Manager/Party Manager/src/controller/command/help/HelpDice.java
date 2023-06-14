@@ -1,7 +1,6 @@
 package controller.command.help;
 
 import controller.command.ACommand;
-import controller.command.character.CreateChar;
 import controller.command.dice.Dice;
 import controller.command.dice.Roll;
 import java.io.IOException;

@@ -8,7 +8,6 @@ import static org.junit.Assert.fail;
 import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
-import controller.command.manager.PartyCommand;
 import java.io.StringReader;
 import java.util.NoSuchElementException;
 import model.infiniteodysseys.IOManager;

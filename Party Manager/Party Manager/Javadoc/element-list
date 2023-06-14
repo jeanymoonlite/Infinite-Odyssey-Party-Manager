@@ -5,6 +5,7 @@ controller.command.character
 controller.command.dice
 controller.command.help
 controller.command.manager
+controller.command.misc
 controller.command.party
 controller.command.stats
 controller.input.validation

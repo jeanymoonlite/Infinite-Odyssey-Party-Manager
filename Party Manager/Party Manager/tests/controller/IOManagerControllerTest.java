@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.io.StringReader;
-import java.util.NoSuchElementException;
 import model.Manager;
 import model.infiniteodysseys.IOManager;
 import org.junit.Test;

@@ -1,7 +1,6 @@
 package controller.command.manager;
 
 import controller.command.ACommand;
-import controller.input.validation.CharacterValid;
 import controller.input.validation.PartyValid;
 import java.io.IOException;
 import java.util.Scanner;

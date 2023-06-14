@@ -1,7 +1,6 @@
 package controller.command.help;
 
 import controller.command.ACommand;
-import controller.command.manager.PartyCommand;
 import controller.command.party.CreateParty;
 import controller.command.party.EditParty;
 import controller.command.party.RemoveParty;

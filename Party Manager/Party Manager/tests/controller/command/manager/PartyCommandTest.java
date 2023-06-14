@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 import controller.Controller;
 import controller.IOManagerController;
 import controller.IOManagerControllerTest;
-import controller.command.dice.Dice;
 import java.io.StringReader;
 import model.Character;
 import model.infiniteodysseys.IOCharacter;

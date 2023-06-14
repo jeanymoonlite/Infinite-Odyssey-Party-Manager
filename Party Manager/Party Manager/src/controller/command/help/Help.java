@@ -1,7 +1,6 @@
 package controller.command.help;
 
 import controller.command.ACommand;
-import controller.command.party.CreateParty;
 import java.io.IOException;
 import model.Manager;
 import view.TextView;

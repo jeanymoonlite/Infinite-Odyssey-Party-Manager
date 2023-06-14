@@ -5,6 +5,9 @@ import java.util.Scanner;
 import model.Manager;
 import view.TextView;
 
+/**
+ * A template for {@code ACommand} objects.
+ */
 public class SomeCommand extends ACommand {
 
   private final Scanner sc;

@@ -1,7 +1,6 @@
 package controller.command.help;
 
 import controller.command.ACommand;
-import controller.command.dice.Roll;
 import controller.command.manager.PartyCommand;
 import controller.command.manager.ShowAllChars;
 import controller.command.manager.ShowAllParties;
