@@ -1,0 +1,12 @@
+create-char
+Onion
+Steven
+Human
+
+3
+6
+3
+4
+5
+5
+y

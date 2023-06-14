@@ -11,6 +11,8 @@ import view.TextView;
  */
 public class Main {
 
+  public static double version = 1.0;
+
   public static void main(String[] args) {
     Manager model = new IOManager();
     TextView view = new IOManagerTextView(model, System.out);

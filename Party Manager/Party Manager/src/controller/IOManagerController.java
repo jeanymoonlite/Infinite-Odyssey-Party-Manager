@@ -19,6 +19,7 @@ import controller.command.manager.ShowAllParties;
 import controller.command.manager.ShowChar;
 import controller.command.manager.ShowParty;
 import controller.command.misc.Clear;
+import controller.command.misc.SaveFile;
 import controller.command.misc.Start;
 import controller.command.party.CreateParty;
 import controller.command.party.EditParty;
@@ -82,6 +83,7 @@ public class IOManagerController implements Controller {
     this.commands.put("start", new Start(this.model, this.view, this.sc));
 
     this.commands.put("clear", new Clear(this.model, this.view, 100));
+    this.commands.put("save-file", new SaveFile(this.model, this.view, this.sc));
 
     //Help
     this.commands.put("help", new Help(this.model, this.view));
@@ -186,6 +188,7 @@ public class IOManagerController implements Controller {
 //        if (!this.sc.hasNext()) {
 //          throw new IllegalStateException("No input detected.");
 //        }
+
         this.isTryingToQuit();
 
         if (this.tryingToQuit) break;
@@ -211,7 +214,7 @@ public class IOManagerController implements Controller {
 
   private void startMessage() {
     try {
-      this.view.display("Welcome to the Infinite Odysseys Party Manager.\n\n");
+      this.view.display("Welcome to the Infinite Odysseys Party Manager. Ver. " + Controller.getVersion() + "\n\n");
       this.view.displayManagerRules();
     }
     catch (IOException io) {

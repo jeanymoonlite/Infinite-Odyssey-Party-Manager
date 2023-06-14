@@ -1,0 +1,40 @@
+create-char
+Danny Sexbang
+Dan
+Bard
+Lover
+1
+1
+1
+1
+1
+1
+y
+create-char
+Ninja Brian
+Brian
+Rogue
+Ninja
+1
+1
+1
+1
+1
+1
+y
+create-char
+Egoraptor
+Arin
+Warrior
+Knight
+1
+1
+1
+1
+1
+1
+y
+create-party
+Star Bomb
+Danny Sexbang, Egoraptor, Ninja Brian
+y
