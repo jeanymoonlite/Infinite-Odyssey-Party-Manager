@@ -2,8 +2,12 @@ package controller.command.party;
 
 import controller.Controller;
 import controller.command.ACommand;
+import controller.input.validation.CharacterValid;
 import controller.input.validation.PartyValid;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 import model.Character;
 import model.Manager;
@@ -76,9 +80,18 @@ public class EditParty extends ACommand {
           case "help":
             this.helpMessage();
             break;
+          case "show-party":
+            this.view.display(this.getPartyNameAndMembers(true));
+            break;
           case "edit-name":
             this.sc.nextLine();
             this.newParty = this.changeName();
+            break;
+          case "add-char":
+            this.newParty = this.addChar();
+            break;
+          case "remove-char":
+            this.newParty = this.removeChar();
             break;
           default:
             this.view.display("\nInvalid edit command.\n");
@@ -102,6 +115,10 @@ public class EditParty extends ACommand {
 
   private void helpMessage() {
     try {
+      this.view.display("show-party:\n");
+      this.view.display("\tShows what the Party that's being edited looks like.\n");
+      this.view.display("\n");
+
       this.view.display("edit-name:\n");
       this.view.display("\tChanges the name of this Party.\n");
       this.view.display("\n");
@@ -221,14 +238,14 @@ public class EditParty extends ACommand {
 
   private String getPartyNameAndMembers(boolean showAll) {
     String result = "Party name: " + this.newParty.getName() + "\n";
-    result = result.concat((showAll)? "" : "Party members: ");
+    result = result.concat((showAll) ? "" : "Party members: ");
 
     for (int i = 0; i < this.newParty.getParty().length; i++) {
       Character c = this.newParty.getParty()[i];
 
       result = (showAll) ? result.concat(c.toStringAll() + "\n")
           : result.concat(c.toString() +
-              ((i != this.newParty.getParty().length - 1)? ", " : "\n"));
+              ((i != this.newParty.getParty().length - 1) ? ", " : "\n"));
     }
 
     return result;
@@ -253,6 +270,97 @@ public class EditParty extends ACommand {
       }
 
       return new IOParty(name, this.newParty.getParty());
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+  }
+
+  private Party addChar() {
+    try {
+      String name = this.sc.nextLine().trim();
+
+      if (!new CharacterValid(this.model, this.view, this.sc).isValid(name)) {
+        return this.newParty;
+      }
+
+      if (this.newParty.hasCharacter(name)) {
+        this.view.display(
+            "\nInvalid input: The Character " + name + " is already in this Party.\n");
+        return this.newParty;
+      }
+
+      Character[] c = new Character[this.newParty.getParty().length + 1];
+      System.arraycopy(this.newParty.getParty(), 0, c, 0, this.newParty.getParty().length);
+      c[c.length - 1] = this.model.findCharByName(name);
+
+      this.view.display("\n" + c[c.length - 1].toString() + " was added to " + this.newParty.getName() + ".\n");
+      return new IOParty(this.newParty.getName(), c);
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+  }
+
+  private Party removeChar() {
+    try {
+      String name = this.sc.nextLine().trim();
+
+      if (!new CharacterValid(this.model, this.view, this.sc).isValid(name)) {
+        return this.newParty;
+      }
+
+      if (!this.newParty.hasCharacter(name)) {
+        this.view.display(
+            "\nInvalid input: The Character " + name + " doesn't exist in this Party.\n");
+        return this.newParty;
+      }
+
+      if (this.newParty.size() == 1) {
+        while (true) {
+          this.view.display("\nRemoving " + name + " will delete this Party as a Party needs\n");
+          this.view.display("at least one Character in it.\n");
+          this.view.display("Are you sure you want to remove " + name + "?\n");
+          this.view.display("Confirm (y or n): ");
+
+          String answer = this.sc.next();
+          if (answer.equalsIgnoreCase("y")) {
+            this.running = false;
+            this.tryingToQuit = true;
+            this.view.display(
+                "The Party " + this.party.getName() + " was removed from the Manager.\n");
+            this.model.removeParty(this.party.getName());
+            this.view.display("Now exiting Party editing mode.\n");
+            return null;
+          }
+          else if (answer.equalsIgnoreCase("n")) {
+            this.tryingToQuit = false;
+            this.saving = false;
+            return this.newParty;
+          }
+          else {
+            this.view.display("\nInvalid input.\n");
+          }
+        }
+      }
+
+      List<Character> temp = new ArrayList<Character>();
+
+      for (int i = 0; i < this.newParty.getParty().length; i++) {
+        if (!this.newParty.getParty()[i].getName().equalsIgnoreCase(name)) {
+          temp.add(this.newParty.getParty()[i]);
+        }
+      }
+
+      Character[] c = new Character[temp.size()];
+      for (int i = 0; i < temp.size(); i++) {
+        c[i] = temp.get(i);
+      }
+
+      this.view.display("\n" + this.newParty.getPartyMember(name).toString());
+      this.view.display(" was removed from " + this.newParty.getName() + ".\n");
+
+      return new IOParty(this.newParty.getName(), c);
     }
     catch (IOException e) {
       throw new RuntimeException("Fatal Error: IOException occurred.");

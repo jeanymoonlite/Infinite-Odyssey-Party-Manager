@@ -27,6 +27,7 @@ public class IOManagerTest extends IOPartyTest {
     this.m.addCharacter(this.bryan);
     this.m.addCharacter(this.rose);
     this.m.addCharacter(this.steven);
+    this.m.addCharacter((this.dre));
 
     this.m.addParty("The Boys", this.luna, this.jake, this.bryan, this.steven);
     this.m.addParty("The Infinite Odyssey", this.luna, this.rose);
@@ -38,6 +39,7 @@ public class IOManagerTest extends IOPartyTest {
     m.addCharacter(this.bryan);
     m.addCharacter(this.rose);
     m.addCharacter(this.steven);
+    m.addCharacter(this.dre);
 
     m.addParty("The Boys", this.luna, this.jake, this.bryan, this.steven);
     m.addParty("The Infinite Odyssey", this.luna, this.rose);
@@ -466,7 +468,14 @@ public class IOManagerTest extends IOPartyTest {
     assertFalse(this.m.doesCharacterExist("Manuel"));
     assertFalse(this.m.doesCharacterExist("Onion"));
 
-    this.m.addParty("The Boys", this.luna, this.jake, this.bryan, this.steven);
+    try {
+      this.m.addParty("The Boys", this.luna, this.jake, this.bryan, this.steven);
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals("Lunarose does not exist in this Manager.", e.getMessage());
+    }
+
+    this.addCharsAndParties();
     this.m.setActiveParty("The Boys");
 
     assertTrue(this.m.doesCharacterExist("Lunarose"));

@@ -156,13 +156,14 @@ public interface Manager {
 
   /**
    * Adds a {@code Party} to this {@code Manager} with the given name. The {@code Party} is made up
-   * of the given {@code Character}s. If any of the given {@code Character}s are NOT in this
-   * {@code Manager}, they get added to this {@code Manager}.
+   * of the given {@code Character}s.
    *
    * @param name the name to index the party as
    * @param c    the characters to put into the party
-   * @throws IllegalArgumentException if the given String is null OR if the given String is
-   *                                  whitespace OR if any of the characters are null.
+   * @throws IllegalArgumentException if the given String is null
+   *                                  OR if the given String is whitespace
+   *                                  OR if any of the characters are null
+   *                                  OR if any of the characters are not present in the manager
    * @throws IllegalStateException    if there's a party in this manager with the given name
    */
   void addParty(String name, Character... c) throws IllegalArgumentException, IllegalStateException;

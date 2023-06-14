@@ -41,7 +41,7 @@ public class HelpPartyTest extends IOManagerControllerTest {
             + "\tEach character's name must be separated by a space and \n"
             + "\tthey should all be on one line.\n"
             + "\n"
-            + ": \n"
+            + "edit-party (name): \n"
             + "\tEdits the Party with the given name.\n"
             + "\tThis will put the program into Party Editing mode.\n"
             + "\tA new set of commands will become available in editing mode.\n"
