@@ -2,11 +2,20 @@ package view;
 
 
 import java.io.IOException;
+import model.Manager;
 
 /**
  * The interface for a client's perspective of the model of Bodega Dreams.
  */
 public interface TextView {
+
+  /**
+   * Returns a new {@code TextView} with the same output source as this {@code TextView},
+   * but with the given {@code Manager} instead.
+   * @param model the new Manager
+   * @return a new {@code TextView}
+   */
+  TextView load(Manager model);
 
   /**
    * Renders a given message to the data output in the implementation.

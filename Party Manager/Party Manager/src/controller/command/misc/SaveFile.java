@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
 import java.util.Scanner;
+import model.Character;
 import model.Manager;
 import model.Party;
 import view.TextView;
@@ -36,7 +37,8 @@ public class SaveFile extends ACommand {
 
   @Override
   public void run() {
-    String header = "Infinite Odysseys Party Manager Ver. " + Controller.getVersion();
+    String header = "Infinite Odysseys Party Manager";
+    String version = "Ver. " + Controller.getVersion();
 
     String characters = this.getAllCharacters();
     if (characters == null) {
@@ -53,7 +55,7 @@ public class SaveFile extends ACommand {
     String jarFileDirectory = this.getJarDirectory();
 
     try {
-      File file = new File(jarFileDirectory, fileName + ".txt");
+      File file = new File(jarFileDirectory, fileName + ".iom");
       if (file.createNewFile()) {
         this.view.display("File created at " + file.getPath());
         FileWriter writer;
@@ -67,10 +69,13 @@ public class SaveFile extends ACommand {
 
         try {
           writer.write(header + "\n");
+          writer.write(version + "\n");
           writer.write("Total Characters: " + this.model.getAllCharacters().length + "\n");
           writer.write("Total Parties: " + this.model.getAllParties().length + "\n");
+          writer.write("\n");
           writer.write(characters);
           writer.write(parties);
+          writer.write("\n");
         }
         catch (IOException io) {
           throw new IOException("File writer error encountered");
@@ -127,7 +132,24 @@ public class SaveFile extends ACommand {
       }
 
       for (int i = 0; i < this.model.getAllCharacters().length; i++) {
-        characters = characters.concat(this.model.getAllCharacters()[i].toStringAll() + "\n");
+        Character curCharacter = this.model.getAllCharacters()[i];
+
+        characters = characters.concat("Name: " + curCharacter.getName() + "\n");
+        characters = characters.concat("Player: " + curCharacter.getPlayerName() + "\n");
+
+        characters = characters.concat("Class: " + curCharacter.getRole() + "\n");
+        characters = characters.concat("Class Specification: " + curCharacter.getSpecification() + "\n");
+
+        characters = characters.concat("Hp: " + curCharacter.getHP() + "/");
+        characters = characters.concat(curCharacter.getMaxHP() + "\n");
+
+        characters = characters.concat("Strength: " + curCharacter.getValueOf("Strength") + "\n");
+        characters = characters.concat("Intelligence: " + curCharacter.getValueOf("Strength") + "\n");
+        characters = characters.concat("Creativity: " + curCharacter.getValueOf("Strength") + "\n");
+        characters = characters.concat("Charisma: " + curCharacter.getValueOf("Strength") + "\n");
+        characters = characters.concat("Stealth: " + curCharacter.getValueOf("Strength") + "\n");
+        characters = characters.concat("Intimidation: " + curCharacter.getValueOf("Strength") + "\n");
+        characters = characters.concat("\n");
       }
     }
     catch (IOException e) {

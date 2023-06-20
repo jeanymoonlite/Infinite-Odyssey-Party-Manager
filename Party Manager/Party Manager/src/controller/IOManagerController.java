@@ -19,6 +19,7 @@ import controller.command.manager.ShowAllParties;
 import controller.command.manager.ShowChar;
 import controller.command.manager.ShowParty;
 import controller.command.misc.Clear;
+import controller.command.misc.LoadFile;
 import controller.command.misc.SaveFile;
 import controller.command.misc.Start;
 import controller.command.party.CreateParty;
@@ -29,6 +30,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 import model.Manager;
+import view.IOManagerTextView;
 import view.TextView;
 
 /**
@@ -39,8 +41,8 @@ public class IOManagerController implements Controller {
 
   private boolean running;
   private boolean tryingToQuit;
-  private final Manager model;
-  private final TextView view;
+  private Manager model;
+  private TextView view;
   private final Scanner sc;
   private HashMap<String, ACommand> commands;
   private HashMap<String, ACommand> campaignCommands;
@@ -83,7 +85,8 @@ public class IOManagerController implements Controller {
     this.commands.put("start", new Start(this.model, this.view, this.sc));
 
     this.commands.put("clear", new Clear(this.model, this.view, 100));
-    this.commands.put("save-file", new SaveFile(this.model, this.view, this.sc));
+    this.commands.put("save", new SaveFile(this.model, this.view, this.sc));
+    this.commands.put("load", new LoadFile(this.model, this.view, this.sc, this));
 
     //Help
     this.commands.put("help", new Help(this.model, this.view));
@@ -174,9 +177,10 @@ public class IOManagerController implements Controller {
 
   @Override
   public void start() throws IllegalStateException {
-
-    this.running = true;
-    this.startMessage();
+    if (!this.running) {
+      this.startMessage();
+      this.running = true;
+    }
 
     // begin command input loop
     while (this.running) {
@@ -207,6 +211,15 @@ public class IOManagerController implements Controller {
       }
     }
     this.sc.close();
+  }
+
+  @Override
+  public void start(Manager model, TextView view) {
+    this.model = model;
+    this.view = this.view.load(this.model);
+    this.initCommands();
+    this.initCampaignCommands();
+    this.start();
   }
 
   private void startMessage() {

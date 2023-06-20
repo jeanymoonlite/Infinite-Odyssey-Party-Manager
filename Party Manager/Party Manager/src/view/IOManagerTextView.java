@@ -33,6 +33,11 @@ public class IOManagerTextView implements TextView {
   }
 
   @Override
+  public TextView load(Manager model) {
+    return new IOManagerTextView(model, this.output);
+  }
+
+  @Override
   public void display(String message) throws IOException, IllegalArgumentException {
     if (message == null) {
       throw new IllegalArgumentException("Message cannot be null.");
