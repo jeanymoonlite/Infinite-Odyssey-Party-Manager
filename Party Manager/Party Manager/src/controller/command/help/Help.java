@@ -1,10 +1,9 @@
 package controller.command.help;
 
 import controller.command.ACommand;
-import controller.command.character.CreateChar;
 import controller.command.manager.PartyCommand;
 import controller.command.misc.Clear;
-import controller.command.misc.Start;
+import controller.command.misc.Shuffle;
 import java.io.IOException;
 import model.Manager;
 import view.TextView;
@@ -94,12 +93,6 @@ public final class Help extends ACommand {
     try {
       this.view.display("All Campaign Commands:\n");
 
-      this.view.display(this.getSignature() + ": ");
-      this.view.display("\n\t");
-      this.view.display(this.getDescription().replace("\n", "\n\t"));
-      this.view.display("\n");
-      this.view.display("\n");
-
       this.view.display(new PartyCommand(null, null, null).getSignature());
       this.view.display(": ");
       this.view.display("\n\t");
@@ -108,8 +101,28 @@ public final class Help extends ACommand {
       this.view.display("\n");
       this.view.display("\n");
 
+      this.view.display(new Shuffle(null, null).getSignature());
+      this.view.display(": ");
+      this.view.display("\n\t");
+      this.view.display(new Shuffle(null, null).getDescription());
+      this.view.display("\n");
+      this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+      this.view.display("\n");
+
+      this.view.display("Stats Related Commands:\n");
       new HelpStats(this.model, this.view).run();
+      this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+      this.view.display("Dice Related Commands:\n");
       new HelpDice(this.model, this.view).run();
+      this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+      this.view.display("Misc Commands:\n");
+      this.view.display(this.getSignature() + ": ");
+      this.view.display("\n\t");
+      this.view.display(this.getDescription().replace("\n", "\n\t"));
+      this.view.display("\n");
+      this.view.display("\n");
 
       this.view.display("quit:");
       this.view.display("\n\tEnds the current campaign.\n");

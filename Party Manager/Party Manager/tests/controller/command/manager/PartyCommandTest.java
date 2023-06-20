@@ -48,7 +48,10 @@ public class PartyCommandTest extends IOManagerControllerTest {
 
   @Test
   public void successfulShowParty() {
-    Readable input = new StringReader("party "
+    Readable input = new StringReader("start Game Grumps\n"
+        + "y\n"
+        + "party\n"
+        + "quit y\n"
         + "quit y");
     Appendable output = new StringBuilder();
 
@@ -68,7 +71,10 @@ public class PartyCommandTest extends IOManagerControllerTest {
     assertTrue(this.model.doesPartyExist("Game Grumps"));
     assertEquals("Game Grumps", this.model.getActiveParty().getName());
 
-    assertEquals("Awaiting command: "
+    assertEquals("Awaiting command: \n"
+            + "Start a Campaign with the Game Grumps Party?\n"
+            + "Confirm (y or n): A Campaign has been started with Game Grumps:\n"
+            + "\n"
             + "Active Party: Game Grumps\n\n"
             + "Danny Sexbang (Dan)\n"
             + "Class: Bard (Lover)\n"

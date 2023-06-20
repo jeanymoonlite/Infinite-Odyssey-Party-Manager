@@ -33,7 +33,7 @@ public final class PartyCommand extends ACommand {
         return;
       }
 
-      if (this.model.getActiveParty() == null) {
+      if (!this.model.hasStartedACampaign()) {
         this.view.display("Invalid state: This command can only be used during a campaign.\n");
         this.view.display("Use the start command to start a campaign.\n");
         return;

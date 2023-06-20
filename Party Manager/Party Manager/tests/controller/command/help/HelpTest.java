@@ -117,14 +117,15 @@ public class HelpTest extends IOManagerControllerTest {
     this.controller = new IOManagerController(this.model, this.view, input);
     this.controller.start();
 
-    assertEquals("Awaiting command: All Campaign Commands:\n"
-            + "help: \n"
-            + "\tDisplays the various help commands.\n"
-            + "\tWhen in Character or Party editing mode, this command displays the edit specific commands.\n"
-            + "\n"
+    assertEquals("All Campaign Commands:\n"
             + "party: \n"
             + "\tDisplays the active party if there is one.\n"
             + "\n"
+            + "shuffle: \n"
+            + "\tShuffles the order of the party.\n"
+            + "\n"
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            + "Stats Related Commands:\n"
             + "heal (amount name):\n"
             + "\tAdds the amount to the character's hp with the given name.\n"
             + "\tThis command rejects any non-integers/negative numbers.\n"
@@ -139,6 +140,8 @@ public class HelpTest extends IOManagerControllerTest {
             + "damage-all (amount):\n"
             + "\tSubtracts the amount to every character in the active party\n"
             + "\n"
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            + "Dice Related Commands:\n"
             + "roll (upperBound): \n"
             + "\tReturns a random number between 1 and the given upper bound.\n"
             + "\tThe upper bound cannot be less than 2.\n"
@@ -159,12 +162,20 @@ public class HelpTest extends IOManagerControllerTest {
             + "\n"
             + "d100: Rolls a random number between 1 and 100.\n"
             + "\n"
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"
+            + "Misc Commands:\n"
+            + "help: \n"
+            + "\tDisplays the various help commands.\n"
+            + "\tWhen in Character or Party editing mode, this command displays the edit specific commands.\n"
+            + "\n"
             + "quit:\n"
             + "\tEnds the current campaign.\n"
             + "\n"
             + "clear: \n"
-            + "\tClears the screen.\n",
-        output.toString().split(Controller.separator)[6]);
+            + "\tClears the screen.\n"
+            + "\n"
+            + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n",
+        output.toString().split("Awaiting command: ")[6]);
   }
 
 }

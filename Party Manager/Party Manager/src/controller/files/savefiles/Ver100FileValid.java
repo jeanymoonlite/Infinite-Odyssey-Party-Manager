@@ -1,22 +1,16 @@
 package controller.files.savefiles;
 
-import controller.input.validation.InputValidation;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import model.Character;
 import model.Manager;
-import model.Party;
 import model.infiniteodysseys.IOCharacter;
 import model.infiniteodysseys.IOManager;
-import model.infiniteodysseys.IOParty;
 import model.infiniteodysseys.IORoles;
 
 /**

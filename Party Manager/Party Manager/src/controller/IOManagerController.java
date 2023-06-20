@@ -21,6 +21,7 @@ import controller.command.manager.ShowParty;
 import controller.command.misc.Clear;
 import controller.command.misc.LoadFile;
 import controller.command.misc.SaveFile;
+import controller.command.misc.Shuffle;
 import controller.command.misc.Start;
 import controller.command.party.CreateParty;
 import controller.command.party.EditParty;
@@ -30,7 +31,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 import model.Manager;
-import view.IOManagerTextView;
 import view.TextView;
 
 /**
@@ -160,6 +160,7 @@ public class IOManagerController implements Controller {
 
     //Manager
     this.campaignCommands.put("party", new PartyCommand(this.model, this.view, this.sc));
+    this.campaignCommands.put("shuffle", new Shuffle(this.model, this.view));
 
     //Dice
     this.campaignCommands.put("roll", new Roll(this.model, this.view, this.sc));
@@ -186,9 +187,7 @@ public class IOManagerController implements Controller {
     while (this.running) {
       try {
         // Make sure there is input to read
-//        if (!this.sc.hasNext()) {
-//          throw new IllegalStateException("No input detected.");
-//        }
+        //if (!this.sc.hasNext()) throw new IllegalStateException("No input detected.");
 
         this.isTryingToQuit();
 
@@ -214,7 +213,7 @@ public class IOManagerController implements Controller {
   }
 
   @Override
-  public void start(Manager model, TextView view) {
+  public void start(Manager model) {
     this.model = model;
     this.view = this.view.load(this.model);
     this.initCommands();

@@ -1,16 +1,12 @@
 package controller.command.misc;
 
 import controller.Controller;
-import controller.IOManagerController;
 import controller.command.ACommand;
 import controller.files.savefiles.Ver100FileValid;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 import model.Manager;
-import model.infiniteodysseys.IOManager;
-import view.IOManagerTextView;
 import view.TextView;
 
 /**
@@ -54,7 +50,7 @@ public class LoadFile extends ACommand {
 
       if (temp.isValid(filePath)) {
         this.view.display("The file " + file.getName() + " was loaded.\n");
-        this.con.start(temp.load(filePath), this.view);
+        this.con.start(temp.load(filePath));
       }
       else {
         this.view.display("Invalid file: The given file is not a valid .iom file.");

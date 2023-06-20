@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import model.Manager;
-import org.w3c.dom.Text;
 import view.TextView;
 
 /**
@@ -19,12 +18,11 @@ public interface Controller {
 
   /**
    * Starts the Controller with the given {@code Manager} and {@code TextView}.
-   * This method should be used in cases where either the TextView or Manager have been
+   * This method should be used in cases where the Manager has been
    * updated by a command.
    * @param model the Manager to use.
-   * @param view the TextView to use.
    */
-  void start(Manager model, TextView view);
+  void start(Manager model);
 
   /**
    * Initializes the commands that this {@code Controller} supports.
