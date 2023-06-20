@@ -29,6 +29,8 @@ public class LoadFile extends ACommand {
     super(model, view);
     this.sc = sc;
     this.con = con;
+    this.signature = "load";
+    this.description = "Loads all of the Characters and Parties in an .iom file.";
   }
 
   @Override

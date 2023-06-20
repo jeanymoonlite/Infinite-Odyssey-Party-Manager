@@ -106,8 +106,8 @@ public final class Help extends ACommand {
       this.view.display("\n\t");
       this.view.display(new Shuffle(null, null).getDescription());
       this.view.display("\n");
-      this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
       this.view.display("\n");
+      this.view.display("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
 
       this.view.display("Stats Related Commands:\n");
       new HelpStats(this.model, this.view).run();

@@ -30,7 +30,7 @@ public class SaveFile extends ACommand {
   public SaveFile(Manager model, TextView view, Scanner sc) {
     super(model, view);
     this.sc = sc;
-    this.signature = "save-file (fileName)";
+    this.signature = "save (fileName)";
     this.description = "Saves all of the Characters and Parties in the Manager \n"
         + "to a file. The file will be in the same folder as this program.";
   }
@@ -55,35 +55,27 @@ public class SaveFile extends ACommand {
     String jarFileDirectory = this.getJarDirectory();
 
     try {
+      String contents = header + "\n";
+      contents = contents.concat(version + "\n");
+      contents = contents.concat(
+          "Total Characters: " + this.model.getAllCharacters().length + "\n");
+      try {
+        contents = contents.concat("Total Parties: " + this.model.getAllParties().length + "\n");
+      }
+      catch (IllegalStateException e) {
+        contents = contents.concat("Total Parties: 0\n");
+      }
+      contents = contents.concat("\n");
+      contents = contents.concat(characters);
+      contents = contents.concat(parties);
+      contents = contents.concat("\n");
+
       File file = new File(jarFileDirectory, fileName + ".iom");
       if (file.createNewFile()) {
-        this.view.display("File created at " + file.getPath());
-        FileWriter writer;
-
-        try {
-          writer = new FileWriter(file);
-        }
-        catch (IOException io) {
-          throw new IOException("File writer error encountered");
-        }
-
-        try {
-          writer.write(header + "\n");
-          writer.write(version + "\n");
-          writer.write("Total Characters: " + this.model.getAllCharacters().length + "\n");
-          writer.write("Total Parties: " + this.model.getAllParties().length + "\n");
-          writer.write("\n");
-          writer.write(characters);
-          writer.write(parties);
-          writer.write("\n");
-        }
-        catch (IOException io) {
-          throw new IOException("File writer error encountered");
-        }
-        writer.close();
+        this.saveFile(file, contents);
       }
       else {
-        this.view.display("There exists a file named " + fileName + ".");
+        this.overwriteFile(file, contents);
       }
     }
     catch (IOException e) {
@@ -138,17 +130,20 @@ public class SaveFile extends ACommand {
         characters = characters.concat("Player: " + curCharacter.getPlayerName() + "\n");
 
         characters = characters.concat("Class: " + curCharacter.getRole() + "\n");
-        characters = characters.concat("Class Specification: " + curCharacter.getSpecification() + "\n");
+        characters = characters.concat(
+            "Class Specification: " + curCharacter.getSpecification() + "\n");
 
         characters = characters.concat("Hp: " + curCharacter.getHP() + "/");
         characters = characters.concat(curCharacter.getMaxHP() + "\n");
 
         characters = characters.concat("Strength: " + curCharacter.getValueOf("Strength") + "\n");
-        characters = characters.concat("Intelligence: " + curCharacter.getValueOf("Strength") + "\n");
+        characters = characters.concat(
+            "Intelligence: " + curCharacter.getValueOf("Strength") + "\n");
         characters = characters.concat("Creativity: " + curCharacter.getValueOf("Strength") + "\n");
         characters = characters.concat("Charisma: " + curCharacter.getValueOf("Strength") + "\n");
         characters = characters.concat("Stealth: " + curCharacter.getValueOf("Strength") + "\n");
-        characters = characters.concat("Intimidation: " + curCharacter.getValueOf("Strength") + "\n");
+        characters = characters.concat(
+            "Intimidation: " + curCharacter.getValueOf("Strength") + "\n");
         characters = characters.concat("\n");
       }
     }
@@ -162,7 +157,7 @@ public class SaveFile extends ACommand {
     String parties = "";
 
     if (!this.model.hasParties()) {
-      return "No Parties.";
+      return parties;
     }
 
     for (int i = 0; i < this.model.getAllParties().length; i++) {
@@ -180,5 +175,52 @@ public class SaveFile extends ACommand {
       parties = parties.concat("\n");
     }
     return parties;
+  }
+
+  private void saveFile(File file, String contents) {
+    try {
+      this.view.display("File created at " + file.getPath());
+
+      FileWriter writer;
+      writer = new FileWriter(file);
+      writer.write(contents);
+      writer.close();
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
+  }
+
+  private void overwriteFile(File file, String contents) {
+    try {
+      while (true) {
+        this.view.display("\nThere exists a file named " + file.getName() + ".\n");
+        this.view.display("Do you want to overwrite " + file.getPath() + "?\n");
+        this.view.display("Confirm (y or n): ");
+
+        String answer = this.sc.next();
+
+        if (answer.equalsIgnoreCase("y")) {
+          this.view.display("The file " + file.getPath() + " has been overwritten.\n");
+
+          FileWriter writer;
+          writer = new FileWriter(file);
+          writer.write(contents);
+          writer.close();
+          break;
+        }
+
+        else if (answer.equalsIgnoreCase("n")) {
+          break;
+        }
+
+        else {
+          this.view.display("\nInvalid input.");
+        }
+      }
+    }
+    catch (IOException e) {
+      throw new RuntimeException("Fatal Error: IOException occurred.");
+    }
   }
 }
