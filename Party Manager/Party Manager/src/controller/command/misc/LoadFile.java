@@ -29,7 +29,7 @@ public class LoadFile extends ACommand {
     super(model, view);
     this.sc = sc;
     this.con = con;
-    this.signature = "load";
+    this.signature = "load (fileName)";
     this.description = "Loads all of the Characters and Parties in an .iom file.";
   }
 
@@ -47,6 +47,7 @@ public class LoadFile extends ACommand {
 
       if (file.isDirectory()) {
         this.view.display("Invalid input: The given file is a folder.");
+        return;
       }
 
       ManagerFileLoader temp = null;
