@@ -1,12 +1,11 @@
 package controller.files.savefiles;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Arrays;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 import model.Character;
 import model.Manager;
 import model.infiniteodysseys.IOCharacter;
@@ -32,6 +31,7 @@ public class Ver100FileValid implements ManagerFileLoader {
     }
 
     if (!this.isIOMFile(input)) {
+      this.model = null;
       return false;
     }
 
@@ -51,7 +51,6 @@ public class Ver100FileValid implements ManagerFileLoader {
     }
 
     int file = filePath.split(Pattern.quote(".")).length;
-    //code obtained from https://stackoverflow.com/a/16578721
 
     return (filePath.split(Pattern.quote("."))[file - 1].equals("iom"));
   }
@@ -61,27 +60,47 @@ public class Ver100FileValid implements ManagerFileLoader {
     try {
       Scanner sc = new Scanner(new File(filePath));
 
-      if (!sc.hasNextLine()) return false;
+      if (!sc.hasNextLine()) {
+        return false;
+      }
 
-      if (!sc.nextLine().equals("Infinite Odysseys Party Manager")) return false;
-      if (!sc.nextLine().equals("Ver. 1.0.0")) return false;
+      if (!sc.nextLine().equals("Infinite Odysseys Party Manager")) {
+        return false;
+      }
+      if (!sc.nextLine().equals("Ver. 1.0.0")) {
+        return false;
+      }
 
       String totalChars = sc.nextLine();
 
-      if (!totalChars.split(":")[0].equals("Total Characters")) return false;
-      if (totalChars.split(":").length != 2) return false;
+      if (!totalChars.split(":")[0].equals("Total Characters")) {
+        return false;
+      }
+      if (totalChars.split(":").length != 2) {
+        return false;
+      }
       int characters = Integer.parseInt(totalChars.split(":")[1].trim());
 
       String totalParties = sc.nextLine();
 
-      if (!totalParties.split(":")[0].equals("Total Parties")) return false;
-      if (totalParties.split(":").length != 2) return false;
+      if (!totalParties.split(":")[0].equals("Total Parties")) {
+        return false;
+      }
+      if (totalParties.split(":").length != 2) {
+        return false;
+      }
       int parties = Integer.parseInt(totalParties.split(":")[1].trim());
 
-      if (!sc.nextLine().isEmpty()) return false;
+      if (!sc.nextLine().isEmpty()) {
+        return false;
+      }
 
-      if (!this.charactersFormatted(sc, characters)) return false;
-      if (!this.partiesFormatted(sc, parties)) return false;
+      if (!this.charactersFormatted(sc, characters)) {
+        return false;
+      }
+      if (!this.partiesFormatted(sc, parties)) {
+        return false;
+      }
     }
     catch (Exception e) {
       return false;
@@ -90,7 +109,7 @@ public class Ver100FileValid implements ManagerFileLoader {
   }
 
   private boolean charactersFormatted(Scanner sc, int characters) {
-    String[] attributes = new String[] {"Name", "Player", "Class", "Class Specification", "Hp",
+    String[] attributes = new String[]{"Name", "Player", "Class", "Class Specification", "Hp",
         "Strength", "Intelligence", "Creativity",
         "Charisma", "Stealth", "Intimidation"};
 
@@ -100,62 +119,72 @@ public class Ver100FileValid implements ManagerFileLoader {
 
       for (int a = 0; a < attributes.length; a++) {
         String attribute = sc.nextLine();
-        if (!attribute.contains(attributes[a])) return false;
+        if (!attribute.contains(attributes[a])) {
+          return false;
+        }
 
-        if (attribute.split(": ")[1].isEmpty()
-            || attribute.split(": ")[1].isBlank()) return false;
+        if (!attributes[a].equalsIgnoreCase("Class Specification")) {
+          if (attribute.split(": ")[1].isEmpty()
+              || attribute.split(": ")[1].isBlank()) {
+            return false;
+          }
+        }
 
         if (a < 4) {
-          textAttributes[a] = attribute.split(": ")[1];
+          if (!attributes[a].equalsIgnoreCase("Class Specification")) {
+
+          }
+          try {
+            textAttributes[a] = attribute.split(": ")[1];
+          }
+          catch (ArrayIndexOutOfBoundsException e) {
+            if (!attributes[a].equalsIgnoreCase("Class Specification")) {
+              return false;
+            }
+            textAttributes[a] = "";
+          }
 
           //invalid class
           if (a == 2) {
             int finalA = a;
             Predicate<String> pred = (s) -> s.equalsIgnoreCase(textAttributes[finalA]);
-            if (Arrays.stream(IORoles.getAll()).noneMatch(pred)) return false;
+            if (Arrays.stream(IORoles.getAll()).noneMatch(pred)) {
+              return false;
+            }
           }
         }
         else if (attributes[a].equals("Hp")) {
-          try {
-            stats[0] = Integer.parseInt(attribute.split(":")[1]
-                .split(Pattern.quote("/"))[0].trim());
-          }
-          catch (NumberFormatException e) {
-            return false;
-          }
+          stats[0] = Integer.parseInt(attribute.split(":")[1]
+              .split(Pattern.quote("/"))[0].trim());
         }
         else {
-          try {
-            stats[a - 4] = Integer.parseInt(attribute.split(": ")[1]);
-          }
-          catch (NumberFormatException e) {
-            return false;
-          }
+          stats[a - 4] = Integer.parseInt(attribute.split(": ")[1]);
         }
       }
 
-      try {
-        Character temp = new IOCharacter(textAttributes[0], textAttributes[1],
-            IORoles.valueOf(textAttributes[2].toUpperCase()), textAttributes[3],
-            stats[1], stats[2], stats[3], stats[4], stats[5], stats[6]);
-        this.model.addCharacter(temp);
-      }
-      catch (IllegalArgumentException e) {
+      Character temp = new IOCharacter(textAttributes[0], textAttributes[1],
+          IORoles.valueOf(textAttributes[2].toUpperCase()), textAttributes[3],
+          stats[1], stats[2], stats[3], stats[4], stats[5], stats[6]);
+      this.model.addCharacter(temp);
+
+      if (!sc.nextLine().isEmpty()) {
         return false;
       }
-
-      if (!sc.nextLine().isEmpty()) return false;
     }
     return true;
   }
 
   private boolean partiesFormatted(Scanner sc, int parties) {
-    if (parties == 0) return true;
+    if (parties == 0) {
+      return true;
+    }
 
     for (int i = 0; i < parties; i++) {
       String curParty = sc.nextLine();
 
-      if (!curParty.contains("|")) return false;
+      if (!curParty.contains("|")) {
+        return false;
+      }
 
       int partySize = this.getPartySize(curParty);
 
@@ -173,12 +202,7 @@ public class Ver100FileValid implements ManagerFileLoader {
         partyMembers[c - 1] = this.model.findCharByName(curName);
       }
 
-      try {
-        this.model.addParty(name, partyMembers);
-      }
-      catch (IllegalArgumentException e) {
-        return false;
-      }
+      this.model.addParty(name, partyMembers);
     }
 
     return true;
