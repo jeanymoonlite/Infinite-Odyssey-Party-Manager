@@ -40,7 +40,9 @@ public class Ver100FileValid implements ManagerFileLoader {
 
   @Override
   public Manager load(String filePath) throws IllegalArgumentException {
-    return this.model;
+    Manager m = this.model;
+    this.model = null;
+    return m;
   }
 
   private boolean isIOMFile(String filePath) {

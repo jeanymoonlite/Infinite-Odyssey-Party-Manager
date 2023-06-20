@@ -324,6 +324,11 @@ public class IOManagerController implements Controller {
         this.commands.get(currCommand).run();
       }
 
+      else if (this.campaignCommands.containsKey(currCommand)) {
+        this.view.display("Invalid state: This command can only be used during a campaign.\n");
+        this.view.display("Use the start command to start a campaign.\n");
+      }
+
       else {
         this.view.display("\nInvalid command.\n");
       }

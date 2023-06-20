@@ -2,6 +2,7 @@ package controller.command.misc;
 
 import controller.Controller;
 import controller.command.ACommand;
+import controller.files.savefiles.ManagerFileLoader;
 import controller.files.savefiles.Ver100FileValid;
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +47,10 @@ public class LoadFile extends ACommand {
         this.view.display("Invalid input: The given file is a folder.");
       }
 
-      Ver100FileValid temp = new Ver100FileValid();
+      ManagerFileLoader temp = null;
+      if (Controller.getVersion().equals("1.0.0")) {
+        temp = new Ver100FileValid();
+      }
 
       if (temp.isValid(filePath)) {
         this.view.display("The file " + file.getName() + " was loaded.\n");
