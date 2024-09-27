@@ -3,7 +3,7 @@ This is a command-line Java program designed to assist Odyssey Guides in running
 campaigns. You're able to create characters, arrange them into named parties, roll dice, and 
 easily track character HP. Commands are short and sweet to provide and quick and seamless experience.
 
-Use the `help` command if you need help on how to do something
+Use the `help` command if you need help on how to do something.
 
 # Requirements
 In order to run this program, you'll need to install the Java 11 (or higher) SDK.
